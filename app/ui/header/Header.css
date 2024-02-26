@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+header {
+    width: 100%;
+    display: flex;
+    position: relative;
+    align-items: center;
+    flex-direction: column;
+}
+
+header:before {
+    content: "";
+    width: 100%;
+    z-index: -1;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(rgba(103,135,211, .6), rgba(144,25,166, .6)) no-repeat fixed top center / cover;
+}
+
+header nav {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+header nav .logo {
+    color: #fff;
+    font-size: 2em;
+    text-transform: uppercase;
+    padding: 20px 20px 10px 20px;
+}
+
+header nav .logo a { color: #fff; }
+
+header nav ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+header nav li a {
+    color: #fff;
+    display: block;
+    position: relative;
+    padding: 20px 20px 10px;
+}
+
+header nav li a:before, header nav li a:after {
+    content: "";
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    display: block;
+    position: absolute;
+    background-color: #fff;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+header nav li a:before { right: 50%; }
+header nav li a:after { left: 50%; }
+
+header nav li a:hover:before , header nav li a:hover:after {
+    width: 50%;
+}
+
+@media only screen and (max-width: 290px) {
+    header nav ul {
+        width: 100%;
+        text-align: center;
+        flex-direction: column;
+    }
+}
+
+
