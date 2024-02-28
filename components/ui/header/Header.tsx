@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Header() {
 
     return (
-        <header>
+        <header className={"bg-[#1a202c]"}>
             <nav>
                 <h1 className="logo"><a href="#">Ipu Senpai</a></h1>
                 <ul>
