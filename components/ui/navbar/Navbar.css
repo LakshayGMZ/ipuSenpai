@@ -1,0 +1,4 @@
+@media only screen
+and (min-width : 320px) {
+    transform: scale(0.7);
+}

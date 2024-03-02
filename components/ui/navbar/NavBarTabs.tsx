@@ -70,7 +70,7 @@ export const NavbarTabs = ({
                         />
                     )}
 
-                    <span className="relative block text-black dark:text-white">
+                    <span className="relative block text-black dark:text-white ">
                             {tab.name}
                         </span>
                 </Link>
