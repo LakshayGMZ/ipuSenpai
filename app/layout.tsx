@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import {ReactNode} from "react";
+import React, {ReactNode} from "react";
 import Header from "@/components/ui/header/Header";
 import {FloatingNav} from "@/components/ui/navbar/FloatingNavbar";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import {cn} from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -43,7 +44,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={cn(inter.className, "flex flex-col")}>
       <FloatingNav navItems={navItems} />
       {children}
       <SpeedInsights />
