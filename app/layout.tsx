@@ -4,6 +4,7 @@ import "./globals.css";
 import {ReactNode} from "react";
 import Header from "@/components/ui/header/Header";
 import {FloatingNav} from "@/components/ui/navbar/FloatingNavbar";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -45,6 +46,7 @@ export default function RootLayout({
       <body className={inter.className}>
       <FloatingNav navItems={navItems} />
       {children}
+      <SpeedInsights />
       </body>
     </html>
   );
