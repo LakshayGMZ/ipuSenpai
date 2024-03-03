@@ -5,8 +5,10 @@ import * as SelectPrimitive from "@radix-ui/react-select"
 import { Check, ChevronDown, ChevronUp } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import {SelectProps} from "@radix-ui/react-select";
+import {FC, ReactNode} from "react";
 
-const Select = SelectPrimitive.Root
+const Select: FC<SelectProps & React.HTMLProps<ReactNode>>  = SelectPrimitive.Root
 
 const SelectGroup = SelectPrimitive.Group
 

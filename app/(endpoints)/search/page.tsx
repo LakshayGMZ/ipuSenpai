@@ -2,6 +2,7 @@ import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { CardContent, Card } from "@/components/ui/card"
+import React, {SVGProps} from "react";
 
 export default function Page() {
     return (
@@ -79,7 +80,7 @@ export default function Page() {
     )
 }
 
-function MicroscopeIcon(props) {
+function MicroscopeIcon(props: SVGProps<SVGSVGElement>) {
     return (
         <svg
             {...props}
