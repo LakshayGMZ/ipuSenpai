@@ -16,7 +16,6 @@ export const NavbarTabs = ({
                                containerClassName,
                                activeTabClassName,
                                tabClassName,
-                               contentClassName,
                            }: {
     tabs: Tab[];
     containerClassName?: string;
@@ -26,12 +25,10 @@ export const NavbarTabs = ({
 }) => {
     const pathname = usePathname();
     const [active, setActive] = useState<Tab>(propTabs.find((i) => i.link == pathname) || propTabs[0]);
-    const [tabs, setTabs] = useState<Tab[]>(propTabs);
     const moveSelectedTabToTop = (idx: number) => {
         const newTabs = [...propTabs];
         const selectedTab = newTabs.splice(idx, 1);
         newTabs.unshift(selectedTab[0]);
-        setTabs(newTabs);
         setActive(newTabs[0]);
     };
 
@@ -40,7 +37,7 @@ export const NavbarTabs = ({
     return (
         <div
             className={cn(
-                "flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar max-w-full w-full",
+                "flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar",
                 containerClassName
             )}
         >
