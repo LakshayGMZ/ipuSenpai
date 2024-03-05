@@ -1,77 +1,21 @@
-"use client"
 
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select"
 import {Button} from "@/components/ui/button"
-import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {ChevronsUpDownIcon} from "lucide-react";
-import {Command, CommandEmpty, CommandInput, CommandItem, CommandList} from "@/components/ui/command";
-import {useEffect, useState} from "react";
-import {getProgrammes} from "@/app/lib/data";
+import {getInstitutes, getProgrammes} from "@/app/lib/ranklist";
+import InstCombobox from "@/components/ranklist/InstCombobox";
+import Programmes from "@/components/ranklist/Programmes";
 
 
-export default function Page() {
-    const [collegeName, setCollegeName] = useState("ADGIPS");
-    const collegeList = ["ADGIPS", "ADGITM", "NIEC", "MAIT", "BPIT", "BVP"]
+export default async function Page() {
 
-    useEffect(() => {
-        const programmes = getProgrammes();
-        console.log(programmes);
-    }, []);
-
+    const programmes = await getProgrammes();
 
     return (
         <form>
             <div className="bg-[#1a202c] p-[2rem] shadow-md rounded-lg max-w-[72rem] mx-auto my-8">
                 <h1 className="text-4xl font-semibold text-white mb-6">University Ranklist</h1>
-                <div className="grid grid-cols-1 md:grid-cols-7 gap-6">
-                    <Popover>
-                        <PopoverTrigger asChild>
-                            <Button
-                                className="flex h-10 text-black w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1">
-                                {collegeName
-                                    ? collegeList.find((cllg) => cllg.toLowerCase() === collegeName.toLowerCase())
-                                    : "Select College"}
-                                <ChevronsUpDownIcon className="w-4 h-4 translate-x-1"/>
-                            </Button>
-                        </PopoverTrigger>
-                        <PopoverContent align="start" className="w-48">
-                            <Command>
-                                <CommandInput className="h-9" placeholder="Select College"/>
-                                <CommandEmpty>No College found.</CommandEmpty>
-                                <CommandList>
-                                    {collegeList.map((cllg) => (
-                                        <CommandItem
-                                            key={cllg}
-                                            value={cllg}
-                                            onSelect={(currentValue) => {
-                                                setCollegeName(currentValue);
-                                            }}
-                                        >{cllg}</CommandItem>
-                                    ))}
-                                </CommandList>
-                            </Command>
-                        </PopoverContent>
-                    </Popover>
-                    <Select className="w-full md:col-span-1">
-                        <SelectTrigger id="programme">
-                            <SelectValue placeholder="Programme"/>
-                        </SelectTrigger>
-                        <SelectContent position="popper">
-                            <SelectItem value="btech">B. Tech.</SelectItem>
-                            <SelectItem value="mtech">M. Tech.</SelectItem>
-                            <SelectItem value="phd">Ph.D.</SelectItem>
-                        </SelectContent>
-                    </Select>
-                    <Select className="w-full md:col-span-1">
-                        <SelectTrigger id="course">
-                            <SelectValue placeholder="Course"/>
-                        </SelectTrigger>
-                        <SelectContent position="popper">
-                            <SelectItem value="cse">CSE</SelectItem>
-                            <SelectItem value="ece">ECE</SelectItem>
-                            <SelectItem value="me">ME</SelectItem>
-                        </SelectContent>
-                    </Select>
+                <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-4 gap-6">
+                    <Programmes programmes={programmes} />
                     <Select className="w-full md:col-span-1">
                         <SelectTrigger id="programme">
                             <SelectValue placeholder="Shift"/>
