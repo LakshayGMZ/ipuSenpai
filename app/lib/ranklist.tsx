@@ -11,30 +11,51 @@ const getAbsoluteUrl = (path: string) => {
 
 
 export async function getProgrammes() {
-    console.log(base_url);
     const res = await fetch(getAbsoluteUrl('/programmes'));
+    console.log(res.url);
 
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
-
-    return res.json()
+    return await res.json();
 }
+
 
 export async function getInstitutes(progname: string) {
     const res = await fetch(getAbsoluteUrl('/institutes/programme=' + encodeURI(progname)));
+    console.log(res.url);
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
-    return <InstCombobox collegeList={await res.json()} progname={progname} disabled={false} />
+    return await res.json()
 }
 
-export async function getSpecs(progname: string) {
-    const res = await fetch(getAbsoluteUrl('/specializations/programme=' + encodeURI(progname)));
+
+export async function getSpecs(progname: string, institute: string) {
+    const res = await fetch(getAbsoluteUrl(`/specializations/programme=${encodeURI(progname)}&institute=${encodeURI(institute)}`));
+    console.log(res.url)
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
-    console.log(res.url)
     return <Specializations specializations={await res.json()} disabled={false} />
+}
+
+
+export async function getShifts(institute: string){
+    const res = await fetch(getAbsoluteUrl(`/institute/shifts/${encodeURI(institute)}`));
+    console.log(res.url)
+    if (!res.ok) {
+        throw new Error('Failed to fetch data')
+    }
+    return await res.json()
+}
+
+export async function getbatches(progname: string, institute: string){
+    const res = await fetch(getAbsoluteUrl(`/batches/programme=${encodeURI(progname)}&institute=${encodeURI(institute)}`));
+    console.log(res.url)
+    if (!res.ok) {
+        throw new Error('Failed to fetch data')
+    }
+    return await res.json()
 }
 

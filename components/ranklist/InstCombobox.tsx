@@ -2,12 +2,13 @@
 
 import {ReactNode, useEffect, useState} from "react";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {Button} from "@/components/ui/button";
 import {Check, ChevronsUpDown, ChevronsUpDownIcon} from "lucide-react";
 import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList} from "@/components/ui/command";
-import {getInstitutes, getSpecs} from "@/app/lib/ranklist";
-import {cn} from "@/lib/utils";
+import {getbatches, getShifts, getSpecs} from "@/app/lib/ranklist";
 import Specializations from "@/components/ranklist/Specializations";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+import Shifts from "@/components/ranklist/Shifts";
+import Batches from "@/components/ranklist/Batches";
 
 export default function InstCombobox(
     {
@@ -21,61 +22,48 @@ export default function InstCombobox(
     }
 ) {
     const [value, setValue] = useState("");
-    const [open, setOpen] = useState(false);
+    const [shifts, setShifts] = useState<string[]>([]);
+    const [batches, setBatches] = useState([]);
     const [specState, setSpecState] = useState<ReactNode>(
         <Specializations specializations={[]}/>
     )
     useEffect(() => {
-        if (progname !== "")
-            setSpecState(getSpecs(progname));
-    }, [progname]);
+        const fetchData = async () => {
+            if (progname !== "" && value !== "") {
+                setSpecState(getSpecs(progname, value));
+                setShifts(await getShifts(value));
+                setBatches(await getbatches(progname, value));
+            }
+        }
+        fetchData();
+
+    }, [value, progname]);
 
     return (
-        <>
-            <Popover open={open} onOpenChange={setOpen}>
-                <PopoverTrigger asChild>
-                    <Button
-                        variant="outline"
-                        role="combobox"
-                        aria-expanded={open}
-                        disabled={disabled}
-                        className="w-full justify-between"
-                    >
-                        {value !== ""
-                            ? collegeList.find((cllg) => cllg.toLowerCase() === value.toLowerCase())
-                            : "Select College"}
-                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                    </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-full p-0">
-                    <Command>
-                        <CommandInput placeholder="Search College" />
-                        <CommandEmpty>No framework found.</CommandEmpty>
-                        <CommandGroup>
-                            {collegeList.map((cllg, idx) => (
-                                <CommandItem
-                                    key={idx+1}
-                                    value={cllg}
-                                    onSelect={(currentValue) => {
-                                        setValue(currentValue === value ? "" : currentValue)
-                                        setOpen(false)
-                                    }}
-                                >
-                                    <Check
-                                        className={cn(
-                                            "mr-2 h-4 w-4",
-                                            value.toLowerCase() === cllg.toLowerCase() ? "opacity-100" : "opacity-0"
-                                        )}
-                                    />
-                                    {cllg}
-                                </CommandItem>
-                            ))}
-                        </CommandGroup>
-                    </Command>
-                </PopoverContent>
-            </Popover>
-            {specState}
-        </>
+
+    <>
+        <Select className="w-full md:col-span-1"
+                disabled={disabled}
+                onValueChange={(v) => setValue(v)}
+        >
+            <SelectTrigger>
+                <SelectValue placeholder="Institute"/>
+            </SelectTrigger>
+            <SelectContent position="popper">
+                {
+                    collegeList.map(
+                        (cllg: string, idx: number) =>
+                            <SelectItem key={idx + 1} value={cllg}>
+                                {cllg}
+                            </SelectItem>
+                    )}
+
+            </SelectContent>
+        </Select>
+        {specState}
+        <Shifts shifts={shifts} disabled={shifts.length == 0} />
+        <Batches batches={batches} disabled={batches.length == 0} />
+    </>
 
     );
 }
