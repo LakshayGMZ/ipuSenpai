@@ -27,7 +27,7 @@ export async function getInstitutes(progname: string) {
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
-    return await res.json()
+    return await res.json();
 }
 
 
@@ -37,7 +37,7 @@ export async function getSpecs(progname: string, institute: string) {
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
-    return <Specializations specializations={await res.json()} disabled={false} />
+    return Object.keys(await res.json());
 }
 
 
@@ -47,15 +47,24 @@ export async function getShifts(institute: string){
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
-    return await res.json()
+    return Object.keys(await res.json());
 }
 
-export async function getbatches(progname: string, institute: string){
+export async function getBatches(progname: string, institute: string){
     const res = await fetch(getAbsoluteUrl(`/batches/programme=${encodeURI(progname)}&institute=${encodeURI(institute)}`));
     console.log(res.url)
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
-    return await res.json()
+    return Object.keys(await res.json());
+}
+
+export async function getSemesters(progname: string, institute: string){
+    const res = await fetch(getAbsoluteUrl(`/semesters/programme=${encodeURI(progname)}&institute=${encodeURI(institute)}`));
+    console.log(res.url)
+    if (!res.ok) {
+        throw new Error('Failed to fetch data')
+    }
+    return Object.keys(await res.json());
 }
 
