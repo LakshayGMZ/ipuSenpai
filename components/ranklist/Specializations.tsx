@@ -1,7 +1,6 @@
 "use client"
 
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {getInstitutes} from "@/app/lib/ranklist";
 
 export default function Specializations(
     {

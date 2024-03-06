@@ -1,8 +1,5 @@
 'use server'
 
-import InstCombobox from "@/components/ranklist/InstCombobox";
-import Specializations from "@/components/ranklist/Specializations";
-
 const base_url = process.env.NEXT_PUBLIC_BACKEND_BASE_URL
 
 const getAbsoluteUrl = (path: string) => {
@@ -12,7 +9,6 @@ const getAbsoluteUrl = (path: string) => {
 
 export async function getProgrammes() {
     const res = await fetch(getAbsoluteUrl('/programmes'));
-    console.log(res.url);
 
     if (!res.ok) {
         throw new Error('Failed to fetch data')
@@ -23,7 +19,7 @@ export async function getProgrammes() {
 
 export async function getInstitutes(progname: string) {
     const res = await fetch(getAbsoluteUrl('/institutes/programme=' + encodeURI(progname)));
-    console.log(res.url);
+
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
@@ -33,7 +29,7 @@ export async function getInstitutes(progname: string) {
 
 export async function getSpecs(progname: string, institute: string) {
     const res = await fetch(getAbsoluteUrl(`/specializations/programme=${encodeURI(progname)}&institute=${encodeURI(institute)}`));
-    console.log(res.url)
+
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
@@ -43,7 +39,7 @@ export async function getSpecs(progname: string, institute: string) {
 
 export async function getShifts(institute: string){
     const res = await fetch(getAbsoluteUrl(`/institute/shifts/${encodeURI(institute)}`));
-    console.log(res.url)
+
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
@@ -52,7 +48,7 @@ export async function getShifts(institute: string){
 
 export async function getBatches(progname: string, institute: string){
     const res = await fetch(getAbsoluteUrl(`/batches/programme=${encodeURI(progname)}&institute=${encodeURI(institute)}`));
-    console.log(res.url)
+
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
@@ -61,7 +57,7 @@ export async function getBatches(progname: string, institute: string){
 
 export async function getSemesters(progname: string, institute: string){
     const res = await fetch(getAbsoluteUrl(`/semesters/programme=${encodeURI(progname)}&institute=${encodeURI(institute)}`));
-    console.log(res.url)
+
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }

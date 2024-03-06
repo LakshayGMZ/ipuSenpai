@@ -1,8 +1,5 @@
 "use client"
 
-import {ReactNode, useEffect, useState} from "react";
-import {getSpecs} from "@/app/lib/ranklist";
-import Specializations from "@/components/ranklist/Specializations";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 
 export default function Batches(

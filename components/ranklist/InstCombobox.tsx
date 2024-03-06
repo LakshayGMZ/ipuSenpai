@@ -1,9 +1,6 @@
 "use client"
 
 import {ReactNode, useEffect, useState} from "react";
-import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {Check, ChevronsUpDown, ChevronsUpDownIcon} from "lucide-react";
-import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList} from "@/components/ui/command";
 import {getbatches, getShifts, getSpecs} from "@/app/lib/ranklist";
 import Specializations from "@/components/ranklist/Specializations";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";

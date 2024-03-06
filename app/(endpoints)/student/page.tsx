@@ -1,4 +1,4 @@
-import { TabsTrigger, TabsList, TabsContent, Tabs } from "@/components/ui/tabs"
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
 
 export default function Page() {
     return (

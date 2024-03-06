@@ -3,8 +3,7 @@
 import {getBatches, getInstitutes, getSemesters, getShifts, getSpecs} from "@/app/lib/ranklist";
 import * as React from "react";
 import {useEffect, useState} from "react";
-import InstCombobox from "@/components/ranklist/InstCombobox";
-import {PreBuiltSelect, Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+import {PreBuiltSelect} from "@/components/ui/select";
 import {RanklistSelectDataFields as DataFields} from "@/types/types";
 
 
@@ -80,6 +79,13 @@ export default function Programmes(
                 valueState={selectedData.shift}
                 setValueState={setSelectedData}
                 disabled={shifts.length === 0}
+            />
+            <PreBuiltSelect
+                name={"batch"}
+                values={batches}
+                valueState={selectedData.batch}
+                setValueState={setSelectedData}
+                disabled={batches.length === 0}
             />
             <PreBuiltSelect
                 name={"semester"}

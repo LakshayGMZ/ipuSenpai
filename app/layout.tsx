@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type {Metadata} from "next";
+import {Inter} from "next/font/google";
 import "./globals.css";
-import React, {ReactNode} from "react";
-import Header from "@/components/ui/header/Header";
+import React from "react";
 import {FloatingNav} from "@/components/ui/navbar/FloatingNavbar";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import {SpeedInsights} from "@vercel/speed-insights/next"
 import {cn} from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });

@@ -1,7 +1,7 @@
-import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { CardContent, Card } from "@/components/ui/card"
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select"
+import {Input} from "@/components/ui/input"
+import {Button} from "@/components/ui/button"
+import {Card, CardContent} from "@/components/ui/card"
 import React, {SVGProps} from "react";
 
 export default function Page() {

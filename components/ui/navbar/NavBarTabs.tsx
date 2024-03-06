@@ -1,10 +1,10 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {motion} from "framer-motion";
 import {cn} from "@/lib/utils";
 import Link from "next/link";
-import {usePathname, useRouter} from "next/navigation";
+import {usePathname} from "next/navigation";
 
 type Tab = {
     name: string;
@@ -32,7 +32,7 @@ export const NavbarTabs = ({
         setActive(newTabs[0]);
     };
 
-    const [hovering, setHovering] = useState(false);
+    // const [hovering, setHovering] = useState(false);
 
     return (
         <div
@@ -49,8 +49,8 @@ export const NavbarTabs = ({
                         moveSelectedTabToTop(idx);
                         // router.push(tab.link);
                     }}
-                    onMouseEnter={() => setHovering(true)}
-                    onMouseLeave={() => setHovering(false)}
+                    // onMouseEnter={() => setHovering(true)}
+                    // onMouseLeave={() => setHovering(false)}
                     className={cn("relative px-4 py-2 rounded-full", tabClassName)}
                     style={{
                         transformStyle: "preserve-3d",

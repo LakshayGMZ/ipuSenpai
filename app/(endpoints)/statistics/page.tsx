@@ -1,5 +1,5 @@
-import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select"
-import { Button } from "@/components/ui/button"
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select"
+import {Button} from "@/components/ui/button"
 
 export default function Page() {
     return (

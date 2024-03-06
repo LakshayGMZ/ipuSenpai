@@ -1,5 +1,5 @@
 import {Button} from "@/components/ui/button"
-import {getInstitutes, getProgrammes} from "@/app/lib/ranklist";
+import {getProgrammes} from "@/app/lib/ranklist";
 import Programmes from "@/components/ranklist/Programmes";
 
 
