@@ -7,7 +7,7 @@ export default function DashboardLayout(
         children: React.ReactNode
     }) {
     return (
-        <div className={"min-h-screen mt-[1px]"}>
+        <div className={"min-h-screen mt-[10px]"}>
             {children}
         </div>
     )

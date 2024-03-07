@@ -4,14 +4,14 @@ import {getBatches, getInstitutes, getSemesters, getShifts, getSpecs} from "@/ap
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {PreBuiltSelect} from "@/components/ui/select";
-import {RanklistSelectDataFields as DataFields} from "@/types/types";
+import {RanklistQueryFields, RanklistSelectDataFields as DataFields} from "@/types/types";
 
 
 export default function Programmes(
     {
         programmes,
     }: {
-        programmes: string[],
+        programmes: RanklistQueryFields[],
     }) {
     const [selectedData, setSelectedData] = useState<DataFields>({
         programme: "",
@@ -22,11 +22,11 @@ export default function Programmes(
         semester: "",
     })
 
-    const [institutes, setInstitutes] = useState<string[]>([]);
-    const [specializations, setSpecializations] = useState<string[]>([]);
-    const [shifts, setShifts] = useState<string[]>([]);
-    const [batches, setBatches] = useState<string[]>([]);
-    const [semesters, setSemesters] = useState<string[]>([]);
+    const [institutes, setInstitutes] = useState<RanklistQueryFields[]>([]);
+    const [specializations, setSpecializations] = useState<RanklistQueryFields[]>([]);
+    const [shifts, setShifts] = useState<RanklistQueryFields[]>([]);
+    const [batches, setBatches] = useState<RanklistQueryFields[]>([]);
+    const [semesters, setSemesters] = useState<RanklistQueryFields[]>([]);
 
     useEffect(() => {
         const fetchInstitutes = async () =>

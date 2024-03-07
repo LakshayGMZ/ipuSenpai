@@ -150,14 +150,14 @@ const SelectSeparator = React.forwardRef<
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName
 
 
-export function PreBuiltSelect<T extends string>(
+export function PreBuiltSelect(
     {
         name,
         values,
         valueState,
         setValueState,
         disabled = true
-    }: CustomSelectProps<T>) {
+    }: CustomSelectProps) {
     const [open, setOpen] = useState(false);
     const [isClicked, setIsClicked] = useState(false);
     const [isDoneSelection, setIsDoneSelection] = React.useState(false);
@@ -181,7 +181,7 @@ export function PreBuiltSelect<T extends string>(
                 disabled={disabled}
                 open={open}
                 value={valueState}
-                onValueChange={async (v: T) => {
+                onValueChange={async (v) => {
                     if (v !== "") {
                         setValueState(prev => ({...prev, [name]: v}));
                     }
@@ -193,14 +193,14 @@ export function PreBuiltSelect<T extends string>(
                 <SelectContent position="popper">
                     {
                         values.map(
-                            (val: T, idx: number) =>
+                            (val, idx: number) =>
                                 <SelectItem
                                     key={idx + 1}
-                                    value={val}
+                                    value={val.value !== undefined ? val.value! : val.name}
                                     onClick={() => setIsClicked(true)}
                                     onPointerUp={handleSelect}
                                 >
-                                    {val}
+                                    {val.name}
                                 </SelectItem>
                         )}
 

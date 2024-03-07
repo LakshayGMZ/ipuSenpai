@@ -1,9 +1,9 @@
 import {Dispatch, SetStateAction} from "react";
 
-export interface CustomSelectProps<T> {
+export interface CustomSelectProps {
     name: string,
-    values: T[],
-    valueState: T,
+    values: RanklistQueryFields[],
+    valueState: string,
     setValueState: Dispatch<SetStateAction<RanklistSelectDataFields>>,
     disabled?: boolean
 }
@@ -17,3 +17,7 @@ export interface RanklistSelectDataFields {
     semester: string;
 }
 
+export interface RanklistQueryFields {
+    name: string;
+    value?: string;
+}
