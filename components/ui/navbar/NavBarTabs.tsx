@@ -5,6 +5,7 @@ import {motion} from "framer-motion";
 import {cn} from "@/lib/utils";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
+import {ThemeToggle} from "@/components/ui/navbar/ThemeToggle";
 
 type Tab = {
     name: string;
@@ -41,6 +42,7 @@ export const NavbarTabs = ({
                 containerClassName
             )}
         >
+            <ThemeToggle />
             {propTabs.map((tab, idx) => (
                 <Link
                     key={idx+1}

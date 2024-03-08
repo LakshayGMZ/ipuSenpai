@@ -1,17 +1,26 @@
-"use client";
 import React from "react";
+import {SparklesCore} from "@/components/ui/sparkles";
 
 export default function Page() {
 
     return (
-    <div
-        className="inset-0 flex justify-center items-center min-h-screen w-full bg-white bg-[radial-gradient(#e5e7eb_2px,transparent_4px)] [background-size:32px_32px] [mask-image:radial-gradient(ellipse_45%_45%_at_50%_50%,#000_40%,transparent_100%)]"
-    >
-        <p className="text-4xl sm:text-7xl font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
-            Backgrounds
-        </p>
-    </div>
-)
-    ;
+        <div
+            className="min-h-screen relative w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
+            <div className="w-full absolute inset-0 h-screen">
+                <SparklesCore
+                    id="tsparticlesfullpage"
+                    background="transparent"
+                    minSize={0.6}
+                    maxSize={1.4}
+                    particleDensity={100}
+                    className="w-full h-full"
+                    particleColor="#FFFFFF"
+                />
+            </div>
+            <h1 className="md:text-7xl text-3xl lg:text-6xl font-bold text-center text-white relative z-20">
+                IPU got Parsed
+            </h1>
+        </div>
+    );
 }
 

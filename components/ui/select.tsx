@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import {FC, ReactNode, useEffect, useState} from "react"
+import {FC, ReactNode, useState} from "react"
 import * as SelectPrimitive from "@radix-ui/react-select"
 import {SelectProps} from "@radix-ui/react-select"
 import {Check, ChevronDown, ChevronUp} from "lucide-react"
@@ -162,11 +162,11 @@ export function PreBuiltSelect(
     const [isClicked, setIsClicked] = useState(false);
     const [isDoneSelection, setIsDoneSelection] = React.useState(false);
 
-    useEffect(() => {
-        if (isDoneSelection && isClicked) {
-            setOpen(false);
-        }
-    }, [isClicked, isDoneSelection]);
+    // useEffect(() => {
+    //     if (isDoneSelection && isClicked) {
+    //         setOpen(false);
+    //     }
+    // }, [isClicked, isDoneSelection]);
 
     const handleSelect = () => {
         if (!disabled) {
@@ -179,7 +179,7 @@ export function PreBuiltSelect(
             <Select
                 className="w-full md:col-span-1"
                 disabled={disabled}
-                open={open}
+                // open={open}
                 value={valueState}
                 onValueChange={async (v) => {
                     if (v !== "") {
@@ -187,7 +187,7 @@ export function PreBuiltSelect(
                     }
                 }}
             >
-                <SelectTrigger onClick={() => setOpen(prevState => !prevState)}>
+                <SelectTrigger className={"rounded-2xl"} onClick={() => setOpen(prevState => !prevState)}>
                     <SelectValue placeholder={"Select " + name}/>
                 </SelectTrigger>
                 <SelectContent position="popper">
@@ -197,8 +197,8 @@ export function PreBuiltSelect(
                                 <SelectItem
                                     key={idx + 1}
                                     value={val.value !== undefined ? val.value! : val.name}
-                                    onClick={() => setIsClicked(true)}
-                                    onPointerUp={handleSelect}
+                                    // onClick={() => setIsClicked(true)}
+                                    // onPointerUp={handleSelect}
                                 >
                                     {val.name}
                                 </SelectItem>

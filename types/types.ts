@@ -21,3 +21,24 @@ export interface RanklistQueryFields {
     name: string;
     value?: string;
 }
+
+export interface StudentDataPerSem {
+    sem: number;
+    semName: string;
+    marks: number;
+    totalMarks: number;
+    percentage: number;
+    creditMarks: number;
+    creditPercentage: number;
+    SGPA: number;
+    equivalentPercentage: number;
+    creditsObtained: number;
+    totalCredits: number;
+}
+
+export interface RanklistDataTableRow {
+    enrollmentNum: string;
+    name: string;
+    rank: string;
+    marksData: StudentDataPerSem[];
+}
