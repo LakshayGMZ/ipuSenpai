@@ -66,7 +66,7 @@ export async function getSemesters(progname: string, institute: string): Promise
     return [{name: "Overall", value: "0"}, ...await res.json()];
 }
 
-export async function getResultOverall(data: RanklistSelectDataFields, page: number = 1, pageSize: number = 50): Promise<StudentResults[]> {
+export async function getResultOverall(data: RanklistSelectDataFields, page: number = 0, pageSize: number = 50): Promise<StudentResults[]> {
     const res = await fetch(getAbsoluteUrl(`/rank/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&pageNumber=${page}&pageSize=${pageSize}`));
 
     if (!res.ok) {
@@ -77,7 +77,7 @@ export async function getResultOverall(data: RanklistSelectDataFields, page: num
 }
 
 
-export async function getResultSem(data: RanklistSelectDataFields, page: number = 1, pageSize: number = 50): Promise<StudentResults[]> {
+export async function getResultSem(data: RanklistSelectDataFields, page: number = 0, pageSize: number = 50): Promise<StudentResults[]> {
     const res = await fetch(getAbsoluteUrl(`/rank/semester/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&sem=${data.semester}&pageNumber=${page}&pageSize=${pageSize}`));
 
     if (!res.ok) {

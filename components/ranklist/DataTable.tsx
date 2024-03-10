@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import {Dispatch, SetStateAction} from "react"
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -39,11 +40,13 @@ export function DataTable(
     {
         data,
         columns,
-        pagination
+        pagination,
+        setPagination
     }: {
         data: StudentResults[]
         columns: ColumnDef<StudentResults>[],
-        pagination: {pageSize: number, pageIndex: number}
+        pagination: { pageSize: number, pageIndex: number },
+        setPagination: Dispatch<SetStateAction<{ pageIndex: number, pageSize: number }>>,
     }
 ) {
     const [sorting, setSorting] = React.useState<SortingState>([])
@@ -68,6 +71,7 @@ export function DataTable(
         getFilteredRowModel: getFilteredRowModel(),
         onColumnVisibilityChange: setColumnVisibility,
         onRowSelectionChange: setRowSelection,
+        onPaginationChange: setPagination,
         state: {
             sorting,
             columnFilters,
@@ -170,14 +174,21 @@ export function DataTable(
                 <Pagination>
                     <PaginationContent>
                         <PaginationItem>
-                            <PaginationPrevious/>
+                            <PaginationPrevious onClick={() => setPagination(prevState => ({
+                                ...prevState,
+                                pageIndex: prevState.pageIndex - 1
+                            }))}/>
                         </PaginationItem>
                         <PaginationItem>{pagination.pageIndex}</PaginationItem>
                         <PaginationItem>
                             <PaginationEllipsis/>
                         </PaginationItem>
-                        <PaginationItem>
-                            <PaginationNext/>
+                        <PaginationItem >
+                            <PaginationNext
+                                onClick={() => setPagination(prevState => ({
+                                ...prevState,
+                                pageIndex: prevState.pageIndex + 1
+                            }))}/>
                         </PaginationItem>
                     </PaginationContent>
                 </Pagination>

@@ -41,7 +41,7 @@ export default function Programmes(
     const [resultData, setResultData] = useState<StudentResults[]>([]);
     const [pagination, setPagination] = useState({
         pageIndex: 0,
-        pageSize: 50,
+        pageSize: 60,
     });
 
     useEffect(() => {
@@ -65,11 +65,15 @@ export default function Programmes(
         if (selectedData.institute !== "") fetchShifts();
     }, [selectedData.institute]);
 
-    const handleResultFetch = async (e: any) => {
-        e.preventDefault();
-        if (selectedData.semester === "0") setResultData(await getResultOverall(selectedData));
-        else setResultData(await getResultSem(selectedData));
+    const handleResultFetch = async () => {
+        // e.preventDefault();
+        if (selectedData.semester === "0") setResultData(await getResultOverall(selectedData, pagination.pageIndex, pagination.pageSize));
+        else setResultData(await getResultSem(selectedData, pagination.pageIndex, pagination.pageSize));
     }
+
+    useEffect(() => {
+        if (Object.values(selectedData).every(i => i !== "")) handleResultFetch();
+    }, [handleResultFetch, pagination]);
 
 
     return (
@@ -123,7 +127,7 @@ export default function Programmes(
                         <Button
                             className="md:col-start-2 lg:col-start-3 rounded-2xl"
                             variant={"outline"}
-                            onClick={handleResultFetch}
+                            onClick={(e) => {e.preventDefault();handleResultFetch();}}
                         >Search</Button>
                     </div>
                 </div>
@@ -133,6 +137,7 @@ export default function Programmes(
             {resultData.length > 0 && <DataTable
                 columns={resultData[0].sgpa !== undefined ? columnsSem : columnsOverall}
                 pagination={pagination}
+                setPagination={setPagination}
                 data={resultData}
             />}
 

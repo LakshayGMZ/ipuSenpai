@@ -998,7 +998,7 @@ export const columnsSem: ColumnDef<StudentResults>[] = [
                 </Button>
             )
         },
-        cell: ({row}) => <div className="lowercase">{row.original.sgpa!.toString()}</div>,
+        cell: ({row}) => <div className="lowercase">{row.original.sgpa!.toFixed(2)}</div>,
     },
     {
         accessorKey: "percentage",
