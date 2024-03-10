@@ -22,23 +22,59 @@ export interface RanklistQueryFields {
     value?: string;
 }
 
-export interface StudentDataPerSem {
-    sem: number;
-    semName: string;
-    marks: number;
-    totalMarks: number;
-    percentage: number;
-    creditMarks: number;
-    creditPercentage: number;
-    SGPA: number;
-    equivalentPercentage: number;
-    creditsObtained: number;
-    totalCredits: number;
+
+interface SGPADataOverallSem {
+    semester: string;
+    sgpa: string;
 }
 
-export interface RanklistDataTableRow {
-    enrollmentNum: string;
-    name: string;
-    rank: string;
-    marksData: StudentDataPerSem[];
+interface SemesterData {
+    semester: number;
+    marks: number;
+    total: number;
+    creditmarks: number;
+    totalcreditmarks: number;
+    totalcredits: number;
+    totalcreditmarksweighted: number;
 }
+
+interface SubjectData {
+    subcode: string;
+    subname: string;
+    credits: string;
+    paperid: string;
+    internal: string;
+    external: string;
+    total: string;
+    exam: string;
+    grade: string;
+    ExamType: string;
+}
+
+interface BasicStudentData {
+    enrollment: string;
+    name: string;
+    marks: number;
+    creditMarks: number;
+    totalCreditMarks: number;
+    totalCreditMarksWeighted: number;
+    totalCredits: number;
+    total: number;
+    percentage: number;
+    creditsPercentage: number;
+}
+
+interface StudentDataPerSem extends BasicStudentData {
+    subject?: SubjectData[];
+    sgpa?: number;
+}
+
+
+interface StudentDataOverallSem extends BasicStudentData {
+    sgpaAllSem?: SGPADataOverallSem[];
+    cgpa?: number;
+    semesters?: number;
+    marksPerSemester?: SemesterData[];
+}
+
+export interface StudentResults extends StudentDataOverallSem, StudentDataPerSem {}
