@@ -72,6 +72,9 @@ export function DataTable(
         onColumnVisibilityChange: setColumnVisibility,
         onRowSelectionChange: setRowSelection,
         onPaginationChange: setPagination,
+        autoResetPageIndex: false,
+        manualPagination: true,
+        rowCount: pagination.pageSize,
         state: {
             sorting,
             columnFilters,

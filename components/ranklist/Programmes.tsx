@@ -73,7 +73,7 @@ export default function Programmes(
 
     useEffect(() => {
         if (Object.values(selectedData).every(i => i !== "")) handleResultFetch();
-    }, [handleResultFetch, pagination]);
+    }, [pagination.pageIndex, pagination.pageSize]);
 
 
     return (
