@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {Input} from "@/components/ui/input"
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
-import {StudentDataOverallSem, StudentDataPerSem} from "@/types/types";
+import {StudentResults} from "@/types/types";
 
 
 export function DataTable(
@@ -32,8 +32,8 @@ export function DataTable(
         data,
         columns
     }: {
-        data: StudentDataOverallSem[] | StudentDataPerSem[],
-        columns: ColumnDef<StudentDataOverallSem | StudentDataPerSem>[],
+        data: StudentResults[]
+        columns: ColumnDef<StudentResults>[],
     }
 ) {
     const [sorting, setSorting] = React.useState<SortingState>([])
@@ -47,7 +47,7 @@ export function DataTable(
         })
     const [rowSelection, setRowSelection] = React.useState({})
 
-    const table = useReactTable<StudentDataPerSem | StudentDataOverallSem>({
+    const table = useReactTable<StudentResults>({
         data,
         columns,
         onSortingChange: setSorting,
