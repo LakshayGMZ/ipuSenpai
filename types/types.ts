@@ -62,6 +62,7 @@ interface BasicStudentData {
     total: number;
     percentage: number;
     creditsPercentage: number;
+    rank: number;
 }
 
 interface StudentDataPerSem extends BasicStudentData {
