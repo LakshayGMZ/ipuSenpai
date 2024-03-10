@@ -5,7 +5,7 @@ export default function Page() {
 
     return (
         <div
-            className="min-h-screen relative w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
+            className="min-h-screen relative w-full bg-black flex flex-col items-center justify-center overflow-hidden">
             <div className="w-full absolute inset-0 h-screen">
                 <SparklesCore
                     id="tsparticlesfullpage"

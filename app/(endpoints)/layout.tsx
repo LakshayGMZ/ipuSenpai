@@ -7,7 +7,7 @@ export default function DashboardLayout(
         children: React.ReactNode
     }) {
     return (
-        <div className={"mt-28 w-screen"}>
+        <div className={"mt-28"}>
             {children}
         </div>
     )

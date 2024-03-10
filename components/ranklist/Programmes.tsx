@@ -39,6 +39,10 @@ export default function Programmes(
     const [batches, setBatches] = useState<RanklistQueryFields[]>([]);
     const [semesters, setSemesters] = useState<RanklistQueryFields[]>([]);
     const [resultData, setResultData] = useState<StudentResults[]>([]);
+    const [pagination, setPagination] = useState({
+        pageIndex: 0,
+        pageSize: 50,
+    });
 
     useEffect(() => {
         const fetchInstitutes = async () =>
@@ -128,6 +132,7 @@ export default function Programmes(
 
             {resultData.length > 0 && <DataTable
                 columns={resultData[0].sgpa !== undefined ? columnsSem : columnsOverall}
+                pagination={pagination}
                 data={resultData}
             />}
 

@@ -25,15 +25,25 @@ import {
 import {Input} from "@/components/ui/input"
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
 import {StudentResults} from "@/types/types";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationNext,
+    PaginationPrevious
+} from "@/components/ui/pagination";
 
 
 export function DataTable(
     {
         data,
-        columns
+        columns,
+        pagination
     }: {
         data: StudentResults[]
         columns: ColumnDef<StudentResults>[],
+        pagination: {pageSize: number, pageIndex: number}
     }
 ) {
     const [sorting, setSorting] = React.useState<SortingState>([])
@@ -63,11 +73,12 @@ export function DataTable(
             columnFilters,
             columnVisibility,
             rowSelection,
+            pagination
         },
     })
 
     return (
-        <div className="w-full text-center">
+        <div className="text-center lg:px-10">
             <div className="flex items-center py-4">
                 <Input
                     placeholder="Search by name"
@@ -80,7 +91,7 @@ export function DataTable(
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline" className="ml-auto">
-                            Columns <ChevronDown className="ml-2 h-4 w-4" />
+                            Columns <ChevronDown className="ml-2 h-4 w-4"/>
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -155,28 +166,21 @@ export function DataTable(
                 </Table>
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="flex-1 text-sm text-muted-foreground">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
-                </div>
-                <div className="space-x-2">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => table.previousPage()}
-                        disabled={!table.getCanPreviousPage()}
-                    >
-                        Previous
-                    </Button>
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => table.nextPage()}
-                        disabled={!table.getCanNextPage()}
-                    >
-                        Next
-                    </Button>
-                </div>
+
+                <Pagination>
+                    <PaginationContent>
+                        <PaginationItem>
+                            <PaginationPrevious/>
+                        </PaginationItem>
+                        <PaginationItem>{pagination.pageIndex}</PaginationItem>
+                        <PaginationItem>
+                            <PaginationEllipsis/>
+                        </PaginationItem>
+                        <PaginationItem>
+                            <PaginationNext/>
+                        </PaginationItem>
+                    </PaginationContent>
+                </Pagination>
             </div>
         </div>
     )
