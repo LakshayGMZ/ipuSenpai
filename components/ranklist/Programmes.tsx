@@ -3,6 +3,7 @@
 import {
     getBatches,
     getInstitutes,
+    getProgrammes,
     getResultOverall,
     getResultSem,
     getSemesters,
@@ -18,12 +19,7 @@ import {DataTable} from "@/components/ranklist/DataTable";
 import {columnsOverall, columnsSem} from "@/app/lib/data";
 
 
-export default function Programmes(
-    {
-        programmes,
-    }: {
-        programmes: RanklistQueryFields[],
-    }) {
+export default function Programmes() {
     const [selectedData, setSelectedData] = useState<DataFields>({
         programme: "",
         institute: "",
@@ -32,7 +28,7 @@ export default function Programmes(
         batch: "",
         semester: "",
     })
-
+    const [programmes, setProgrammes] = useState<RanklistQueryFields[]>([]);
     const [institutes, setInstitutes] = useState<RanklistQueryFields[]>([]);
     const [specializations, setSpecializations] = useState<RanklistQueryFields[]>([]);
     const [shifts, setShifts] = useState<RanklistQueryFields[]>([]);
@@ -43,6 +39,12 @@ export default function Programmes(
         pageIndex: 0,
         pageSize: 60,
     });
+
+    useEffect(() => {
+        const fetchProgrammes = async () =>
+            setProgrammes(await getProgrammes());
+        fetchProgrammes();
+    }, []);
 
     useEffect(() => {
         const fetchInstitutes = async () =>

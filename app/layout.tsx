@@ -6,6 +6,7 @@ import {FloatingNav} from "@/components/ui/navbar/FloatingNavbar";
 import {SpeedInsights} from "@vercel/speed-insights/next"
 import {cn} from "@/lib/utils";
 import {ThemeProvider} from "@/components/ThemeProvider";
+import axios from "axios";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -37,24 +38,27 @@ const navItems = [
     },
 ];
 
-export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
-    children: React.ReactNode;
-}>) {
+export default function RootLayout(
+    {
+        children,
+    }: Readonly<{
+        children: React.ReactNode;
+    }>) {
+    axios.defaults.baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
+
     return (
         <html lang="en">
         <body className={cn(inter.className, "flex flex-col")}>
-            <ThemeProvider
-                attribute="class"
-                defaultTheme="system"
-                enableSystem
-                // disableTransitionOnChange
-            >
-                <FloatingNav navItems={navItems}/>
-                {children}
-                <SpeedInsights/>
-            </ThemeProvider>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            // disableTransitionOnChange
+        >
+            <FloatingNav navItems={navItems}/>
+            {children}
+            <SpeedInsights/>
+        </ThemeProvider>
         </body>
         </html>
     );
