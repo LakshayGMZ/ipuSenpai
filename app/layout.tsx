@@ -51,9 +51,8 @@ export default function RootLayout(
         <body className={cn(inter.className, "flex flex-col")}>
         <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
-            // disableTransitionOnChange
+            // enableSystem
+            disableTransitionOnChange
         >
             <FloatingNav navItems={navItems}/>
             {children}
