@@ -8,10 +8,12 @@ import {useTheme} from "next-themes"
 import {Button} from "@/components/ui/button"
 
 export function ThemeToggle() {
-    const {setTheme} = useTheme()
-    const [themeModeDark, setThemeModeDark] = useState(
-        localStorage.getItem("theme") === "dark"
-    );
+    const {setTheme, theme} = useTheme()
+    const [themeModeDark, setThemeModeDark] = useState(theme === "dark");
+
+    // useEffect(() => {
+    //     setThemeModeDark(localStorage.getItem("theme") === "dark")
+    // }, []);
 
     useEffect(() => {
         setTheme(themeModeDark ? "dark" : "light");
