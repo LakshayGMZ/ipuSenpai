@@ -129,6 +129,7 @@ export default function Programmes() {
                         <Button
                             className="md:col-start-2 lg:col-start-3 rounded-2xl"
                             variant={"outline"}
+                            disabled={Object.values(selectedData).some(i => i === "")}
                             onClick={(e) => {e.preventDefault();handleResultFetch();}}
                         >Search</Button>
                     </div>
