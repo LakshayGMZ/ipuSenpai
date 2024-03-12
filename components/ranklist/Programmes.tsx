@@ -98,9 +98,9 @@ export default function Programmes() {
     return (
         <>
             <form className="lg:px-10">
-                <div className="rounded-lg mx-10">
+                <div className="rounded-lg mx-4 md:mx-10">
                     <h1 className="text-4xl font-semibold mb-6">Ranklist</h1>
-                    <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-3 lg:grid-cols-3 lg:grid-rows-2 gap-6">
+                    <div className="grid grid-cols-2 md:grid-rows-3 lg:grid-cols-3 lg:grid-rows-2 gap-6">
                         <PreBuiltSelect
                             name={"programme"}
                             values={programmes}
