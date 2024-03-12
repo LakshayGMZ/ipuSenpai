@@ -48,7 +48,7 @@ export default function Programmes() {
             .then(value => {
                 is_mobile.current = value;
             })
-    }, []);
+    }, [isMobile]);
 
     useEffect(() => {
         const fetchProgrammes = async () =>
