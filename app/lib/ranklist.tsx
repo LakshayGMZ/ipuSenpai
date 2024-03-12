@@ -65,12 +65,12 @@ export async function getSemesters(progname: string, institute: string, batch: s
 
 export async function getResultOverall(data: RanklistSelectDataFields, setPagination: Dispatch<SetStateAction<{ pageIndex: number; pageSize: number; totalPages?: number; }>>, page: number = 0, pageSize: number = 50): Promise<StudentResults[]> {
     const res = await axios.get<StudentResults[]>(`/rank/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&pageNumber=${page}&pageSize=${pageSize}`);
-
+    console.log(res.headers)
     if (res.status !== 200) {
         throw new Error('Failed to fetch data. URL: ' + res.config.url)
     }
 
-    // setPagination(prevState => ({...prevState, totalPages: parseInt(res.headers["X-Total-Page-Count"])}))
+    setPagination(prevState => ({...prevState, totalPages: parseInt(res.headers["x-total-page-count"])}))
     return res.data;
 }
 
@@ -81,6 +81,6 @@ export async function getResultSem(data: RanklistSelectDataFields, setPagination
     if (res.status !== 200) {
         throw new Error('Failed to fetch data. URL: ' + res.config.url)
     }
-    // setPagination(prevState => ({...prevState, totalPages: parseInt(res.headers["X-Total-Page-Count"])}))
+    setPagination(prevState => ({...prevState, totalPages: parseInt(res.headers["x-total-page-count"])}))
     return res.data;
 }

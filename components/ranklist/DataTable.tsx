@@ -168,6 +168,7 @@ export function DataTable(
             <div className="flex items-center justify-end space-x-2 py-4">
                 <Pagination
                     count={pagination.totalPages}
+                    defaultValue={1}
                     page={pagination.pageIndex}
                     onChange={(e, v) =>
                         setPagination(prevState =>

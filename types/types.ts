@@ -5,7 +5,8 @@ export interface CustomSelectProps {
     values: RanklistQueryFields[],
     valueState: string,
     setValueState: Dispatch<SetStateAction<RanklistSelectDataFields>>,
-    disabled?: boolean
+    disabled?: boolean,
+    is_mobile: boolean
 }
 
 export interface RanklistSelectDataFields {

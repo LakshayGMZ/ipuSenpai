@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import {FC, ReactNode, useState} from "react"
+import {FC, ReactNode} from "react"
 import * as SelectPrimitive from "@radix-ui/react-select"
 import {SelectProps} from "@radix-ui/react-select"
 import {Check, ChevronDown, ChevronUp} from "lucide-react"
@@ -156,23 +156,40 @@ export function PreBuiltSelect(
         values,
         valueState,
         setValueState,
-        disabled = true
+        disabled = true,
+        is_mobile = false
     }: CustomSelectProps) {
-    const [open, setOpen] = useState(false);
-    const [isClicked, setIsClicked] = useState(false);
-    const [isDoneSelection, setIsDoneSelection] = React.useState(false);
 
-    // useEffect(() => {
-    //     if (isDoneSelection && isClicked) {
-    //         setOpen(false);
-    //     }
-    // }, [isClicked, isDoneSelection]);
 
-    const handleSelect = () => {
-        if (!disabled) {
-            setIsDoneSelection(true);
-        }
-    };
+    if (is_mobile)
+        return (
+            <>
+                {/*<label className="block text-sm font-medium text-gray-700">Select Programme</label>*/}
+                <select
+                    className="flex h-10 w-full items-center justify-between border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 rounded-2xl"
+                    disabled={disabled}
+                    value={valueState}
+                    onChange={(e) =>
+                        setValueState(prev =>
+                            ({...prev, [name]: e.target.value}))}
+                >
+                    <option value="">Select {name}</option>
+                    {
+                        values.map(
+                            (val, idx: number) =>
+                                <option
+                                    key={idx + 1}
+                                    value={val.value !== undefined ? val.value! : val.name}
+                                    // onClick={() => setIsClicked(true)}
+                                    // onPointerUp={handleSelect}
+                                >
+                                    {val.name}
+                                </option>
+                        )}
+                </select>
+            </>
+        )
+
 
     return (
         <>
@@ -187,7 +204,7 @@ export function PreBuiltSelect(
                     }
                 }}
             >
-                <SelectTrigger className={"rounded-2xl"} onClick={() => setOpen(prevState => !prevState)}>
+                <SelectTrigger className={"rounded-2xl"}>
                     <SelectValue placeholder={"Select " + name}/>
                 </SelectTrigger>
                 <SelectContent position="popper">

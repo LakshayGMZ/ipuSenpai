@@ -11,12 +11,13 @@ import {
     getSpecs
 } from "@/app/lib/ranklist";
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {PreBuiltSelect} from "@/components/ui/select";
 import {RanklistQueryFields, RanklistSelectDataFields as DataFields, StudentResults,} from "@/types/types";
 import {Button} from "@/components/ui/button";
 import {DataTable} from "@/components/ranklist/DataTable";
 import {columnsOverall, columnsSem} from "@/app/lib/data";
+import {isMobile} from "@/app/lib/actions";
 
 
 export default function Programmes() {
@@ -40,6 +41,14 @@ export default function Programmes() {
         pageSize: 60,
         totalPages: 5
     });
+    const is_mobile = useRef<boolean>(false);
+
+    useEffect(() => {
+        isMobile()
+            .then(value => {
+                is_mobile.current = value;
+            })
+    }, []);
 
     useEffect(() => {
         const fetchProgrammes = async () =>
@@ -82,7 +91,8 @@ export default function Programmes() {
 
     useEffect(() => {
         if (Object.values(selectedData).every(i => i !== "")) handleResultFetch();
-    }, [pagination.pageIndex, pagination.pageSize]);
+        if (pagination.pageIndex > pagination.totalPages!) setPagination(prevState => ({...prevState, pageIndex: 1}))
+    }, [pagination.pageIndex, pagination.pageSize, pagination.totalPages]);
 
 
     return (
@@ -97,6 +107,7 @@ export default function Programmes() {
                             valueState={selectedData.programme}
                             setValueState={setSelectedData}
                             disabled={false}
+                            is_mobile={is_mobile.current}
                         />
                         <PreBuiltSelect
                             name={"institute"}
@@ -104,6 +115,7 @@ export default function Programmes() {
                             valueState={selectedData.institute}
                             setValueState={setSelectedData}
                             disabled={institutes.length === 0}
+                            is_mobile={is_mobile.current}
                         />
                         <PreBuiltSelect
                             name={"specialization"}
@@ -111,6 +123,7 @@ export default function Programmes() {
                             valueState={selectedData.specialization}
                             setValueState={setSelectedData}
                             disabled={specializations.length === 0}
+                            is_mobile={is_mobile.current}
                         />
                         <PreBuiltSelect
                             name={"shift"}
@@ -118,6 +131,7 @@ export default function Programmes() {
                             valueState={selectedData.shift}
                             setValueState={setSelectedData}
                             disabled={shifts.length === 0}
+                            is_mobile={is_mobile.current}
                         />
                         <PreBuiltSelect
                             name={"batch"}
@@ -125,6 +139,7 @@ export default function Programmes() {
                             valueState={selectedData.batch}
                             setValueState={setSelectedData}
                             disabled={batches.length === 0}
+                            is_mobile={is_mobile.current}
                         />
                         <PreBuiltSelect
                             name={"semester"}
@@ -132,6 +147,8 @@ export default function Programmes() {
                             valueState={selectedData.semester}
                             setValueState={setSelectedData}
                             disabled={semesters.length === 0}
+                            is_mobile={is_mobile.current}
+
                         />
                         <Button
                             className="md:col-start-2 lg:col-start-3 rounded-2xl"
