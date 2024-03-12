@@ -54,8 +54,8 @@ export async function getBatches(progname: string, institute: string): Promise<R
     return res.data;
 }
 
-export async function getSemesters(progname: string, institute: string): Promise<RanklistQueryFields[]> {
-    const res = await axios.get<RanklistQueryFields[]>(`/semesters/programme=${encodeURI(progname)}&institute=${encodeURI(institute)}`);
+export async function getSemesters(progname: string, institute: string, batch: string): Promise<RanklistQueryFields[]> {
+    const res = await axios.get<RanklistQueryFields[]>(`/semesters/programme=${encodeURI(progname)}&institute=${encodeURI(institute)}&batch=${encodeURI(batch)}`);
 
     if (res.status !== 200) {
         throw new Error('Failed to fetch data. URL: ' + res.config.url)

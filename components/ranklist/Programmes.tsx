@@ -57,7 +57,6 @@ export default function Programmes() {
         const fetchSpecs = async () => {
             setSpecializations(await getSpecs(selectedData.programme, selectedData.institute));
             setBatches(await getBatches(selectedData.programme, selectedData.institute));
-            setSemesters(await getSemesters(selectedData.programme, selectedData.institute));
         }
         if (selectedData.programme !== "" && selectedData.institute !== "") fetchSpecs();
     }, [selectedData.programme, selectedData.institute]);
@@ -73,6 +72,13 @@ export default function Programmes() {
         if (selectedData.semester === "0") setResultData(await getResultOverall(selectedData, setPagination, pagination.pageIndex-1, pagination.pageSize));
         else setResultData(await getResultSem(selectedData, setPagination, pagination.pageIndex-1, pagination.pageSize));
     }
+
+    useEffect(() => {
+        const fetchSemester = async () =>
+            setSemesters(await getSemesters(selectedData.programme, selectedData.institute, selectedData.batch));
+        if (selectedData.programme !== "" && selectedData.institute !== "" && selectedData.batch !== "")
+            fetchSemester();
+    }, [selectedData.institute, selectedData.programme, selectedData.batch]);
 
     useEffect(() => {
         if (Object.values(selectedData).every(i => i !== "")) handleResultFetch();
