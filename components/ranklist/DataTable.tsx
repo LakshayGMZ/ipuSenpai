@@ -26,14 +26,7 @@ import {
 import {Input} from "@/components/ui/input"
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
 import {StudentResults} from "@/types/types";
-import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationNext,
-    PaginationPrevious
-} from "@/components/ui/pagination";
+import {Pagination} from "@mui/material";
 
 
 export function DataTable(
@@ -45,8 +38,8 @@ export function DataTable(
     }: {
         data: StudentResults[]
         columns: ColumnDef<StudentResults>[],
-        pagination: { pageSize: number, pageIndex: number },
-        setPagination: Dispatch<SetStateAction<{ pageIndex: number, pageSize: number }>>,
+        pagination: { pageSize: number, pageIndex: number, totalPages?: number },
+        setPagination: Dispatch<SetStateAction<{ pageIndex: number, pageSize: number; totalPages?: number; }>>,
     }
 ) {
     const [sorting, setSorting] = React.useState<SortingState>([])
@@ -173,28 +166,14 @@ export function DataTable(
                 </Table>
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
-
-                <Pagination>
-                    <PaginationContent>
-                        <PaginationItem>
-                            <PaginationPrevious onClick={() => setPagination(prevState => ({
-                                ...prevState,
-                                pageIndex: prevState.pageIndex - 1
-                            }))}/>
-                        </PaginationItem>
-                        <PaginationItem>{pagination.pageIndex}</PaginationItem>
-                        <PaginationItem>
-                            <PaginationEllipsis/>
-                        </PaginationItem>
-                        <PaginationItem >
-                            <PaginationNext
-                                onClick={() => setPagination(prevState => ({
-                                ...prevState,
-                                pageIndex: prevState.pageIndex + 1
-                            }))}/>
-                        </PaginationItem>
-                    </PaginationContent>
-                </Pagination>
+                <Pagination
+                    count={pagination.totalPages}
+                    page={pagination.pageIndex}
+                    onChange={(e, v) =>
+                        setPagination(prevState =>
+                            ({...prevState, pageIndex: v}))}
+                    showFirstButton
+                    showLastButton />
             </div>
         </div>
     )

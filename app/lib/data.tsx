@@ -203,6 +203,6 @@ export const columnsSem: ColumnDef<StudentResults>[] = [
                 </Button>
             )
         },
-        cell: ({row}) => <div className="lowercase">1</div>,
+        cell: ({row}) => <div className="lowercase">{row.original.rank}</div>,
     }
 ]

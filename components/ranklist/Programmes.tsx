@@ -35,9 +35,10 @@ export default function Programmes() {
     const [batches, setBatches] = useState<RanklistQueryFields[]>([]);
     const [semesters, setSemesters] = useState<RanklistQueryFields[]>([]);
     const [resultData, setResultData] = useState<StudentResults[]>([]);
-    const [pagination, setPagination] = useState({
-        pageIndex: 0,
+    const [pagination, setPagination] = useState<{totalPages?: number, pageIndex: number, pageSize: number}>({
+        pageIndex: 1,
         pageSize: 60,
+        totalPages: 5
     });
 
     useEffect(() => {
@@ -69,8 +70,8 @@ export default function Programmes() {
 
     const handleResultFetch = async () => {
         // e.preventDefault();
-        if (selectedData.semester === "0") setResultData(await getResultOverall(selectedData, pagination.pageIndex, pagination.pageSize));
-        else setResultData(await getResultSem(selectedData, pagination.pageIndex, pagination.pageSize));
+        if (selectedData.semester === "0") setResultData(await getResultOverall(selectedData, setPagination, pagination.pageIndex-1, pagination.pageSize));
+        else setResultData(await getResultSem(selectedData, setPagination, pagination.pageIndex-1, pagination.pageSize));
     }
 
     useEffect(() => {
