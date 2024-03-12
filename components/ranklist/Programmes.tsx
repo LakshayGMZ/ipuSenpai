@@ -151,7 +151,7 @@ export default function Programmes() {
 
                         />
                         <Button
-                            className="md:col-start-2 lg:col-start-3 rounded-2xl"
+                            className="md:col-start-2 lg:col-start-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                             variant={"outline"}
                             disabled={Object.values(selectedData).some(i => i === "")}
                             onClick={(e) => {e.preventDefault();handleResultFetch();}}
