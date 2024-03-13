@@ -5,9 +5,10 @@ import React from "react";
 import {FloatingNav} from "@/components/ui/navbar/FloatingNavbar";
 import {SpeedInsights} from "@vercel/speed-insights/next"
 import {cn} from "@/lib/utils";
-import {ThemeProvider} from "@/components/ThemeProvider";
 import axios from "axios";
 import {LoaderProvider} from "@/app/lib/LoaderContext";
+import {MUIThemeProvider} from "@/app/lib/MUIThemeProvider";
+import {ThemeProvider} from "@/app/lib/ThemeProvider";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -48,7 +49,7 @@ export default function RootLayout(
     axios.defaults.baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
         <body className={cn(inter.className, "flex flex-col")}>
         <LoaderProvider>
             <ThemeProvider
@@ -56,13 +57,15 @@ export default function RootLayout(
                 // enableSystem
                 disableTransitionOnChange
             >
+                <MUIThemeProvider>
 
+                    <FloatingNav navItems={navItems}/>
+                    {children}
+                    <SpeedInsights/>
 
-                <FloatingNav navItems={navItems}/>
-                {children}
-                <SpeedInsights/>
-
+                </MUIThemeProvider>
             </ThemeProvider>
+
         </LoaderProvider>
         </body>
         </html>

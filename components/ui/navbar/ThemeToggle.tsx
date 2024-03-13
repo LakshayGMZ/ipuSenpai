@@ -6,17 +6,16 @@ import {Moon, Sun} from "lucide-react"
 import {useTheme} from "next-themes"
 
 import {Button} from "@/components/ui/button"
+import {useMuiTheme} from "@/app/lib/MUIThemeProvider";
 
 export function ThemeToggle() {
     const {setTheme, theme} = useTheme()
     const [themeModeDark, setThemeModeDark] = useState(theme === "dark");
-
-    // useEffect(() => {
-    //     setThemeModeDark(localStorage.getItem("theme") === "dark")
-    // }, []);
+    const setMuiTheme = useMuiTheme();
 
     useEffect(() => {
         setTheme(themeModeDark ? "dark" : "light");
+        setMuiTheme(themeModeDark ? "dark" : "light");
     }, [setTheme, themeModeDark]);
 
     return (
