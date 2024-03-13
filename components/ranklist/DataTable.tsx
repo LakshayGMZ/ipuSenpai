@@ -34,12 +34,14 @@ export function DataTable(
         data,
         columns,
         pagination,
-        setPagination
+        setPagination,
+        setSelectStudent
     }: {
         data: StudentResults[]
         columns: ColumnDef<StudentResults>[],
         pagination: { pageSize: number, pageIndex: number, totalPages?: number },
         setPagination: Dispatch<SetStateAction<{ pageIndex: number, pageSize: number; totalPages?: number; }>>,
+        setSelectStudent: Dispatch<SetStateAction<{ open: boolean; data: StudentResults; }>>
     }
 ) {
     const [sorting, setSorting] = React.useState<SortingState>([])
@@ -140,6 +142,7 @@ export function DataTable(
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
                                     key={row.id}
+                                    onClick={() => setSelectStudent({open: true, data: row.original})}
                                     data-state={row.getIsSelected() && "selected"}
                                 >
                                     {row.getVisibleCells().map((cell) => (

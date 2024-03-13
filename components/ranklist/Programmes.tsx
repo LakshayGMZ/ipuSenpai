@@ -19,6 +19,7 @@ import {columnsOverall, columnsSem} from "@/app/lib/data";
 import {isMobile} from "@/app/lib/actions";
 import {useLoader} from "@/app/lib/LoaderContext";
 import {MultiStepLoader} from "@/components/ui/Loader";
+import {StudentDataDialog} from "@/components/ranklist/StudentDataDialog";
 
 
 export default function Programmes() {
@@ -38,7 +39,29 @@ export default function Programmes() {
     const [batches, setBatches] = useState<RanklistQueryFields[]>([]);
     const [semesters, setSemesters] = useState<RanklistQueryFields[]>([]);
     const [resultData, setResultData] = useState<StudentResults[]>([]);
-    const [pagination, setPagination] = useState<{totalPages?: number, pageIndex: number, pageSize: number}>({
+    const [selectStudent, setSelectStudent] = useState<{ open: boolean; data: StudentResults; }>({
+        open: false,
+        data: {
+            cgpa: 0,
+            creditMarks: 0,
+            creditsPercentage: 0,
+            enrollment: "",
+            marks: 0,
+            marksPerSemester: [],
+            name: "",
+            percentage: 0,
+            rank: 0,
+            semesters: 0,
+            sgpa: 0,
+            sgpaAllSem: [],
+            subject: [],
+            total: 0,
+            totalCreditMarks: 0,
+            totalCreditMarksWeighted: 0,
+            totalCredits: 0
+        }
+    });
+    const [pagination, setPagination] = useState<{ totalPages?: number, pageIndex: number, pageSize: number }>({
         pageIndex: 1,
         pageSize: 60,
         totalPages: 5
@@ -79,7 +102,7 @@ export default function Programmes() {
     }, [selectedData.institute]);
 
     const handleResultFetch = async () => {
-        const resData = await getResult(selectedData, setPagination, pagination.pageIndex-1, pagination.pageSize);
+        const resData = await getResult(selectedData, setPagination, pagination.pageIndex - 1, pagination.pageSize);
         if (resData.length > 0) {
             loader.inactiveLoader();
         }
@@ -97,8 +120,7 @@ export default function Programmes() {
     useEffect(() => {
         if (pagination.pageIndex > pagination.totalPages!) {
             setPagination(prevState => ({...prevState, pageIndex: 1}));
-        }
-        else if (Object.values(selectedData).every(i => i !== "")) {
+        } else if (Object.values(selectedData).every(i => i !== "")) {
             loader.activeLoader();
             (async () => await handleResultFetch())();
         }
@@ -174,12 +196,14 @@ export default function Programmes() {
                 </div>
             </form>
 
+            <StudentDataDialog studentData={selectStudent} setStudentData={setSelectStudent}/>
 
             {resultData.length > 0 && <DataTable
                 columns={resultData[0].sgpa !== undefined ? columnsSem : columnsOverall}
                 pagination={pagination}
                 setPagination={setPagination}
                 data={resultData}
+                setSelectStudent={setSelectStudent}
             />}
             <MultiStepLoader/>
 
