@@ -63,8 +63,22 @@ export async function getSemesters(progname: string, institute: string, batch: s
     return [{name: "Overall", value: "0"}, ...res.data];
 }
 
-export async function getResultOverall(data: RanklistSelectDataFields, setPagination: Dispatch<SetStateAction<{ pageIndex: number; pageSize: number; totalPages?: number; }>>, page: number = 0, pageSize: number = 50): Promise<StudentResults[]> {
-    const res = await axios.get<StudentResults[]>(`/rank/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&pageNumber=${page}&pageSize=${pageSize}`);
+export async function getResult(
+    data: RanklistSelectDataFields,
+    setPagination: Dispatch<SetStateAction<{
+        pageIndex: number;
+        pageSize: number;
+        totalPages?: number;
+    }>>,
+    page: number = 0,
+    pageSize: number = 50,
+): Promise<StudentResults[]> {
+
+    const url = data.semester !== "0" ?
+        `/rank/semester/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&sem=${data.semester}&pageNumber=${page}&pageSize=${pageSize}` :
+        `/rank/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&pageNumber=${page}&pageSize=${pageSize}`
+
+    const res = await axios.get<StudentResults[]>(url);
     console.log(res.headers)
     if (res.status !== 200) {
         throw new Error('Failed to fetch data. URL: ' + res.config.url)
@@ -74,13 +88,3 @@ export async function getResultOverall(data: RanklistSelectDataFields, setPagina
     return res.data;
 }
 
-
-export async function getResultSem(data: RanklistSelectDataFields, setPagination: Dispatch<SetStateAction<{ pageIndex: number; pageSize: number; totalPages?: number; }>>, page: number = 0, pageSize: number = 50): Promise<StudentResults[]> {
-    const res = await axios.get<StudentResults[]>(`/rank/semester/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&sem=${data.semester}&pageNumber=${page}&pageSize=${pageSize}`);
-
-    if (res.status !== 200) {
-        throw new Error('Failed to fetch data. URL: ' + res.config.url)
-    }
-    setPagination(prevState => ({...prevState, totalPages: parseInt(res.headers["x-total-page-count"])}))
-    return res.data;
-}

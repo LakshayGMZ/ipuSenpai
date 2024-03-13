@@ -4,8 +4,7 @@ import {
     getBatches,
     getInstitutes,
     getProgrammes,
-    getResultOverall,
-    getResultSem,
+    getResult,
     getSemesters,
     getShifts,
     getSpecs
@@ -18,6 +17,8 @@ import {Button} from "@/components/ui/button";
 import {DataTable} from "@/components/ranklist/DataTable";
 import {columnsOverall, columnsSem} from "@/app/lib/data";
 import {isMobile} from "@/app/lib/actions";
+import {useLoader} from "@/app/lib/LoaderContext";
+import {MultiStepLoader} from "@/components/ui/Loader";
 
 
 export default function Programmes() {
@@ -29,6 +30,7 @@ export default function Programmes() {
         batch: "",
         semester: "",
     })
+    const loader = useLoader();
     const [programmes, setProgrammes] = useState<RanklistQueryFields[]>([]);
     const [institutes, setInstitutes] = useState<RanklistQueryFields[]>([]);
     const [specializations, setSpecializations] = useState<RanklistQueryFields[]>([]);
@@ -48,7 +50,7 @@ export default function Programmes() {
             .then(value => {
                 is_mobile.current = value;
             })
-    }, [isMobile]);
+    }, []);
 
     useEffect(() => {
         const fetchProgrammes = async () =>
@@ -77,9 +79,12 @@ export default function Programmes() {
     }, [selectedData.institute]);
 
     const handleResultFetch = async () => {
-        // e.preventDefault();
-        if (selectedData.semester === "0") setResultData(await getResultOverall(selectedData, setPagination, pagination.pageIndex-1, pagination.pageSize));
-        else setResultData(await getResultSem(selectedData, setPagination, pagination.pageIndex-1, pagination.pageSize));
+        const resData = await getResult(selectedData, setPagination, pagination.pageIndex-1, pagination.pageSize);
+        if (resData.length > 0) {
+            loader.inactiveLoader();
+        }
+
+        setResultData(resData);
     }
 
     useEffect(() => {
@@ -90,9 +95,14 @@ export default function Programmes() {
     }, [selectedData.institute, selectedData.programme, selectedData.batch]);
 
     useEffect(() => {
-        if (Object.values(selectedData).every(i => i !== "")) handleResultFetch();
-        if (pagination.pageIndex > pagination.totalPages!) setPagination(prevState => ({...prevState, pageIndex: 1}))
-    }, [pagination.pageIndex, pagination.pageSize, pagination.totalPages]);
+        if (pagination.pageIndex > pagination.totalPages!) {
+            setPagination(prevState => ({...prevState, pageIndex: 1}));
+        }
+        else if (Object.values(selectedData).every(i => i !== "")) {
+            loader.activeLoader();
+            (async () => await handleResultFetch())();
+        }
+    }, [pagination.pageIndex, pagination.pageSize]);
 
 
     return (
@@ -154,7 +164,11 @@ export default function Programmes() {
                             className="md:col-start-2 lg:col-start-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                             variant={"outline"}
                             disabled={Object.values(selectedData).some(i => i === "")}
-                            onClick={(e) => {e.preventDefault();handleResultFetch();}}
+                            onClick={async (e) => {
+                                e.preventDefault();
+                                loader.activeLoader();
+                                await handleResultFetch();
+                            }}
                         >Search</Button>
                     </div>
                 </div>
@@ -167,6 +181,8 @@ export default function Programmes() {
                 setPagination={setPagination}
                 data={resultData}
             />}
+            <MultiStepLoader/>
+
 
         </>
     )

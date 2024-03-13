@@ -80,3 +80,11 @@ interface StudentDataOverallSem extends BasicStudentData {
 }
 
 export interface StudentResults extends StudentDataOverallSem, StudentDataPerSem {}
+
+export type LoadingState = {
+    text: string;
+};
+export type LoaderContextType = {
+    loading: boolean;
+    steps: LoadingState[];
+}

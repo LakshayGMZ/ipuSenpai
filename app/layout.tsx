@@ -7,6 +7,7 @@ import {SpeedInsights} from "@vercel/speed-insights/next"
 import {cn} from "@/lib/utils";
 import {ThemeProvider} from "@/components/ThemeProvider";
 import axios from "axios";
+import {LoaderProvider} from "@/app/lib/LoaderContext";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -49,15 +50,20 @@ export default function RootLayout(
     return (
         <html lang="en">
         <body className={cn(inter.className, "flex flex-col")}>
-        <ThemeProvider
-            attribute="class"
-            // enableSystem
-            disableTransitionOnChange
-        >
-            <FloatingNav navItems={navItems}/>
-            {children}
-            <SpeedInsights/>
-        </ThemeProvider>
+        <LoaderProvider>
+            <ThemeProvider
+                attribute="class"
+                // enableSystem
+                disableTransitionOnChange
+            >
+
+
+                <FloatingNav navItems={navItems}/>
+                {children}
+                <SpeedInsights/>
+
+            </ThemeProvider>
+        </LoaderProvider>
         </body>
         </html>
     );
