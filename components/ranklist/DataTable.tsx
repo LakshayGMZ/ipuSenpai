@@ -86,11 +86,11 @@ export function DataTable(
                     onChange={(event) =>
                         table.getColumn("name")?.setFilterValue(event.target.value)
                     }
-                    className="max-w-sm"
+                    className="max-w-sm rounded-2xl"
                 />
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto">
+                        <Button variant="outline" className="ml-auto rounded-2xl">
                             Columns <ChevronDown className="ml-2 h-4 w-4"/>
                         </Button>
                     </DropdownMenuTrigger>
@@ -115,7 +115,7 @@ export function DataTable(
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-            <div className="rounded-md border">
+            <div className="rounded-2xl border">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
