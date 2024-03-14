@@ -40,9 +40,9 @@ export function StudentDataDialog(
                             {/*<p className="font-semibold">*/}
                             {/*    CGPA: <span className="font-normal">9.184</span>*/}
                             {/*</p>*/}
-                            <p className="font-semibold">
-                                Credits Obtained: <span className="font-normal">{studentData.data.totalCreditMarksWeighted} / {studentData.data.totalCredits}</span>
-                            </p>
+                            {/*<p className="font-semibold">*/}
+                            {/*    Credits Obtained: <span className="font-normal">{studentData.data.totalCreditMarksWeighted} / {studentData.data.totalCredits}</span>*/}
+                            {/*</p>*/}
                         </div>
                         <div>
                             <p className="font-semibold">
