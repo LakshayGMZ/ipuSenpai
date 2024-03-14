@@ -79,7 +79,6 @@ export async function getResult(
         `/rank/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&pageNumber=${page}&pageSize=${pageSize}/${data.shift !== "all" && encodeURI(data.institute)}`
 
     const res = await axios.get<StudentResults[]>(url);
-    console.log(res.headers)
     if (res.status !== 200) {
         throw new Error('Failed to fetch data. URL: ' + res.config.url)
     }
