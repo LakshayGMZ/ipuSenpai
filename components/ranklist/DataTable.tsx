@@ -133,7 +133,7 @@ export function DataTable(
                 </div>
 
             </div>
-            <div className="rounded-2xl border">
+            <div className="rounded-2xl border relative w-full overflow-auto">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (

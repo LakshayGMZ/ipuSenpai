@@ -113,38 +113,41 @@ export function StudentDataDialog(
                             <Button variant="outline">Show credit marks and credit percentage</Button>
                             <Switch id="toggle-details"/>
                         </div>
-                        <Table className={""}>
-                            <TableHeader style={{backgroundColor: "hsl(var(--background))"}} className={"sticky top-0"}>
-                                <TableRow>
-                                    {studentData.data.sgpa == undefined ? <TableHeadForOverall/> : <TableHeadForSem/>}
-                                </TableRow>
-                            </TableHeader>
+                        <div className="relative w-screen md:w-full max-h-[50vh] overflow-auto">
+                            <Table className={"w-max"}>
+                                <TableHeader style={{backgroundColor: "hsl(var(--background))"}} className={"sticky top-0"}>
+                                    <TableRow>
+                                        {studentData.data.sgpa == undefined ? <TableHeadForOverall/> : <TableHeadForSem/>}
+                                    </TableRow>
+                                </TableHeader>
 
-                            <TableBody>
-                                {studentData.data.sgpa == undefined ?
-                                    studentData.data.marksPerSemester?.sort((i, j) => i.semester - j.semester)?.map(
-                                        (semester: SemesterData, idx: number) =>
-                                            <TableRow key={idx + 1}>
-                                                <TableCell>{semester.semester}</TableCell>
-                                                <TableCell>{semester.marks}/{semester.total}</TableCell>
-                                                <TableCell>{semester.percentage}</TableCell>
-                                                <TableCell>{Number(semester.sgpa).toFixed(3)}</TableCell>
-                                            </TableRow>
-                                    )
-                                    :
-                                    studentData.data.subject?.map(
-                                        (subject: SubjectData, idx: number) =>
-                                            <TableRow key={idx + 1}>
-                                                <TableCell>{subject.paperid}</TableCell>
-                                                <TableCell>{subject.subname} ({subject.credits})</TableCell>
-                                                <TableCell>{subject.internal} | {subject.external}</TableCell>
-                                                <TableCell>{subject.total}</TableCell>
-                                            </TableRow>
-                                    )
-                                }
+                                <TableBody>
+                                    {studentData.data.sgpa == undefined ?
+                                        studentData.data.marksPerSemester?.sort((i, j) => i.semester - j.semester)?.map(
+                                            (semester: SemesterData, idx: number) =>
+                                                <TableRow key={idx + 1}>
+                                                    <TableCell>{semester.semester}</TableCell>
+                                                    <TableCell>{semester.marks}/{semester.total}</TableCell>
+                                                    <TableCell>{Number(semester.percentage).toFixed(2)}%</TableCell>
+                                                    <TableCell>{Number(semester.sgpa).toFixed(3)}</TableCell>
+                                                </TableRow>
+                                        )
+                                        :
+                                        studentData.data.subject?.map(
+                                            (subject: SubjectData, idx: number) =>
+                                                <TableRow key={idx + 1}>
+                                                    <TableCell>{subject.paperid}</TableCell>
+                                                    <TableCell>{subject.subname} ({subject.credits})</TableCell>
+                                                    <TableCell>{subject.internal} | {subject.external}</TableCell>
+                                                    <TableCell>{subject.total}</TableCell>
+                                                </TableRow>
+                                        )
+                                    }
 
-                            </TableBody>
-                        </Table>
+                                </TableBody>
+                            </Table>
+                        </div>
+
                     </div>
                 </div>
             </DrawerContent>
