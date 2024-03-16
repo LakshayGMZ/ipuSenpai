@@ -67,15 +67,18 @@ export function StudentDataDialog(
             <DrawerContent>
                 <div className="max-w-4xl mx-auto p-6 shadow rounded">
                     <div className="flex flex-col space-y-4 relative">
+                        <div className="flex items-center justify-center space-x-4">
+                            <h1 className="text-2xl font-semibold text-center">{studentData.data.name}</h1>
+                        </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <p className="font-semibold">
                                     Enrollment Number: <span
                                     className="font-normal">{studentData.data.enrollment}</span>
                                 </p>
-                                <p className="font-semibold">
+                                {/* <p className="font-semibold">
                                     Name: <span className="font-normal">{studentData.data.name}</span>
-                                </p>
+                                </p> */}
                                 <p className="font-semibold">
                                     Marks: <span
                                     className="font-normal">{studentData.data.marks} / {studentData.data.total}</span>
