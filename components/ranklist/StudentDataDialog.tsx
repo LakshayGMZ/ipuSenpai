@@ -115,7 +115,7 @@ export function StudentDataDialog(
                         </div>
                         <Table className={"block h-[50vh]"}>
 
-                            <TableHeader className={"sticky top-0 bg-white"}>
+                            <TableHeader style={{backgroundColor: "hsl(var(--background))"}} className={"sticky top-0"}>
                                 <TableRow>
                                     {studentData.data.sgpa == undefined ? <TableHeadForOverall/> : <TableHeadForSem/>}
                                 </TableRow>
