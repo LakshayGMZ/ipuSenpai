@@ -1,9 +1,12 @@
+"use client"
+
 import {Switch} from "@mui/material";
 import {StudentResults} from "@/types/types";
-import React from "react";
+import React, {useEffect} from "react";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {Button} from "@/components/ui/button";
 import {Drawer, DrawerContent} from "@/components/ui/drawer";
+import {useRouter} from "next/navigation";
 
 export function StudentDataDialog(
     {
@@ -15,12 +18,30 @@ export function StudentDataDialog(
     }
 ) {
 
+    const router = useRouter();
+    const handlePopState = () => {
+        // e.preventDefault();
+        if (document.documentURI.endsWith("/ranklist")) handleDrawerClose(false);
+    }
+
+    const handleDrawerClose = (open: boolean) => {
+        setStudentData(prevState =>
+            ({...prevState, open: open}));
+    }
+
+    useEffect(() => {
+        if (studentData.open && studentData.data.enrollment !== "") router.push("#drawer");
+    }, [studentData.open]);
+
+    useEffect(() => {
+        window.addEventListener("popstate", handlePopState);
+        return () => window.removeEventListener("popstate", handlePopState);
+    });
 
     return (
         <Drawer
             open={studentData.open}
-            onOpenChange={(open)=> setStudentData(prevState =>
-                ({...prevState, open: open}))}
+            onOpenChange={handleDrawerClose}
         >
             <DrawerContent>
                 <div className="max-w-4xl mx-auto p-6 shadow rounded">
