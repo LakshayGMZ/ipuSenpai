@@ -114,7 +114,7 @@ export function StudentDataDialog(
                             <Switch id="toggle-details"/>
                         </div>
                         <div className="relative w-screen md:w-full max-h-[50vh] overflow-auto">
-                            <Table className={"w-max"}>
+                            <Table className={"min-w-max"}>
                                 <TableHeader style={{backgroundColor: "hsl(var(--background))"}} className={"sticky top-0"}>
                                     <TableRow>
                                         {studentData.data.sgpa == undefined ? <TableHeadForOverall/> : <TableHeadForSem/>}
