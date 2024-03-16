@@ -114,7 +114,6 @@ export function StudentDataDialog(
                             <Switch id="toggle-details"/>
                         </div>
                         <Table className={""}>
-
                             <TableHeader style={{backgroundColor: "hsl(var(--background))"}} className={"sticky top-0"}>
                                 <TableRow>
                                     {studentData.data.sgpa == undefined ? <TableHeadForOverall/> : <TableHeadForSem/>}
@@ -128,8 +127,8 @@ export function StudentDataDialog(
                                             <TableRow key={idx + 1}>
                                                 <TableCell>{semester.semester}</TableCell>
                                                 <TableCell>{semester.marks}/{semester.total}</TableCell>
-                                                <TableCell>{(semester.marks/semester.total*100).toFixed(2)}%</TableCell>
-                                                <TableCell>{semester.sgpa}</TableCell>
+                                                <TableCell>{semester.percentage}</TableCell>
+                                                <TableCell>{Number(semester.sgpa).toFixed(2)}</TableCell>
                                             </TableRow>
                                     )
                                     :

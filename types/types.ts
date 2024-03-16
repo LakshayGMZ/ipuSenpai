@@ -27,7 +27,8 @@ export interface SemesterData {
     semester: number;
     marks: number;
     total: number;
-    sgpa: number;
+    sgpa: string;
+    percentage: string;
     creditmarks: number;
     totalcreditmarks: number;
     totalcredits: number;
