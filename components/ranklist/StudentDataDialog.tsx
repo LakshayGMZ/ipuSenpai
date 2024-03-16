@@ -113,7 +113,7 @@ export function StudentDataDialog(
                             <Button variant="outline">Show credit marks and credit percentage</Button>
                             <Switch id="toggle-details"/>
                         </div>
-                        <Table className={"h-[50vh]"}>
+                        <Table className={""}>
 
                             <TableHeader style={{backgroundColor: "hsl(var(--background))"}} className={"sticky top-0"}>
                                 <TableRow>
