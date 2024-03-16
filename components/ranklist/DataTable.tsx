@@ -81,7 +81,7 @@ export function DataTable(
 
     return (
         <div className="text-center lg:px-10">
-            <div className="flex items-center py-4">
+            <div className="flex items-center py-4 justify-between">
                 <Input
                     placeholder="Search by name"
                     value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -90,9 +90,19 @@ export function DataTable(
                     }
                     className="max-w-sm rounded-2xl"
                 />
+                {pagination.totalPages! >= 2 && <Pagination
+                    count={pagination.totalPages}
+                    defaultValue={1}
+                    page={pagination.pageIndex}
+                    onChange={(e, v) =>
+                        setPagination(prevState =>
+                            ({...prevState, pageIndex: v}))}
+                    showFirstButton
+                    showLastButton/>
+                }
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto rounded-2xl">
+                        <Button variant="outline" className=" rounded-2xl">
                             Columns <ChevronDown className="ml-2 h-4 w-4"/>
                         </Button>
                     </DropdownMenuTrigger>
@@ -167,17 +177,6 @@ export function DataTable(
                         )}
                     </TableBody>
                 </Table>
-            </div>
-            <div className="flex items-center justify-end space-x-2 py-4">
-                <Pagination
-                    count={pagination.totalPages}
-                    defaultValue={1}
-                    page={pagination.pageIndex}
-                    onChange={(e, v) =>
-                        setPagination(prevState =>
-                            ({...prevState, pageIndex: v}))}
-                    showFirstButton
-                    showLastButton />
             </div>
         </div>
     )
