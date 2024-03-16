@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import {FC, ReactNode} from "react"
+import {FC, ReactNode, useEffect} from "react"
 import * as SelectPrimitive from "@radix-ui/react-select"
 import {SelectProps} from "@radix-ui/react-select"
 import {Check, ChevronDown, ChevronUp} from "lucide-react"
@@ -159,6 +159,12 @@ export function PreBuiltSelect(
         disabled = true,
         is_mobile = false
     }: CustomSelectProps) {
+
+    useEffect(() => {
+        if (!values.map(i => i.value).includes(valueState))
+            setValueState(prev =>
+                ({...prev, [name]: ""}))
+    }, [values]);
 
 
     if (is_mobile)
