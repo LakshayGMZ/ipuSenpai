@@ -39,7 +39,7 @@ interface SemesterData {
     totalcreditmarksweighted: number;
 }
 
-interface SubjectData {
+export interface SubjectData {
     subcode: string;
     subname: string;
     credits: string;
