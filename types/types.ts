@@ -23,16 +23,11 @@ export interface RanklistQueryFields {
     value?: string;
 }
 
-
-interface SGPADataOverallSem {
-    semester: string;
-    sgpa: string;
-}
-
-interface SemesterData {
+export interface SemesterData {
     semester: number;
     marks: number;
     total: number;
+    sgpa: number;
     creditmarks: number;
     totalcreditmarks: number;
     totalcredits: number;
@@ -73,7 +68,6 @@ interface StudentDataPerSem extends BasicStudentData {
 
 
 interface StudentDataOverallSem extends BasicStudentData {
-    sgpaAllSem?: SGPADataOverallSem[];
     cgpa?: number;
     semesters?: number;
     marksPerSemester?: SemesterData[];

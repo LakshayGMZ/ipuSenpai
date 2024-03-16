@@ -1,7 +1,7 @@
 "use client"
 
 import {Switch} from "@mui/material";
-import {StudentResults, SubjectData} from "@/types/types";
+import {SemesterData, StudentResults, SubjectData} from "@/types/types";
 import React, {useEffect} from "react";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {Button} from "@/components/ui/button";
@@ -113,7 +113,7 @@ export function StudentDataDialog(
                             <Button variant="outline">Show credit marks and credit percentage</Button>
                             <Switch id="toggle-details"/>
                         </div>
-                        <Table className={"block h-[50vh]"}>
+                        <Table className={"h-[50vh]"}>
 
                             <TableHeader style={{backgroundColor: "hsl(var(--background))"}} className={"sticky top-0"}>
                                 <TableRow>
@@ -122,15 +122,27 @@ export function StudentDataDialog(
                             </TableHeader>
 
                             <TableBody>
-                                {studentData.data.subject?.map(
-                                    (subject: SubjectData, idx: number) =>
-                                        <TableRow key={idx + 1}>
-                                            <TableCell>{subject.paperid}</TableCell>
-                                            <TableCell>{subject.subname} ({subject.credits})</TableCell>
-                                            <TableCell>{subject.internal} | {subject.external}</TableCell>
-                                            <TableCell>{subject.total}</TableCell>
-                                        </TableRow>
-                                )}
+                                {studentData.data.sgpa == undefined ?
+                                    studentData.data.marksPerSemester?.sort((i, j) => i.semester - j.semester)?.map(
+                                        (semester: SemesterData, idx: number) =>
+                                            <TableRow key={idx + 1}>
+                                                <TableCell>{semester.semester}</TableCell>
+                                                <TableCell>{semester.marks}/{semester.total}</TableCell>
+                                                <TableCell>{(semester.marks/semester.total*100).toFixed(2)}%</TableCell>
+                                                <TableCell>{semester.sgpa}</TableCell>
+                                            </TableRow>
+                                    )
+                                    :
+                                    studentData.data.subject?.map(
+                                        (subject: SubjectData, idx: number) =>
+                                            <TableRow key={idx + 1}>
+                                                <TableCell>{subject.paperid}</TableCell>
+                                                <TableCell>{subject.subname} ({subject.credits})</TableCell>
+                                                <TableCell>{subject.internal} | {subject.external}</TableCell>
+                                                <TableCell>{subject.total}</TableCell>
+                                            </TableRow>
+                                    )
+                                }
 
                             </TableBody>
                         </Table>
