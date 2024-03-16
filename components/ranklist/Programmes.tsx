@@ -53,7 +53,6 @@ export default function Programmes() {
             rank: 0,
             semesters: 0,
             sgpa: 0,
-            sgpaAllSem: [],
             subject: [],
             total: 0,
             totalCreditMarks: 0,
