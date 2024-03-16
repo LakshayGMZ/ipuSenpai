@@ -128,7 +128,7 @@ export function StudentDataDialog(
                                                 <TableCell>{semester.semester}</TableCell>
                                                 <TableCell>{semester.marks}/{semester.total}</TableCell>
                                                 <TableCell>{semester.percentage}</TableCell>
-                                                <TableCell>{Number(semester.sgpa).toFixed(2)}</TableCell>
+                                                <TableCell>{Number(semester.sgpa).toFixed(3)}</TableCell>
                                             </TableRow>
                                     )
                                     :
