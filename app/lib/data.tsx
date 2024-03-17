@@ -38,7 +38,7 @@ export const columnsOverall: ColumnDef<StudentResults>[] = [
     },
     {
         accessorKey: "marks",
-        header: "marks",
+        header: "Marks",
         cell: ({row}) => (
             <div className="capitalize">{row.original.marks}/{row.original.total}</div>
         ),
