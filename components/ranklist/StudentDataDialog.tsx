@@ -1,33 +1,18 @@
 "use client"
 
-import {Switch} from "@mui/material";
 import {SemesterData, StudentResults, SubjectData} from "@/types/types";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {Button} from "@/components/ui/button";
 import {Drawer, DrawerContent} from "@/components/ui/drawer";
 import {useRouter} from "next/navigation";
-
-const TableHeadForSem = () => (
-    <>
-        <TableHead>Paper ID</TableHead>
-        <TableHead>Subject Name</TableHead>
-        <TableHead>Int. | Ext.</TableHead>
-        <TableHead>Marks</TableHead>
-    </>
-
-)
-
-const TableHeadForOverall = () => (
-    <>
-        <TableHead>Sem</TableHead>
-        <TableHead>Marks</TableHead>
-        <TableHead>Percentage</TableHead>
-        <TableHead>SGPA</TableHead>
-    </>
-
-)
-
+import {
+    DropdownMenu,
+    DropdownMenuCheckboxItem,
+    DropdownMenuContent,
+    DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import {ChevronDown} from "lucide-react";
 
 export function StudentDataDialog(
     {
@@ -38,6 +23,41 @@ export function StudentDataDialog(
         setStudentData: React.Dispatch<React.SetStateAction<{ open: boolean; data: StudentResults; }>>,
     }
 ) {
+    const [tableHeadForSem, setTableHeadForSem] = useState<{ [key: string]: boolean }>({
+        "Paper ID": true,
+        "Subject Name": true,
+        "Int. | Ext.": true,
+        "Marks": true
+    });
+    const [tableHeadForOverall, setTableHeadForOverall] = useState<{ [key: string]: boolean }>({
+        "Sem": true,
+        "Marks": true,
+        "Percentage": true,
+        "C. Marks": false,
+        "C. Percentage": false,
+        "SGPA": true,
+    });
+
+    const TableHeaderForSem = () => (
+        <>
+            {tableHeadForSem["Paper ID"] && <TableHead>Paper ID</TableHead>}
+            {tableHeadForSem["Subject Name"] && <TableHead>Subject Name</TableHead>}
+            {tableHeadForSem["Int. | Ext."] && <TableHead className={"text-center"}>Int. | Ext.</TableHead>}
+            {tableHeadForSem["Marks"] && <TableHead>Marks</TableHead>}
+        </>
+    )
+
+    const TableHeaderForOverall = () => (
+        <>
+            {tableHeadForOverall["Sem"] && <TableHead>Sem</TableHead>}
+            {tableHeadForOverall["Marks"] && <TableHead>Marks</TableHead>}
+            {tableHeadForOverall["Percentage"] && <TableHead>Percentage</TableHead>}
+            {tableHeadForOverall["C. Marks"] && <TableHead>C. Marks</TableHead>}
+            {tableHeadForOverall["C. Percentage"] && <TableHead>C. Percentage</TableHead>}
+            {tableHeadForOverall["SGPA"] && <TableHead>SGPA</TableHead>}
+        </>
+    )
+
 
     const router = useRouter();
     const handlePopState = () => {
@@ -111,16 +131,45 @@ export function StudentDataDialog(
                                 </p>
                             </div>
                         </div>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="outline" className="rounded-2xl w-fit">
+                                    Columns <ChevronDown className="ml-2 h-4 w-4"/>
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                {Object.keys(studentData.data.sgpa == undefined ?
+                                    tableHeadForOverall
+                                    : tableHeadForSem)
+                                    .map((column, idx) =>
+                                        <DropdownMenuCheckboxItem
+                                            key={idx + 1}
+                                            className="capitalize"
+                                            checked={(studentData.data.sgpa == undefined ?
+                                                tableHeadForOverall
+                                                : tableHeadForSem)[column]}
+                                            onCheckedChange={(value) =>
+                                                (studentData.data.sgpa == undefined ?
+                                                    setTableHeadForOverall
+                                                    : setTableHeadForSem)(prevState =>
+                                                    ({...prevState, [column]: value})
+                                                )
+                                            }
+                                        >
+                                            {column}
+                                        </DropdownMenuCheckboxItem>
+                                    )}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                         <hr/>
-                        <div className="flex items-center justify-between">
-                            <Button variant="outline">Show credit marks and credit percentage</Button>
-                            <Switch id="toggle-details"/>
-                        </div>
                         <div className="relative w-full md:w-full max-h-[50vh] overflow-auto">
                             <Table className={"min-w-max"}>
-                                <TableHeader style={{backgroundColor: "hsl(var(--background))"}} className={"sticky top-0"}>
+                                <TableHeader style={{backgroundColor: "hsl(var(--background))"}}
+                                             className={"sticky top-0"}>
                                     <TableRow>
-                                        {studentData.data.sgpa == undefined ? <TableHeadForOverall/> : <TableHeadForSem/>}
+                                        {(studentData.data.sgpa == undefined ?
+                                            <TableHeaderForOverall/>
+                                            : <TableHeaderForSem/>)}
                                     </TableRow>
                                 </TableHeader>
 
@@ -129,20 +178,22 @@ export function StudentDataDialog(
                                         studentData.data.marksPerSemester?.sort((i, j) => i.semester - j.semester)?.map(
                                             (semester: SemesterData, idx: number) =>
                                                 <TableRow key={idx + 1}>
-                                                    <TableCell>{semester.semester}</TableCell>
-                                                    <TableCell>{semester.marks}/{semester.total}</TableCell>
-                                                    <TableCell>{Number(semester.percentage).toFixed(2)}%</TableCell>
-                                                    <TableCell>{Number(semester.sgpa).toFixed(3)}</TableCell>
+                                                    {tableHeadForOverall["Sem"] && <TableCell>{semester.semester}</TableCell>}
+                                                    {tableHeadForOverall["Marks"] && <TableCell>{semester.marks}/{semester.total}</TableCell>}
+                                                    {tableHeadForOverall["Percentage"] && <TableCell>{Number(semester.percentage).toFixed(2)}%</TableCell>}
+                                                    {tableHeadForOverall["C. Marks"] && <TableCell>{semester.creditmarks}/{semester.totalcreditmarks}</TableCell>}
+                                                    {tableHeadForOverall["C. Percentage"] && <TableCell>{Number(semester.creditspercentage).toFixed(2)}%</TableCell>}
+                                                    {tableHeadForOverall["SGPA"] && <TableCell>{Number(semester.sgpa).toFixed(3)}</TableCell>}
                                                 </TableRow>
                                         )
                                         :
                                         studentData.data.subject?.map(
                                             (subject: SubjectData, idx: number) =>
                                                 <TableRow key={idx + 1}>
-                                                    <TableCell>{subject.paperid}</TableCell>
-                                                    <TableCell>{subject.subname} ({subject.credits})</TableCell>
-                                                    <TableCell>{subject.internal} | {subject.external}</TableCell>
-                                                    <TableCell>{subject.total}</TableCell>
+                                                    {tableHeadForSem["Paper ID"] && <TableCell>{subject.paperid}</TableCell>}
+                                                    {tableHeadForSem["Subject Name"] && <TableCell>{subject.subname} ({subject.credits})</TableCell>}
+                                                    {tableHeadForSem["Int. | Ext."] && <TableCell className={"text-center"}>{subject.internal} | {subject.external}</TableCell>}
+                                                    {tableHeadForSem["Marks"] && <TableCell>{subject.total}</TableCell>}
                                                 </TableRow>
                                         )
                                     }

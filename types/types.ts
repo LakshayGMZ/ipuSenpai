@@ -33,6 +33,7 @@ export interface SemesterData {
     totalcreditmarks: number;
     totalcredits: number;
     totalcreditmarksweighted: number;
+    creditspercentage: number;
 }
 
 export interface SubjectData {
