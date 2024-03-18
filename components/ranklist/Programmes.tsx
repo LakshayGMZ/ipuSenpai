@@ -8,11 +8,11 @@ import {
     getSemesters,
     getShifts,
     getSpecs
-} from "@/app/lib/ranklist";
+} from "@/app/lib/dataFetch";
 import * as React from "react";
 import {useEffect, useRef, useState} from "react";
 import {PreBuiltSelect} from "@/components/ui/select";
-import {RanklistQueryFields, RanklistSelectDataFields as DataFields, StudentResults,} from "@/types/types";
+import {RanklistQueryFields, RanklistSelectDataFields, StudentResults,} from "@/types/types";
 import {Button} from "@/components/ui/button";
 import {DataTable} from "@/components/ranklist/DataTable";
 import {columnsOverall, columnsSem} from "@/app/lib/data";
@@ -23,7 +23,7 @@ import {StudentDataDialog} from "@/components/ranklist/StudentDataDialog";
 
 
 export default function Programmes() {
-    const [selectedData, setSelectedData] = useState<DataFields>({
+    const [selectedData, setSelectedData] = useState<RanklistSelectDataFields>({
         programme: "",
         institute: "",
         specialization: "",
@@ -132,7 +132,7 @@ export default function Programmes() {
                 <div className="rounded-lg mx-4 md:mx-10">
                     <h1 className="text-4xl font-semibold mb-6">Ranklist</h1>
                     <div className="grid grid-cols-2 md:grid-rows-3 lg:grid-cols-3 lg:grid-rows-2 gap-6">
-                        <PreBuiltSelect
+                        <PreBuiltSelect<RanklistSelectDataFields>
                             name={"programme"}
                             values={programmes}
                             valueState={selectedData.programme}
@@ -140,7 +140,7 @@ export default function Programmes() {
                             disabled={false}
                             is_mobile={is_mobile.current}
                         />
-                        <PreBuiltSelect
+                        <PreBuiltSelect<RanklistSelectDataFields>
                             name={"institute"}
                             values={institutes}
                             valueState={selectedData.institute}
@@ -148,7 +148,7 @@ export default function Programmes() {
                             disabled={institutes.length === 0}
                             is_mobile={is_mobile.current}
                         />
-                        <PreBuiltSelect
+                        <PreBuiltSelect<RanklistSelectDataFields>
                             name={"specialization"}
                             values={specializations}
                             valueState={selectedData.specialization}
@@ -156,7 +156,7 @@ export default function Programmes() {
                             disabled={specializations.length === 0}
                             is_mobile={is_mobile.current}
                         />
-                        <PreBuiltSelect
+                        <PreBuiltSelect<RanklistSelectDataFields>
                             name={"shift"}
                             values={shifts}
                             valueState={selectedData.shift}
@@ -164,7 +164,7 @@ export default function Programmes() {
                             disabled={shifts.length === 0}
                             is_mobile={is_mobile.current}
                         />
-                        <PreBuiltSelect
+                        <PreBuiltSelect<RanklistSelectDataFields>
                             name={"batch"}
                             values={batches}
                             valueState={selectedData.batch}
@@ -172,7 +172,7 @@ export default function Programmes() {
                             disabled={batches.length === 0}
                             is_mobile={is_mobile.current}
                         />
-                        <PreBuiltSelect
+                        <PreBuiltSelect<RanklistSelectDataFields>
                             name={"semester"}
                             values={semesters}
                             valueState={selectedData.semester}
@@ -182,7 +182,7 @@ export default function Programmes() {
 
                         />
                         <Button
-                            className="md:col-start-2 lg:col-start-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                            className="col-span-2 md:col-span-1 md:col-start-2 lg:col-start-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                             variant={"outline"}
                             disabled={Object.values(selectedData).some(i => i === "")}
                             onClick={async (e) => {
@@ -205,8 +205,6 @@ export default function Programmes() {
                 setSelectStudent={setSelectStudent}
             />}
             <MultiStepLoader/>
-
-
         </>
     )
 }

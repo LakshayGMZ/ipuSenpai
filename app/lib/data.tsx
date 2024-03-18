@@ -2,7 +2,7 @@ import {ColumnDef} from "@tanstack/react-table";
 import {Button} from "@/components/ui/button";
 import {ArrowUpDown} from "lucide-react";
 import * as React from "react";
-import {StudentResults} from "@/types/types";
+import {RanklistQueryFields, StudentResults} from "@/types/types";
 
 export const columnsOverall: ColumnDef<StudentResults>[] = [
     {
@@ -206,3 +206,22 @@ export const columnsSem: ColumnDef<StudentResults>[] = [
         cell: ({row}) => <div className="lowercase">{row.original.rank}</div>,
     }
 ]
+
+export const batches: RanklistQueryFields[] = [
+    {
+        "name": "2023-2027",
+        "value": "2023"
+    },
+    {
+        "name": "2022-2026",
+        "value": "2022"
+    },
+    {
+        "name": "2021-2025",
+        "value": "2021"
+    },
+    {
+        "name": "2020-2024",
+        "value": "2020"
+    }
+    ]

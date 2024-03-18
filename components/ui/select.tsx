@@ -150,7 +150,7 @@ const SelectSeparator = React.forwardRef<
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName
 
 
-export function PreBuiltSelect(
+export function PreBuiltSelect<T extends Object>(
     {
         name,
         values,
@@ -158,7 +158,7 @@ export function PreBuiltSelect(
         setValueState,
         disabled = true,
         is_mobile = false
-    }: CustomSelectProps) {
+    }: CustomSelectProps<T>) {
 
     useEffect(() => {
         if (!values.map(i => i.value).includes(valueState))

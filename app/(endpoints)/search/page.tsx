@@ -1,105 +1,107 @@
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select"
+"use client"
+
+import {PreBuiltSelect} from "@/components/ui/select"
 import {Input} from "@/components/ui/input"
 import {Button} from "@/components/ui/button"
-import {Card, CardContent} from "@/components/ui/card"
-import React, {SVGProps} from "react";
+import React, {useEffect, useRef, useState} from "react";
+import {RanklistQueryFields, SearchSelectDataFields, StudentSearchCard} from "@/types/types";
+import {isMobile} from "@/app/lib/actions";
+import {getAllInstitutes, getProgrammes, getSearchByStudentResult} from "@/app/lib/dataFetch";
+import {batches} from "@/app/lib/data";
+import {useLoader} from "@/app/lib/LoaderContext";
 
 export default function Page() {
-    return (
-        <div className="max-w-5xl mx-auto p-8 rounded-lg shadow">
-            <div className="flex flex-col space-y-6">
-                <div className="flex items-center justify-between">
-                    <h1 className="text-2xl font-semibold">Search students by Name</h1>
-                    <MicroscopeIcon className="text-gray-500" />
-                </div>
-                <div className="grid grid-cols-3 gap-4">
-                    <Select className="w-10rem">
-                        <SelectTrigger id="degree">
-                            <SelectValue placeholder="B. Tech." />
-                        </SelectTrigger>
-                        <SelectContent position="popper">
-                            <SelectItem value="btech">B. Tech.</SelectItem>
-                            <SelectItem value="mtech">M. Tech.</SelectItem>
-                            <SelectItem value="mba">MBA</SelectItem>
-                        </SelectContent>
-                    </Select>
-                    <Input className="w-full" placeholder="Enter student name" />
-                    <Button className="w-10rem" variant={"outline"}>Search</Button>
-                </div>
-                <p className="text-sm text-gray-500">Please don&apos;t use this for stalking, guys. 🕵️‍♂️</p>
-                <div className="grid grid-cols-2 gap-4">
-                    <Select className="w-10rem">
-                        <SelectTrigger id="college">
-                            <SelectValue placeholder="All Colleges" />
-                        </SelectTrigger>
-                        <SelectContent position="popper">
-                            <SelectItem value="college1">College 1</SelectItem>
-                            <SelectItem value="college2">College 2</SelectItem>
-                            <SelectItem value="college3">College 3</SelectItem>
-                        </SelectContent>
-                    </Select>
-                    <Select className="w-10rem">
-                        <SelectTrigger id="branch">
-                            <SelectValue placeholder="All Branches" />
-                        </SelectTrigger>
-                        <SelectContent position="popper">
-                            <SelectItem value="cse">Computer Science and Engineering</SelectItem>
-                            <SelectItem value="ece">Electronics and Communication Engineering</SelectItem>
-                            <SelectItem value="me">Mechanical Engineering</SelectItem>
-                        </SelectContent>
-                    </Select>
-                </div>
-                <div className="grid grid-cols-3 gap-4">
-                    <Card className="w-10rem">
-                        <CardContent>
-                            <h3 className="text-lg font-bold">Lakshay Gupta</h3>
-                            <p className="text-sm">06011502723</p>
-                            <p className="text-sm">Computer Science and Engineering</p>
-                            <p className="text-sm">Bharati Vidyapeeth College of Engineering</p>
-                        </CardContent>
-                    </Card>
-                    <Card className="w-full">
-                        <CardContent>
-                            <h3 className="text-lg font-bold">Lakshay Garg</h3>
-                            <p className="text-sm">08114802720</p>
-                            <p className="text-sm">Computer Science and Engineering</p>
-                            <p className="text-sm">Maharaja Agrasen Institute of Technology</p>
-                        </CardContent>
-                    </Card>
-                    <Card className="w-10rem">
-                        <CardContent>
-                            <h3 className="text-lg font-bold">Lakshay Goyal</h3>
-                            <p className="text-sm">05714802722</p>
-                            <p className="text-sm">Computer Science and Engineering</p>
-                            <p className="text-sm">Maharaja Agrasen Institute of Technology</p>
-                        </CardContent>
-                    </Card>
-                </div>
-            </div>
-        </div>
-    )
-}
+    const loader = useLoader();
+    const [selectedData, setSelectedData] = useState<SearchSelectDataFields>({
+        programme: "",
+        institute: "",
+        batch: "",
+        name: "",
+    })
+    const [programmes, setProgrammes] = useState<RanklistQueryFields[]>([]);
+    const [institutes, setInstitutes] = useState<RanklistQueryFields[]>([]);
+    const [resultData, setResultData] = useState<StudentSearchCard[]>([]);
+    const is_mobile = useRef<boolean>(false);
 
-function MicroscopeIcon(props: SVGProps<SVGSVGElement>) {
+    useEffect(() => {
+        isMobile()
+            .then(value => {
+                is_mobile.current = value;
+            })
+    }, []);
+
+    useEffect(() => {
+        const fetchProgrammes = async () => {
+            setProgrammes(await getProgrammes());
+            setInstitutes(await getAllInstitutes());
+        }
+        fetchProgrammes();
+    }, []);
+
+    const handleResultFetch = async () => {
+        const resData = await getSearchByStudentResult(selectedData);
+        if (resData.length > 0) {
+            loader.inactiveLoader();
+        }
+
+        setResultData(resData);
+    }
+
     return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M6 18h8" />
-            <path d="M3 22h18" />
-            <path d="M14 22a7 7 0 1 0 0-14h-1" />
-            <path d="M9 14h2" />
-            <path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z" />
-            <path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3" />
-        </svg>
-    )
+        <>
+            <form className="lg:px-10" onSubmit={async (e) => {
+                e.preventDefault();
+                loader.activeLoader();
+                await handleResultFetch();
+            }}>
+                <div className="rounded-lg mx-4 md:mx-10">
+                    <h1 className="text-4xl font-semibold mb-6">Ranklist</h1>
+                    <div className="grid grid-cols-2 md:grid-rows-3 lg:grid-cols-3 lg:grid-rows-2 gap-6">
+                        <PreBuiltSelect<SearchSelectDataFields>
+                            name={"programme"}
+                            values={programmes}
+                            valueState={selectedData.programme}
+                            setValueState={setSelectedData}
+                            disabled={false}
+                            is_mobile={is_mobile.current}
+                        />
+                        <PreBuiltSelect<SearchSelectDataFields>
+                            name={"institute"}
+                            values={institutes}
+                            valueState={selectedData.institute}
+                            setValueState={setSelectedData}
+                            disabled={institutes.length === 0}
+                            is_mobile={is_mobile.current}
+                        />
+                        <PreBuiltSelect<SearchSelectDataFields>
+                            name={"batch"}
+                            values={batches}
+                            valueState={selectedData.batch}
+                            setValueState={setSelectedData}
+                            disabled={batches.length === 0}
+                            is_mobile={is_mobile.current}
+                        />
+                        <Input
+                            value={selectedData.name}
+                            className="w-full rounded-2xl"
+                            type="text"
+                            required
+                            minLength={5}
+                            placeholder="Enter student name"
+                            onChange={e =>
+                                setSelectedData(prevState =>
+                                    ({...prevState, name: e.target.value})
+                                )}
+                        />
+                        <Button
+                            className="col-span-2 md:col-span-1 md:col-start-2 lg:col-start-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                            variant={"outline"}
+                            // disabled={Object.values(selectedData).some(i => i === "")}
+
+                        >Search</Button>
+                    </div>
+                </div>
+            </form>
+        </>
+    );
 }

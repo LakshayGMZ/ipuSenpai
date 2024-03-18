@@ -1,10 +1,10 @@
 import {Dispatch, SetStateAction} from "react";
 
-export interface CustomSelectProps {
+export interface CustomSelectProps<T> {
     name: string,
     values: RanklistQueryFields[],
     valueState: string,
-    setValueState: Dispatch<SetStateAction<RanklistSelectDataFields>>,
+    setValueState: Dispatch<SetStateAction<T>>,
     disabled?: boolean,
     is_mobile: boolean
 }
@@ -16,6 +16,13 @@ export interface RanklistSelectDataFields {
     shift: string;
     batch: string;
     semester: string;
+}
+
+export interface SearchSelectDataFields {
+    programme: string;
+    institute: string;
+    batch: string;
+    name: string;
 }
 
 export interface RanklistQueryFields {
@@ -83,4 +90,12 @@ export type LoadingState = {
 export type LoaderContextType = {
     loading: boolean;
     steps: LoadingState[];
+}
+
+export interface StudentSearchCard {
+    enrollment: string;
+    name: string;
+    institute: string;
+    programme: string;
+    batch: string;
 }
