@@ -18,7 +18,6 @@ import {DataTable} from "@/components/ranklist/DataTable";
 import {columnsOverall, columnsSem} from "@/app/lib/data";
 import {isMobile} from "@/app/lib/actions";
 import {useLoader} from "@/app/lib/LoaderContext";
-import {MultiStepLoader} from "@/components/ui/Loader";
 import {StudentDataDialog} from "@/components/ranklist/StudentDataDialog";
 
 
@@ -204,7 +203,6 @@ export default function Programmes() {
                 data={resultData}
                 setSelectStudent={setSelectStudent}
             />}
-            <MultiStepLoader/>
         </>
     )
 }

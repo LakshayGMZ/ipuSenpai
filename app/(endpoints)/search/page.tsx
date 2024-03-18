@@ -9,6 +9,7 @@ import {isMobile} from "@/app/lib/actions";
 import {getAllInstitutes, getProgrammes, getSearchByStudentResult} from "@/app/lib/dataFetch";
 import {batches} from "@/app/lib/data";
 import {useLoader} from "@/app/lib/LoaderContext";
+import StudentCard from "@/components/search/StudentCard";
 
 export default function Page() {
     const loader = useLoader();
@@ -102,6 +103,14 @@ export default function Page() {
                     </div>
                 </div>
             </form>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-10 mx-10 md:mx-20 ">
+                {
+                    resultData.map((data, idx) =>
+                        <StudentCard key={idx + 1} data={data}/>
+                    )
+                }
+            </div>
         </>
     );
 }

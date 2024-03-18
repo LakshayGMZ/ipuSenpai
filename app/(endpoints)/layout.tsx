@@ -1,4 +1,5 @@
 import React from "react";
+import {MultiStepLoader} from "@/components/ui/Loader";
 
 export default function DashboardLayout(
     {
@@ -9,6 +10,7 @@ export default function DashboardLayout(
     return (
         <div className={"mt-28"}>
             {children}
+            <MultiStepLoader/>
         </div>
     )
 }
