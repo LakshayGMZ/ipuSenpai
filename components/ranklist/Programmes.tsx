@@ -101,9 +101,7 @@ export default function Programmes() {
 
     const handleResultFetch = async () => {
         const resData = await getResult(selectedData, setPagination, pagination.pageIndex - 1, pagination.pageSize);
-        if (resData.length > 0) {
-            loader.inactiveLoader();
-        }
+        loader.inactiveLoader();
 
         setResultData(resData);
     }

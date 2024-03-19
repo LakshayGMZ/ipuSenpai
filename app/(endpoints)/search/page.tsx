@@ -41,9 +41,7 @@ export default function Page() {
 
     const handleResultFetch = async () => {
         const resData = await getSearchByStudentResult(selectedData);
-        if (resData.length > 0) {
-            loader.inactiveLoader();
-        }
+        loader.inactiveLoader();
 
         setResultData(resData);
     }
@@ -56,7 +54,7 @@ export default function Page() {
                 await handleResultFetch();
             }}>
                 <div className="rounded-lg mx-4 md:mx-10">
-                    <h1 className="text-4xl font-semibold mb-6">Ranklist</h1>
+                    <h1 className="text-4xl font-semibold mb-6">Search Student by Name</h1>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-6">
                         <PreBuiltSelect<SearchSelectDataFields>
                             className={""}
