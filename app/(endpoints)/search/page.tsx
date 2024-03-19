@@ -50,15 +50,16 @@ export default function Page() {
 
     return (
         <>
-            <form className="lg:px-10" onSubmit={async (e) => {
+            <form className="lg:px-10 py-4" onSubmit={async (e) => {
                 e.preventDefault();
                 loader.activeLoader();
                 await handleResultFetch();
             }}>
                 <div className="rounded-lg mx-4 md:mx-10">
                     <h1 className="text-4xl font-semibold mb-6">Ranklist</h1>
-                    <div className="grid grid-cols-2 md:grid-rows-3 lg:grid-cols-3 lg:grid-rows-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-6">
                         <PreBuiltSelect<SearchSelectDataFields>
+                            className={""}
                             name={"programme"}
                             values={programmes}
                             valueState={selectedData.programme}
@@ -66,6 +67,27 @@ export default function Page() {
                             disabled={false}
                             is_mobile={is_mobile.current}
                         />
+                        <Input
+                            value={selectedData.name}
+                            className="w-full rounded-2xl md:col-span-2"
+                            type="text"
+                            required
+                            minLength={5}
+                            placeholder="Enter student name"
+                            onChange={e =>
+                                setSelectedData(prevState =>
+                                    ({...prevState, name: e.target.value})
+                                )}
+                        />
+                        <Button
+                            className=" rounded-2xl focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                            variant={"outline"}
+                            // disabled={Object.values(selectedData).some(i => i === "")}
+
+                        >Search</Button>
+                    </div>
+                    <div className={"my-4"}>Please don&apos;t use this for stalking.</div>
+                    <div className={"grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-6"}>
                         <PreBuiltSelect<SearchSelectDataFields>
                             name={"institute"}
                             values={institutes}
@@ -82,27 +104,11 @@ export default function Page() {
                             disabled={batches.length === 0}
                             is_mobile={is_mobile.current}
                         />
-                        <Input
-                            value={selectedData.name}
-                            className="w-full rounded-2xl"
-                            type="text"
-                            required
-                            minLength={5}
-                            placeholder="Enter student name"
-                            onChange={e =>
-                                setSelectedData(prevState =>
-                                    ({...prevState, name: e.target.value})
-                                )}
-                        />
-                        <Button
-                            className="col-span-2 md:col-span-1 md:col-start-2 lg:col-start-3 rounded-2xl focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                            variant={"outline"}
-                            // disabled={Object.values(selectedData).some(i => i === "")}
-
-                        >Search</Button>
                     </div>
+
                 </div>
             </form>
+            <hr />
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-10 mx-10 md:mx-20 ">
                 {

@@ -1,6 +1,7 @@
 import {Dispatch, SetStateAction} from "react";
 
 export interface CustomSelectProps<T> {
+    className?: string;
     name: string,
     values: RanklistQueryFields[],
     valueState: string,
