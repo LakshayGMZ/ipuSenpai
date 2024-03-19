@@ -90,8 +90,8 @@ export async function getResult(
 ): Promise<StudentResults[]> {
 
     const url = data.semester !== "0" ?
-        `/rank/semester/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&sem=${data.semester}&pageNumber=${page}&pageSize=${pageSize}/${data.shift !== "all" && encodeURI(data.institute)}` :
-        `/rank/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&pageNumber=${page}&pageSize=${pageSize}/${data.shift !== "all" && encodeURI(data.institute)}`
+        `/rank/semester/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&sem=${data.semester}&pageNumber=${page}&pageSize=${pageSize}/${data.shift === "*" ? encodeURI(data.institute): ""}` :
+        `/rank/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&pageNumber=${page}&pageSize=${pageSize}/${data.shift === "*" ? encodeURI(data.institute) : ""}`
 
     const res = await axios.get<StudentResults[]>(url);
     if (res.status !== 200) {
