@@ -158,11 +158,12 @@ export function PreBuiltSelect<T extends Object>(
         valueState,
         setValueState,
         disabled = true,
-        is_mobile = false
+        is_mobile = false,
+        defaultOption
     }: CustomSelectProps<T>) {
 
     useEffect(() => {
-        if (!values.map(i => i.value).includes(valueState))
+        if (values.length > 0 && !values.map(i => i.value !== undefined ? i.value : i.name).includes(valueState))
             setValueState(prev =>
                 ({...prev, [name]: ""}))
     }, [values]);
@@ -180,7 +181,11 @@ export function PreBuiltSelect<T extends Object>(
                         setValueState(prev =>
                             ({...prev, [name]: e.target.value}))}
                 >
-                    <option value="">Select {name}</option>
+                    {defaultOption !== undefined && <option
+                        defaultChecked
+                        value={defaultOption.value !== undefined ? defaultOption.value! : defaultOption.name}>
+                        {defaultOption.name}
+                    </option>}
                     {
                         values.map(
                             (val, idx: number) =>
@@ -205,6 +210,7 @@ export function PreBuiltSelect<T extends Object>(
                 disabled={disabled}
                 // open={open}
                 value={valueState}
+                // defaultValue={valueState}
                 onValueChange={async (v) => {
                     if (v !== "") {
                         setValueState(prev => ({...prev, [name]: v}));
@@ -215,6 +221,11 @@ export function PreBuiltSelect<T extends Object>(
                     <SelectValue placeholder={"Select " + name}/>
                 </SelectTrigger>
                 <SelectContent position="popper">
+                    {defaultOption !== undefined && <SelectItem
+                        defaultChecked
+                        value={defaultOption.value !== undefined ? defaultOption.value! : defaultOption.name}>
+                        {defaultOption.name}
+                    </SelectItem>}
                     {
                         values.map(
                             (val, idx: number) =>

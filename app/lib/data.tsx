@@ -209,6 +209,10 @@ export const columnsSem: ColumnDef<StudentResults>[] = [
 
 export const batches: RanklistQueryFields[] = [
     {
+        name: "All Batches",
+        value: "*"
+    },
+    {
         "name": "2023-2027",
         "value": "2023"
     },
@@ -224,4 +228,4 @@ export const batches: RanklistQueryFields[] = [
         "name": "2020-2024",
         "value": "2020"
     }
-    ]
+]

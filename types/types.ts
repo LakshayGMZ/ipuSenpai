@@ -2,12 +2,13 @@ import {Dispatch, SetStateAction} from "react";
 
 export interface CustomSelectProps<T> {
     className?: string;
-    name: string,
-    values: RanklistQueryFields[],
-    valueState: string,
-    setValueState: Dispatch<SetStateAction<T>>,
-    disabled?: boolean,
-    is_mobile: boolean
+    name: string;
+    values: RanklistQueryFields[];
+    valueState: string;
+    setValueState: Dispatch<SetStateAction<T>>;
+    disabled?: boolean;
+    is_mobile: boolean;
+    defaultOption?: RanklistQueryFields;
 }
 
 export interface RanklistSelectDataFields {

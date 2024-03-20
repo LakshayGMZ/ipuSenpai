@@ -14,15 +14,19 @@ import StudentCard from "@/components/search/StudentCard";
 export default function Page() {
     const loader = useLoader();
     const [selectedData, setSelectedData] = useState<SearchSelectDataFields>({
-        programme: "",
-        institute: "",
-        batch: "",
+        programme: "All Programmes",
+        institute: "All Institutes",
+        batch: "*",
         name: "",
     })
     const [programmes, setProgrammes] = useState<RanklistQueryFields[]>([]);
     const [institutes, setInstitutes] = useState<RanklistQueryFields[]>([]);
     const [resultData, setResultData] = useState<StudentSearchCard[]>([]);
     const is_mobile = useRef<boolean>(false);
+
+    useEffect(() => {
+        console.log(JSON.stringify(selectedData));
+    }, [selectedData]);
 
     useEffect(() => {
         isMobile()
@@ -33,8 +37,8 @@ export default function Page() {
 
     useEffect(() => {
         const fetchProgrammes = async () => {
-            setProgrammes(await getProgrammes());
-            setInstitutes(await getAllInstitutes());
+            setProgrammes([{name: "All Programmes"}, ...await getProgrammes()]);
+            setInstitutes([{name: "All Institutes"}, ...await getAllInstitutes()]);
         }
         fetchProgrammes();
     }, []);
@@ -42,7 +46,6 @@ export default function Page() {
     const handleResultFetch = async () => {
         const resData = await getSearchByStudentResult(selectedData);
         loader.inactiveLoader();
-
         setResultData(resData);
     }
 
@@ -59,6 +62,7 @@ export default function Page() {
                         <PreBuiltSelect<SearchSelectDataFields>
                             className={""}
                             name={"programme"}
+                            // defaultOption={{name: "All Programmes", value: "*"}}
                             values={programmes}
                             valueState={selectedData.programme}
                             setValueState={setSelectedData}
@@ -89,6 +93,7 @@ export default function Page() {
                         <PreBuiltSelect<SearchSelectDataFields>
                             name={"institute"}
                             values={institutes}
+                            // defaultOption={{name: "All Institutes", value: "*"}}
                             valueState={selectedData.institute}
                             setValueState={setSelectedData}
                             disabled={institutes.length === 0}
@@ -97,6 +102,7 @@ export default function Page() {
                         <PreBuiltSelect<SearchSelectDataFields>
                             name={"batch"}
                             values={batches}
+                            // defaultOption={{name: "All Batches", value: "*"}}
                             valueState={selectedData.batch}
                             setValueState={setSelectedData}
                             disabled={batches.length === 0}

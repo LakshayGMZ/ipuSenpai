@@ -104,9 +104,9 @@ export async function getResult(
 
 export async function getSearchByStudentResult(options: SearchSelectDataFields): Promise<StudentSearchCard[]> {
     const url = new URL("/student/search/" + options.name.toUpperCase(), axios.defaults.baseURL);
-    if (options.institute !== "") url.searchParams.append("institute", options.institute);
-    if (options.programme !== "") url.searchParams.append("programme", options.programme);
-    if (options.batch !== "") url.searchParams.append("batch", options.batch);
+    if (options.institute !== "All Institutes") url.searchParams.append("institute", options.institute);
+    if (options.programme !== "All Programmes") url.searchParams.append("programme", options.programme);
+    if (options.batch !== "*") url.searchParams.append("batch", options.batch);
 
 
     const res = await axios.get<StudentSearchCard[]>(url.href);
