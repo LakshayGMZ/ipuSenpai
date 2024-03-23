@@ -4,7 +4,7 @@ import {Checkbox} from "@mui/material";
 
 export default function Page() {
     return (
-        <div className={"w-full px-6"}>
+        <div className={"w-full px-6 flex flex-col gap-6"}>
             <div className={"w-full flex flex-row justify-between"}>
                 <div>
                     Hi, student name
@@ -86,7 +86,8 @@ export default function Page() {
                                 </Card>
                                 <div className="flex items-center space-x-2 col-span-3">
                                     <Checkbox/>
-                                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                    <label
+                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                                     >
                                         Show Credit Info
                                     </label>
@@ -128,6 +129,22 @@ export default function Page() {
                 <div className={"col-span-1 bg-yellow-400"}>
 
                 </div>
+            </div>
+            <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
+                <div className={"h-80 bg-amber-400"}></div>
+                <div className={"h-80 bg-amber-400"}></div>
+                <div className={"h-80 bg-amber-400"}></div>
+                <div className={"h-80 bg-amber-400"}></div>
+            </div>
+            <h1>Absolute Result Breakdown</h1>
+            <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
+                <div className={"h-80 bg-amber-400"}></div>
+                <div className={"h-80 bg-amber-400"}></div>
+            </div>
+            <h1>Cumulative Result Breakdown</h1>
+            <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
+                <div className={"h-80 bg-amber-400"}></div>
+                <div className={"h-80 bg-amber-400"}></div>
             </div>
         </div>
     )
