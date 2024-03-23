@@ -52,7 +52,7 @@ export default function Page() {
                     </div>
                     <h1>Results</h1>
                     <div>
-                        <Tabs className={""}>
+                        <Tabs className={""} defaultValue={"overall"}>
                             <TabsList className="grid grid-cols-4">
                                 <TabsTrigger value="overall">Overall</TabsTrigger>
                                 <TabsTrigger value="sem1">Sem 1</TabsTrigger>
