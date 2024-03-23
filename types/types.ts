@@ -101,3 +101,55 @@ export interface StudentSearchCard {
     programme: string;
     batch: string;
 }
+
+// Student profile.
+
+interface MarksPerSemester {
+    semester: string;
+    marks: string;
+    total: string;
+    creditmarks: string;
+    totalcreditmarks: string;
+    totalcredits: string;
+    totalcreditmarksweighted: string;
+    sgpa: string;
+    percentage: string;
+    creditspercentage: string;
+    subjects: SubjectData[];
+}
+
+interface CumulativeResult {
+    semester: string;
+    cgpa: string;
+    percentage: string;
+    creditspercentage: string;
+    marks: string;
+    totalmarks: string;
+    creditmarks: string;
+    totalcreditmarks: string;
+}
+
+export interface StudentProfileData {
+    enrollment: string;
+    name: string;
+    programme: string;
+    specialization: string;
+    institute: string;
+    batch: string;
+    sid: string;
+    instCode: string;
+    progCode: string;
+    marks: number;
+    creditMarks: number;
+    totalCreditMarks: number;
+    totalCreditMarksWeighted: number;
+    totalCredits: number;
+    total: number;
+    cgpa: number;
+    percentage: number;
+    creditsPercentage: number;
+    semesters: number;
+    marksPerSemester: MarksPerSemester[];
+    subject: SubjectData[];
+    cumulativeResult: CumulativeResult[];
+}

@@ -1,17 +1,31 @@
+"use client"
+
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {Checkbox} from "@mui/material";
+import {useEffect, useState} from "react";
+import {StudentProfileData} from "@/types/types";
+import {getStudentProfileData} from "@/app/lib/dataFetch";
 
 export default function Page() {
+    const [studentEnrollment, setStudentEnrollment] = useState("15615602722");
+    const [studentData, setStudentData] = useState<StudentProfileData>()
+    const overallSemData = studentData?.cumulativeResult.at(-1);
+
+    useEffect(() => {
+        const fetchData = async () => setStudentData(await getStudentProfileData(studentEnrollment));
+        fetchData();
+    }, []);
+
     return (
         <div className={"w-full px-6 flex flex-col gap-6"}>
-            <div className={"w-full flex flex-row justify-between"}>
-                <div>
-                    Hi, student name
-                </div>
-                <div>
-                    2022
-                </div>
+            <div className={"w-full flex flex-row justify-between text-2xl font-bold"}>
+                <h1>
+                    Hi, {studentData?.name}
+                </h1>
+                <h2>
+                    {studentData?.batch}
+                </h2>
             </div>
 
             <div className={"grid grid-cols-3 grid-rows-1 gap-4"}>
@@ -19,53 +33,60 @@ export default function Page() {
                     <div className={"flex flex-row justify-between"}>
                         <Card>
                             <CardHeader>
-                                <CardTitle>Enrollment</CardTitle>
+                                <CardTitle>{studentData?.enrollment}</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                hmm
+                                {studentData?.sid}
                             </CardContent>
                         </Card>
                         <Card>
                             <CardHeader>
-                                <CardTitle>Enrollment</CardTitle>
+                                <CardTitle>{studentData?.institute}</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                hmm
+                                {studentData?.instCode}
                             </CardContent>
                         </Card>
                         <Card>
                             <CardHeader>
-                                <CardTitle>Enrollment</CardTitle>
+                                <CardTitle>{studentData?.programme}</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                hmm
+                                {studentData?.progCode}
                             </CardContent>
                         </Card>
                         <Card>
                             <CardHeader>
-                                <CardTitle>Enrollment</CardTitle>
+                                <CardTitle>Branch</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                hmm
+                                {studentData?.specialization}
                             </CardContent>
                         </Card>
                     </div>
                     <h1>Results</h1>
                     <div>
                         <Tabs className={""} defaultValue={"overall"}>
-                            <TabsList className="grid grid-cols-4">
+                            <TabsList className="grid grid-cols-4 mb-2">
                                 <TabsTrigger value="overall">Overall</TabsTrigger>
-                                <TabsTrigger value="sem1">Sem 1</TabsTrigger>
-                                <TabsTrigger value="sem2">Sem 2</TabsTrigger>
-                                <TabsTrigger value="sem3">Sem 3</TabsTrigger>
+                                {studentData?.marksPerSemester.sort((i, j) => parseInt(i.semester) - parseInt(j.semester))
+                                    .map((semData, idx) =>
+                                        <TabsTrigger
+                                            key={idx + 1}
+                                            value={"Sem " + semData.semester}>
+                                            Sem {semData.semester}
+                                        </TabsTrigger>
+                                    )
+                                }
                             </TabsList>
+
                             <TabsContent value="overall" className={"grid grid-cols-3 gap-4"}>
                                 <Card>
                                     <CardHeader>
                                         <CardTitle>Marks</CardTitle>
                                     </CardHeader>
                                     <CardContent>
-                                        hmm
+                                        {overallSemData?.marks}/{overallSemData?.totalmarks}
                                     </CardContent>
                                 </Card>
                                 <Card>
@@ -73,7 +94,7 @@ export default function Page() {
                                         <CardTitle>CGPA</CardTitle>
                                     </CardHeader>
                                     <CardContent>
-                                        hmm
+                                        {Number(overallSemData?.cgpa).toFixed(3)}
                                     </CardContent>
                                 </Card>
                                 <Card>
@@ -81,7 +102,7 @@ export default function Page() {
                                         <CardTitle>Percentage</CardTitle>
                                     </CardHeader>
                                     <CardContent>
-                                        hmm
+                                        {Number(overallSemData?.percentage).toFixed(2)}%
                                     </CardContent>
                                 </Card>
                                 <div className="flex items-center space-x-2 col-span-3">
@@ -97,7 +118,7 @@ export default function Page() {
                                         <CardTitle>Credit Marks</CardTitle>
                                     </CardHeader>
                                     <CardContent>
-                                        hmm
+                                        {overallSemData?.creditmarks}/{overallSemData?.totalcreditmarks}
                                     </CardContent>
                                 </Card>
                                 <Card>
@@ -105,7 +126,7 @@ export default function Page() {
                                         <CardTitle>Total Credits</CardTitle>
                                     </CardHeader>
                                     <CardContent>
-                                        hmm
+                                        {overallSemData?.totalcreditmarks}
                                     </CardContent>
                                 </Card>
                                 <Card>
@@ -113,16 +134,77 @@ export default function Page() {
                                         <CardTitle>C. Percentage</CardTitle>
                                     </CardHeader>
                                     <CardContent>
-                                        hmm
+                                        {Number(overallSemData?.creditspercentage).toFixed(2)}%
                                     </CardContent>
                                 </Card>
                             </TabsContent>
+
+                            {studentData?.marksPerSemester.sort((i, j) => parseInt(i.semester) - parseInt(j.semester))
+                                .map((semData, idx) =>
+                                    <TabsContent key={idx + 1} value={"Sem " + semData.semester}
+                                                 className={"grid grid-cols-3 gap-4"}>
+                                        <Card>
+                                            <CardHeader>
+                                                <CardTitle>Marks</CardTitle>
+                                            </CardHeader>
+                                            <CardContent>
+                                                {semData.marks}/{semData.total}
+                                            </CardContent>
+                                        </Card>
+                                        <Card>
+                                            <CardHeader>
+                                                <CardTitle>CGPA</CardTitle>
+                                            </CardHeader>
+                                            <CardContent>
+                                                {Number(semData.sgpa).toFixed(2)}
+                                            </CardContent>
+                                        </Card>
+                                        <Card>
+                                            <CardHeader>
+                                                <CardTitle>Percentage</CardTitle>
+                                            </CardHeader>
+                                            <CardContent>
+                                                {Number(semData.percentage).toFixed(2)}%
+                                            </CardContent>
+                                        </Card>
+                                        <div className="flex items-center space-x-2 col-span-3">
+                                            <Checkbox/>
+                                            <label
+                                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                            >
+                                                Show Credit Info
+                                            </label>
+                                        </div>
+                                        <Card>
+                                            <CardHeader>
+                                                <CardTitle>Credit Marks</CardTitle>
+                                            </CardHeader>
+                                            <CardContent>
+                                                {semData.creditmarks}/{semData.creditmarks}
+                                            </CardContent>
+                                        </Card>
+                                        <Card>
+                                            <CardHeader>
+                                                <CardTitle>Total Credits</CardTitle>
+                                            </CardHeader>
+                                            <CardContent>
+                                                {semData.totalcredits}
+                                            </CardContent>
+                                        </Card>
+                                        <Card>
+                                            <CardHeader>
+                                                <CardTitle>C. Percentage</CardTitle>
+                                            </CardHeader>
+                                            <CardContent>
+                                                {Number(semData.creditspercentage).toFixed(2)}%
+                                            </CardContent>
+                                        </Card>
+                                    </TabsContent>
+                                )
+                            }
                         </Tabs>
                     </div>
-
-
                     <div>
-
                     </div>
                 </div>
 
