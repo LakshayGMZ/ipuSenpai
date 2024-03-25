@@ -4,7 +4,6 @@ import {
     RanklistQueryFields,
     RanklistSelectDataFields,
     SearchSelectDataFields,
-    StudentProfileData,
     StudentResults,
     StudentSearchCard
 } from "@/types/types";
@@ -118,11 +117,12 @@ export async function getSearchByStudentResult(options: SearchSelectDataFields):
     return res.data;
 }
 
-export async function getStudentProfileData(enrollment: string): Promise<StudentProfileData> {
-    const res = await axios.get<StudentProfileData>(`/student/${enrollment}`);
-
-    if (res.status !== 200) {
-        throw new Error('Failed to fetch data. URL: ' + res.config.url)
-    }
-    return res.data;
-}
+// export async function getStudentProfileData(enrollment: string): Promise<StudentProfileData> {
+//     const res = await axios.get<StudentProfileData>(`/student/${enrollment}`);
+//
+//     if (res.status !== 200) {
+//         throw new Error('Failed to fetch data. URL: ' + res.config.url)
+//     }
+//     console.log(res.data)
+//     return res.data;
+// }

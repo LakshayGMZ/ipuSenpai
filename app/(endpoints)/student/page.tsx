@@ -1,234 +1,64 @@
 "use client"
 
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import {Checkbox} from "@mui/material";
-import {useEffect, useState} from "react";
-import {StudentProfileData} from "@/types/types";
-import {getStudentProfileData} from "@/app/lib/dataFetch";
+import {Input} from "@/components/ui/input"
+import React, {useEffect, useState} from "react";
+import {redirect, useRouter} from "next/navigation";
 
 export default function Page() {
-    const [studentEnrollment, setStudentEnrollment] = useState("15615602722");
-    const [studentData, setStudentData] = useState<StudentProfileData>()
-    const overallSemData = studentData?.cumulativeResult.at(-1);
 
+    const [value, setValue] = useState("");
+    const router = useRouter();
     useEffect(() => {
-        const fetchData = async () => setStudentData(await getStudentProfileData(studentEnrollment));
-        fetchData();
+        if (localStorage.getItem("studentEnrollment") !== null) {
+            redirect("/student/" + localStorage.getItem("studentEnrollment"));
+        }
     }, []);
 
+    const handleSubmit = (event: any) => {
+        event.preventDefault();
+        localStorage.setItem("studentEnrollment", value);
+        router.push("/student/" + value);
+    }
+
     return (
-        <div className={"w-full px-6 flex flex-col gap-6"}>
-            <div className={"w-full flex flex-row justify-between text-2xl font-bold"}>
-                <h1>
-                    Hi, {studentData?.name}
-                </h1>
-                <h2>
-                    {studentData?.batch}
-                </h2>
-            </div>
+        <div className="flex flex-col items-center justify-center h-screen">
+            <h1 className={"text-3xl"}>Search</h1>
+            <div className="relative w-full max-w-sm mt-6">
+                <form onSubmit={handleSubmit}>
+                    <SearchIcon
 
-            <div className={"grid grid-cols-3 grid-rows-1 gap-4"}>
-                <div className={"col-span-2"}>
-                    <div className={"flex flex-row justify-between"}>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>{studentData?.enrollment}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                {studentData?.sid}
-                            </CardContent>
-                        </Card>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>{studentData?.institute}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                {studentData?.instCode}
-                            </CardContent>
-                        </Card>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>{studentData?.programme}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                {studentData?.progCode}
-                            </CardContent>
-                        </Card>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Branch</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                {studentData?.specialization}
-                            </CardContent>
-                        </Card>
-                    </div>
-                    <h1>Results</h1>
-                    <div>
-                        <Tabs className={""} defaultValue={"overall"}>
-                            <TabsList className="grid grid-cols-4 mb-2">
-                                <TabsTrigger value="overall">Overall</TabsTrigger>
-                                {studentData?.marksPerSemester.sort((i, j) => parseInt(i.semester) - parseInt(j.semester))
-                                    .map((semData, idx) =>
-                                        <TabsTrigger
-                                            key={idx + 1}
-                                            value={"Sem " + semData.semester}>
-                                            Sem {semData.semester}
-                                        </TabsTrigger>
-                                    )
-                                }
-                            </TabsList>
+                        className="h-4 w-4 absolute right-2.5 inset-y-0 m-auto text-gray-500 dark:text-gray-400"
+                        onClick={handleSubmit}
+                    />
+                    <Input
+                        value={value}
+                        className="pl-4 pr-8"
+                        onChange={e => setValue(e.target.value)}
+                        placeholder="Search"
+                    />
+                </form>
 
-                            <TabsContent value="overall" className={"grid grid-cols-3 gap-4"}>
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle>Marks</CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        {overallSemData?.marks}/{overallSemData?.totalmarks}
-                                    </CardContent>
-                                </Card>
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle>CGPA</CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        {Number(overallSemData?.cgpa).toFixed(3)}
-                                    </CardContent>
-                                </Card>
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle>Percentage</CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        {Number(overallSemData?.percentage).toFixed(2)}%
-                                    </CardContent>
-                                </Card>
-                                <div className="flex items-center space-x-2 col-span-3">
-                                    <Checkbox/>
-                                    <label
-                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                    >
-                                        Show Credit Info
-                                    </label>
-                                </div>
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle>Credit Marks</CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        {overallSemData?.creditmarks}/{overallSemData?.totalcreditmarks}
-                                    </CardContent>
-                                </Card>
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle>Total Credits</CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        {overallSemData?.totalcreditmarks}
-                                    </CardContent>
-                                </Card>
-                                <Card>
-                                    <CardHeader>
-                                        <CardTitle>C. Percentage</CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        {Number(overallSemData?.creditspercentage).toFixed(2)}%
-                                    </CardContent>
-                                </Card>
-                            </TabsContent>
-
-                            {studentData?.marksPerSemester.sort((i, j) => parseInt(i.semester) - parseInt(j.semester))
-                                .map((semData, idx) =>
-                                    <TabsContent key={idx + 1} value={"Sem " + semData.semester}
-                                                 className={"grid grid-cols-3 gap-4"}>
-                                        <Card>
-                                            <CardHeader>
-                                                <CardTitle>Marks</CardTitle>
-                                            </CardHeader>
-                                            <CardContent>
-                                                {semData.marks}/{semData.total}
-                                            </CardContent>
-                                        </Card>
-                                        <Card>
-                                            <CardHeader>
-                                                <CardTitle>CGPA</CardTitle>
-                                            </CardHeader>
-                                            <CardContent>
-                                                {Number(semData.sgpa).toFixed(2)}
-                                            </CardContent>
-                                        </Card>
-                                        <Card>
-                                            <CardHeader>
-                                                <CardTitle>Percentage</CardTitle>
-                                            </CardHeader>
-                                            <CardContent>
-                                                {Number(semData.percentage).toFixed(2)}%
-                                            </CardContent>
-                                        </Card>
-                                        <div className="flex items-center space-x-2 col-span-3">
-                                            <Checkbox/>
-                                            <label
-                                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                            >
-                                                Show Credit Info
-                                            </label>
-                                        </div>
-                                        <Card>
-                                            <CardHeader>
-                                                <CardTitle>Credit Marks</CardTitle>
-                                            </CardHeader>
-                                            <CardContent>
-                                                {semData.creditmarks}/{semData.creditmarks}
-                                            </CardContent>
-                                        </Card>
-                                        <Card>
-                                            <CardHeader>
-                                                <CardTitle>Total Credits</CardTitle>
-                                            </CardHeader>
-                                            <CardContent>
-                                                {semData.totalcredits}
-                                            </CardContent>
-                                        </Card>
-                                        <Card>
-                                            <CardHeader>
-                                                <CardTitle>C. Percentage</CardTitle>
-                                            </CardHeader>
-                                            <CardContent>
-                                                {Number(semData.creditspercentage).toFixed(2)}%
-                                            </CardContent>
-                                        </Card>
-                                    </TabsContent>
-                                )
-                            }
-                        </Tabs>
-                    </div>
-                    <div>
-                    </div>
-                </div>
-
-                <div className={"col-span-1 bg-yellow-400"}>
-
-                </div>
-            </div>
-            <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
-                <div className={"h-80 bg-amber-400"}></div>
-                <div className={"h-80 bg-amber-400"}></div>
-                <div className={"h-80 bg-amber-400"}></div>
-                <div className={"h-80 bg-amber-400"}></div>
-            </div>
-            <h1>Absolute Result Breakdown</h1>
-            <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
-                <div className={"h-80 bg-amber-400"}></div>
-                <div className={"h-80 bg-amber-400"}></div>
-            </div>
-            <h1>Cumulative Result Breakdown</h1>
-            <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
-                <div className={"h-80 bg-amber-400"}></div>
-                <div className={"h-80 bg-amber-400"}></div>
             </div>
         </div>
     )
 }
 
+function SearchIcon(props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.3-4.3" />
+        </svg>
+    )
+}
