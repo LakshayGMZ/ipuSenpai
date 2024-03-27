@@ -163,7 +163,7 @@ export function PreBuiltSelect<T extends Object>(
     }: CustomSelectProps<T>) {
 
     useEffect(() => {
-        if (values.length > 0 && !values.map(i => i.value !== undefined ? i.value : i.name).includes(valueState))
+        if (!values.map(i => i.value).includes(valueState))
             setValueState(prev =>
                 ({...prev, [name]: ""}))
     }, [values]);
