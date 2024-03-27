@@ -3,6 +3,7 @@ import {Button} from "@/components/ui/button";
 import {ArrowUpDown} from "lucide-react";
 import * as React from "react";
 import {RanklistQueryFields, StudentResults} from "@/types/types";
+import {Badge} from "@/components/ui/badge";
 
 export const columnsOverall: ColumnDef<StudentResults>[] = [
     {
@@ -34,7 +35,14 @@ export const columnsOverall: ColumnDef<StudentResults>[] = [
                 </Button>
             )
         },
-        cell: ({row}) => <div className="capitalize">{row.original.name}</div>,
+        cell: ({row}) => <div className="capitalize">{row.original.name}{row.original.rank === 1 &&
+            <Badge
+                className={"ml-2 rounded-2xl text-center align-middle"}
+                variant={row.original.rank === 1 ? "default" : "secondary"}
+            >
+                Topper
+            </Badge>
+        }</div>,
     },
     {
         accessorKey: "marks",
@@ -136,7 +144,14 @@ export const columnsSem: ColumnDef<StudentResults>[] = [
                 </Button>
             )
         },
-        cell: ({row}) => <div className="capitalize">{row.original.name}</div>,
+        cell: ({row}) => <div className="capitalize">{row.original.name}{row.original.rank === 1 &&
+            <Badge
+                className={"ml-2 rounded-2xl text-center align-middle"}
+                variant={row.original.rank === 1 ? "default" : "secondary"}
+            >
+                Topper
+            </Badge>
+        }</div>,
     },
     {
         accessorKey: "marks",
