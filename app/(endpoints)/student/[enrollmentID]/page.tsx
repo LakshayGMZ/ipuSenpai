@@ -21,44 +21,44 @@ export default async function Page(
                     {studentData?.batch}
                 </h2>
             </div>
+            <div className={"flex flex-row justify-between"}>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>{studentData?.enrollment}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        {studentData?.sid}
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>{studentData?.institute}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        {studentData?.instCode}
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>{studentData?.programme}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        {studentData?.progCode}
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Branch</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        {studentData?.specialization}
+                    </CardContent>
+                </Card>
+            </div>
 
             <div className={"grid grid-cols-3 grid-rows-1 gap-4"}>
                 <div className={"col-span-2"}>
-                    <div className={"flex flex-row justify-between"}>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>{studentData?.enrollment}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                {studentData?.sid}
-                            </CardContent>
-                        </Card>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>{studentData?.institute}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                {studentData?.instCode}
-                            </CardContent>
-                        </Card>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>{studentData?.programme}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                {studentData?.progCode}
-                            </CardContent>
-                        </Card>
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Branch</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                {studentData?.specialization}
-                            </CardContent>
-                        </Card>
-                    </div>
-                    <h1>Results</h1>
+                    <h1 className={"text-2xl font-bold"}>Results</h1>
                     <div>
                         <Tabs className={""} defaultValue={"overall"}>
                             <TabsList className="grid grid-cols-4 mb-2">

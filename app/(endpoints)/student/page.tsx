@@ -3,11 +3,25 @@
 import {Input} from "@/components/ui/input"
 import React, {useEffect, useState} from "react";
 import {redirect, useRouter} from "next/navigation";
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle
+} from "@/components/ui/dialog";
+import {Button} from "@/components/ui/button";
+import {Label} from "@/components/ui/label"
+
 
 export default function Page() {
 
     const [value, setValue] = useState("");
     const router = useRouter();
+
     useEffect(() => {
         if (localStorage.getItem("studentEnrollment") !== null) {
             redirect("/student/" + localStorage.getItem("studentEnrollment"));
@@ -19,28 +33,164 @@ export default function Page() {
         localStorage.setItem("studentEnrollment", value);
         router.push("/student/" + value);
     }
+    const [open, setOpen] = useState(false);
+    useEffect(() => {
+        setOpen(true);
+    }, []);
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
-            <h1 className={"text-3xl"}>Search</h1>
-            <div className="relative w-full max-w-sm mt-6">
-                <form onSubmit={handleSubmit}>
-                    <SearchIcon
+        <>
+            <Dialog open={open}>
+                <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                        <DialogTitle>Enter Enrollment</DialogTitle>
+                        <DialogDescription>
+                            Enter your enrollment here to be saved on website.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="flex flex-row items-center gap-2">
+                        <Label htmlFor="name" className="text-right">
+                            Enrollment&nbsp;No.
+                        </Label>
+                        <Input
+                            value={value}
+                            onChange={(e) => setValue(e.target.value)}
+                            className="col-span-3"
+                        />
+                    </div>
+                    <DialogFooter>
+                        <Button onClick={handleSubmit} type="submit">Save changes</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+            <div className={"absolute inset-0 backdrop-blur-md"}></div>
+            <div className={"w-full px-6 flex flex-col gap-6"}>
 
-                        className="h-4 w-4 absolute right-2.5 inset-y-0 m-auto text-gray-500 dark:text-gray-400"
-                        onClick={handleSubmit}
-                    />
-                    <Input
-                        value={value}
-                        className="pl-4 pr-8"
-                        onChange={e => setValue(e.target.value)}
-                        placeholder="Search"
-                    />
-                </form>
+                <div className={"w-full flex flex-row justify-between text-2xl font-bold"}>
+                    <h1>
+                        Hi, Sniper
+                    </h1>
+                    <h2>
+                        6969
+                    </h2>
+                </div>
 
+                <div className={"flex flex-row justify-between"}>
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>enrollment</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            1234
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>institute</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            instCode
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>programme</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            progCode
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Branch</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            specialization
+                        </CardContent>
+                    </Card>
+                </div>
+
+                <div className={"grid grid-cols-3 grid-rows-1 gap-4"}>
+                    <div className={"col-span-2"}>
+
+                        <h1>Results</h1>
+                        <div>
+                            <Tabs className={""} defaultValue={"overall"}>
+                                <TabsList className="grid grid-cols-4 mb-2">
+                                    <TabsTrigger value="overall">Overall</TabsTrigger>
+                                    <TabsTrigger value="sem1">Sem 1</TabsTrigger>
+                                    <TabsTrigger value="sem2">Sem 2</TabsTrigger>
+                                    <TabsTrigger value="sem3">Sem 3</TabsTrigger>
+                                </TabsList>
+
+                                <TabsContent value="overall" className={"grid grid-cols-3 gap-4"}>
+                                    <Card>
+                                        <CardHeader>
+                                            <CardTitle>Marks</CardTitle>
+                                        </CardHeader>
+                                        <CardContent>
+                                            marks/total
+                                        </CardContent>
+                                    </Card>
+                                    <Card>
+                                        <CardHeader>
+                                            <CardTitle>CGPA</CardTitle>
+                                        </CardHeader>
+                                        <CardContent>
+                                            10
+                                        </CardContent>
+                                    </Card>
+                                    <Card>
+                                        <CardHeader>
+                                            <CardTitle>Percentage</CardTitle>
+                                        </CardHeader>
+                                        <CardContent>
+                                            100%
+                                        </CardContent>
+                                    </Card>
+                                    <Card>
+                                        <CardHeader>
+                                            <CardTitle>Credit Marks</CardTitle>
+                                        </CardHeader>
+                                        <CardContent>
+                                            creditMarks/totalCreditMarks
+                                        </CardContent>
+                                    </Card>
+                                    <Card>
+                                        <CardHeader>
+                                            <CardTitle>Total Credits</CardTitle>
+                                        </CardHeader>
+                                        <CardContent>
+                                            totalCredits
+                                        </CardContent>
+                                    </Card>
+                                    <Card>
+                                        <CardHeader>
+                                            <CardTitle>C. Percentage</CardTitle>
+                                        </CardHeader>
+                                        <CardContent>
+                                            100%
+                                        </CardContent>
+                                    </Card>
+                                </TabsContent>
+                            </Tabs>
+                        </div>
+                    </div>
+                    <div className={"col-span-1 bg-yellow-400"}>
+
+                    </div>
+                </div>
+                <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
+                    <div className={"h-80 bg-amber-400"}></div>
+                    <div className={"h-80 bg-amber-400"}></div>
+                    <div className={"h-80 bg-amber-400"}></div>
+                    <div className={"h-80 bg-amber-400"}></div>
+                </div>
             </div>
-        </div>
-    )
+        </>
+
+
+    );
 }
 
 function SearchIcon(props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) {
@@ -57,8 +207,8 @@ function SearchIcon(props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVG
             strokeLinecap="round"
             strokeLinejoin="round"
         >
-            <circle cx="11" cy="11" r="8" />
-            <path d="m21 21-4.3-4.3" />
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
         </svg>
     )
 }
