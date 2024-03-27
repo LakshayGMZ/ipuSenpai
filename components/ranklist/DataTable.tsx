@@ -27,6 +27,7 @@ import {Input} from "@/components/ui/input"
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
 import {StudentResults} from "@/types/types";
 import {Pagination} from "@mui/material";
+import { Badge } from "@/components/ui/badge";
 
 
 export function DataTable(
@@ -169,6 +170,17 @@ export function DataTable(
                                             )}
                                         </TableCell>
                                     ))}
+                                    {/* 
+                                    TODO: Show a badge beside the name of the student who is the topper.
+                                    */}
+                                    { row.original.rank === 1 &&
+                                    <Badge
+                                        className={"ml-2 rounded-2xl text-center align"}
+                                        variant={row.original.rank === 1 ? "default" : "secondary"}
+                                        >
+                                        Topper
+                                    </Badge>
+                                    }
                                 </TableRow>
                             ))
                         ) : (

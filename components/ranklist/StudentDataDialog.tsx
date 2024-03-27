@@ -13,6 +13,7 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import {ChevronDown} from "lucide-react";
+import {Badge} from "@/components/ui/badge";
 
 export function StudentDataDialog(
     {
@@ -40,7 +41,7 @@ export function StudentDataDialog(
 
     const TableHeaderForSem = () => (
         <>
-            {tableHeadForSem["Paper ID"] && <TableHead>Paper ID</TableHead>}
+            {tableHeadForSem["Paper ID"] && <TableHead>Paper ID (S. Code)</TableHead>}
             {tableHeadForSem["Subject Name"] && <TableHead>Subject Name</TableHead>}
             {tableHeadForSem["Int. | Ext."] && <TableHead className={"text-center"}>Int. | Ext.</TableHead>}
             {tableHeadForSem["Marks"] && <TableHead>Marks</TableHead>}
@@ -88,7 +89,12 @@ export function StudentDataDialog(
                 <div className="w-screen md:max-w-4xl mx-auto p-4 md:p-6 shadow rounded">
                     <div className="flex flex-col space-y-4 relative">
                         <div className="flex items-center justify-center space-x-4">
-                            <h1 className="text-2xl font-semibold text-center">{studentData.data.name}</h1>
+                            {/*
+                            TODO: Fix the rank badge vertical alignment
+                             */}
+                            <h1 className="text-2xl font-semibold text-center">{studentData.data.name}
+                                <Badge variant="default" className="ml-2">{studentData.data.rank}</Badge>
+                            </h1>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
@@ -190,10 +196,10 @@ export function StudentDataDialog(
                                         studentData.data.subject?.map(
                                             (subject: SubjectData, idx: number) =>
                                                 <TableRow key={idx + 1}>
-                                                    {tableHeadForSem["Paper ID"] && <TableCell>{subject.paperid}</TableCell>}
-                                                    {tableHeadForSem["Subject Name"] && <TableCell>{subject.subname} ({subject.credits})</TableCell>}
-                                                    {tableHeadForSem["Int. | Ext."] && <TableCell className={"text-center"}>{subject.internal} | {subject.external}</TableCell>}
-                                                    {tableHeadForSem["Marks"] && <TableCell>{subject.total}</TableCell>}
+                                                    {tableHeadForSem["Paper ID"] && <TableCell>{subject.paperid} ({subject.subcode})</TableCell>}
+                                                    {tableHeadForSem["Subject Name"] && <TableCell>{subject.subname} ({subject.credits}) {<Badge variant = "outline">{subject.ExamType}</Badge>} {subject.grade === "F" && <Badge variant="destructive">Back</Badge>}</TableCell>}
+                                                    {tableHeadForSem["Int. | Ext."] && <TableCell className={"text-center"}>{subject.internal === "" ? "0" : subject.internal} | {subject.external === "" ? "0" : subject.external}</TableCell>}
+                                                    {tableHeadForSem["Marks"] && <TableCell>{subject.total === "" ? (subject.internal === "" ? "0" : subject.internal) : subject.total}</TableCell>}
                                                 </TableRow>
                                         )
                                     }
