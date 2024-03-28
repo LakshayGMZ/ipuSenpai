@@ -2,6 +2,8 @@
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {getStudentProfileData} from "@/app/lib/dataFetchClient";
+import React from 'react';
+import ReactDOM from 'react-dom';
 import {
     LineChart,
     CartesianGrid,
