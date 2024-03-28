@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
 import {Label} from "@/components/ui/label"
+import { Checkbox } from "@/components/ui/checkbox";
 
 
 export default function Page() {
@@ -31,6 +32,7 @@ export default function Page() {
     const handleSubmit = (event: any) => {
         event.preventDefault();
         localStorage.setItem("studentEnrollment", value);
+        localStorage.setItem("transfer", "false");
         router.push("/student/" + value);
     }
     const [open, setOpen] = useState(false);
@@ -43,12 +45,21 @@ export default function Page() {
             <Dialog open={open}>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>Enter Enrollment</DialogTitle>
+                        <DialogTitle>Enter Enrollment No.</DialogTitle>
                         <DialogDescription>
-                            Enter your enrollment here to be saved on website.
+                            Enter your enrollment here.
                         </DialogDescription>
                     </DialogHeader>
+                    <div className="flex flex-row items-center gap-3">
+                        {/* // TODO: Save the value of the checkbox to localStorage
+                        // @assigned-to: @lakshayGMZ */}
+                        <Checkbox id="transfer" onChange={() => {}}/>
+                        <Label htmlFor="transfer" className="text-right">
+                            Are you a upgradation/transfer student?
+                        </Label>
+                    </div>
                     <div className="flex flex-row items-center gap-2">
+                        
                         <Label htmlFor="name" className="text-right">
                             Enrollment&nbsp;No.
                         </Label>
@@ -56,10 +67,17 @@ export default function Page() {
                             value={value}
                             onChange={(e) => setValue(e.target.value)}
                             className="col-span-3"
+                            // TODO: Enforce pattern for enrollment number
+                            // @assigned-to: @lakshayGMZ
+                            // pattern="^[0-9]{4,}$"
                         />
                     </div>
                     <DialogFooter>
                         <Button onClick={handleSubmit} type="submit">Save changes</Button>
+                        {/*
+                        TODO: Add loader here
+                        @assigned-to: @lakshayGMZ 
+                         */}
                     </DialogFooter>
                 </DialogContent>
             </Dialog>

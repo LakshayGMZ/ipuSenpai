@@ -15,7 +15,7 @@ export default function StudentCard(
                 <CardTitle className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                     {data.name}
                 </CardTitle>
-                <CardDescription className="text-sm text-gray-500 dark:text-gray-400">
+                <CardDescription className="text-sm text-gray-500 dark:text-gray-400 font-semibold">
                     {data.enrollment}
                 </CardDescription>
             </CardHeader>
