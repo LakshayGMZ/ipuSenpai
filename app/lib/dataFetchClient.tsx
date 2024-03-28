@@ -1,3 +1,5 @@
+'use client'
+
 import {StudentProfileData} from "@/types/types";
 
 import axios from "axios";
