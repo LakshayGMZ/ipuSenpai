@@ -61,8 +61,8 @@ export default function Programmes() {
     });
     const [pagination, setPagination] = useState<{ totalPages?: number, pageIndex: number, pageSize: number }>({
         pageIndex: 1,
-        pageSize: 60,
-        totalPages: 5
+        pageSize: 100,
+        totalPages: 1
     });
     const is_mobile = useRef<boolean>(false);
 
@@ -99,10 +99,10 @@ export default function Programmes() {
         if (selectedData.institute !== "") fetchShifts();
     }, [selectedData.institute]);
 
-    const handleResultFetch = async () => {
-        const resData = await getResult(selectedData, setPagination, pagination.pageIndex - 1, pagination.pageSize);
+    const handleResultFetch = async (flag: String) => {
+        const pgIdx = flag === "search" ? 0 : pagination.pageIndex - 1;
+        const resData = await getResult(selectedData, setPagination, pgIdx, pagination.pageSize);
         loader.inactiveLoader();
-
         setResultData(resData);
     }
 
@@ -113,14 +113,13 @@ export default function Programmes() {
             fetchSemester();
     }, [selectedData.institute, selectedData.programme, selectedData.batch]);
 
+
     useEffect(() => {
-        if (pagination.pageIndex > pagination.totalPages!) {
-            setPagination(prevState => ({...prevState, pageIndex: 1}));
-        } else if (Object.values(selectedData).every(i => i !== "")) {
+        if (Object.values(selectedData).every(i => i !== "")) {
             loader.activeLoader();
-            (async () => await handleResultFetch())();
+            (async () => await handleResultFetch("normal"))();
         }
-    }, [pagination.pageIndex, pagination.pageSize]);
+    }, [pagination.pageIndex]);
 
 
     return (
@@ -185,7 +184,8 @@ export default function Programmes() {
                             onClick={async (e) => {
                                 e.preventDefault();
                                 loader.activeLoader();
-                                await handleResultFetch();
+                                // setPagination(prevState => ({...prevState, pageIndex: 1}))
+                                await handleResultFetch("search");
                             }}
                         >Search</Button>
                     </div>
