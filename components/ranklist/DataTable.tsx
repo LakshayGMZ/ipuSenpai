@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {Input} from "@/components/ui/input"
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
-import {StudentResults} from "@/types/types";
+import {StudentDataJoined} from "@/types/types";
 import {Pagination} from "@mui/material";
 
 
@@ -37,11 +37,11 @@ export function DataTable(
         setPagination,
         setSelectStudent
     }: {
-        data: StudentResults[]
-        columns: ColumnDef<StudentResults>[],
+        data: StudentDataJoined[]
+        columns: ColumnDef<StudentDataJoined>[],
         pagination: { pageSize: number, pageIndex: number, totalPages?: number },
         setPagination: Dispatch<SetStateAction<{ pageIndex: number, pageSize: number; totalPages?: number; }>>,
-        setSelectStudent: Dispatch<SetStateAction<{ open: boolean; data: StudentResults; }>>
+        setSelectStudent: Dispatch<SetStateAction<{ open: boolean; data: StudentDataJoined; }>>
     }
 ) {
     const [sorting, setSorting] = React.useState<SortingState>([])
@@ -55,7 +55,7 @@ export function DataTable(
         })
     const [rowSelection, setRowSelection] = React.useState({})
 
-    const table = useReactTable<StudentResults>({
+    const table = useReactTable<StudentDataJoined>({
         data,
         columns,
         onSortingChange: setSorting,

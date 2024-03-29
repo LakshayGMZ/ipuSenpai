@@ -2,10 +2,10 @@ import {ColumnDef} from "@tanstack/react-table";
 import {Button} from "@/components/ui/button";
 import {ArrowUpDown} from "lucide-react";
 import * as React from "react";
-import {RanklistQueryFields, StudentResults} from "@/types/types";
+import {RanklistQueryFields, StudentDataJoined} from "@/types/types";
 import {Badge} from "@/components/ui/badge";
 
-export const columnsOverall: ColumnDef<StudentResults>[] = [
+export const columnsOverall: ColumnDef<StudentDataJoined>[] = [
     {
         accessorKey: "enrollment",
 
@@ -114,7 +114,7 @@ export const columnsOverall: ColumnDef<StudentResults>[] = [
 ]
 
 
-export const columnsSem: ColumnDef<StudentResults>[] = [
+export const columnsSem: ColumnDef<StudentDataJoined>[] = [
     {
         accessorKey: "enrollment",
 

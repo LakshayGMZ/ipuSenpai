@@ -1,6 +1,6 @@
 "use client"
 
-import {SemesterData, StudentResults, SubjectData} from "@/types/types";
+import {SemesterData, StudentDataJoined, SubjectData} from "@/types/types";
 import React, {useEffect, useState} from "react";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {Button} from "@/components/ui/button";
@@ -20,8 +20,8 @@ export function StudentDataDialog(
         studentData,
         setStudentData
     }: {
-        studentData: { open: boolean; data: StudentResults; },
-        setStudentData: React.Dispatch<React.SetStateAction<{ open: boolean; data: StudentResults; }>>,
+        studentData: { open: boolean; data: StudentDataJoined; },
+        setStudentData: React.Dispatch<React.SetStateAction<{ open: boolean; data: StudentDataJoined; }>>,
     }
 ) {
     const [tableHeadForSem, setTableHeadForSem] = useState<{ [key: string]: boolean }>({

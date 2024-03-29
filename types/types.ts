@@ -84,7 +84,12 @@ interface StudentDataOverallSem extends BasicStudentData {
     marksPerSemester?: SemesterData[];
 }
 
-export interface StudentResults extends StudentDataOverallSem, StudentDataPerSem {}
+export interface StudentDataJoined extends StudentDataOverallSem, StudentDataPerSem {}
+export interface StudentResults {
+    ranklist: StudentDataJoined[];
+    avgGpa: string;
+    gpaList: number[];
+}
 
 export type LoadingState = {
     text: string;

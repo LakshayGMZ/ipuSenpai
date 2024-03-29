@@ -87,13 +87,13 @@ export async function getResult(
     }>>,
     page: number = 0,
     pageSize: number = 50,
-): Promise<StudentResults[]> {
+): Promise<StudentResults> {
 
     const url = data.semester !== "0" ?
         `/rank/semester/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&sem=${data.semester}&pageNumber=${page}&pageSize=${pageSize}/${data.shift === "*" ? encodeURI(data.institute): ""}` :
         `/rank/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&pageNumber=${page}&pageSize=${pageSize}/${data.shift === "*" ? encodeURI(data.institute) : ""}`
 
-    const res = await axios.get<StudentResults[]>(url);
+    const res = await axios.get<StudentResults>(url);
     if (res.status !== 200) {
         throw new Error('Failed to fetch data. URL: ' + res.config.url)
     }
