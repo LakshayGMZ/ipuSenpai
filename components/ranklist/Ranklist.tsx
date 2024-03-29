@@ -19,7 +19,19 @@ import {columnsOverall, columnsSem} from "@/app/lib/data";
 import {isMobile} from "@/app/lib/actions";
 import {useLoader} from "@/app/lib/LoaderContext";
 import {StudentDataDialog} from "@/components/ranklist/StudentDataDialog";
-
+import {
+    LineChart,
+    CartesianGrid,
+    Line,
+    Legend,
+    XAxis,
+    YAxis,
+    Tooltip,
+    ResponsiveContainer,
+    ReferenceArea,
+    ReferenceLine,
+  } from "recharts";
+import {themes} from "@/app/registry/themes";
 
 export default function Ranklist() {
     const [selectedData, setSelectedData] = useState<RanklistSelectDataFields>({
@@ -38,7 +50,7 @@ export default function Ranklist() {
     const [batches, setBatches] = useState<RanklistQueryFields[]>([]);
     const [semesters, setSemesters] = useState<RanklistQueryFields[]>([]);
     const [resultData, setResultData] = useState<StudentResults>({
-        avgGpa: "",
+        avgGpa: 0,
         gpaList: [],
         ranklist: []
     });
@@ -196,91 +208,93 @@ export default function Ranklist() {
                 </div>
             </form>
 
-            {/*{resultData.gpaList.length > 0 && <div className="px-5">*/}
-            {/*    <ResponsiveContainer width="100%" height={400}>*/}
-            {/*        <LineChart*/}
-            {/*            width={600}*/}
-            {/*            height={300}*/}
-            {/*            data={resultData.gpaList}*/}
-            {/*            margin={{*/}
-            {/*                top: 5,*/}
-            {/*                right: 30,*/}
-            {/*                left: 10,*/}
-            {/*                bottom: 5,*/}
-            {/*            }}*/}
-            {/*        >*/}
-            {/*            /!* <XAxis dataKey="name"*/}
-            {/*                label={{*/}
-            {/*                    key: 'xAxisLabel',*/}
-            {/*                    value: 'Name',*/}
-            {/*                    position: 'bottom',*/}
-            {/*                    }}*/}
-            {/*                padding={{ left: 20, right: 20 }}*/}
-            {/*            /> *!/*/}
-            {/*            <YAxis*/}
-            {/*                domain={[*/}
-            {/*                    (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,*/}
-            {/*                    (dataMax: number) => Math.round((dataMax + Number.EPSILON) * 100) / 100,*/}
-            {/*                ]}*/}
-            {/*                padding={{top: 10, bottom: 10}}*/}
-            {/*            />*/}
-            {/*            <Tooltip*/}
-            {/*                content={({active, payload}) => {*/}
-            {/*                    if (active && payload && payload.length) {*/}
-            {/*                        return (*/}
-            {/*                            <div className="rounded-lg border bg-background p-2 shadow-sm">*/}
-            {/*                                <div className="grid grid-cols-2 gap-2">*/}
-            {/*                                    <div className="flex flex-col">*/}
-            {/*                            <span className="text-[0.70rem] uppercase text-muted-foreground">*/}
-            {/*                                SGPA*/}
-            {/*                            </span>*/}
-            {/*                                        <span className="font-bold text-muted-foreground">*/}
-            {/*                            {payload[0].value}*/}
-            {/*                            </span>*/}
-            {/*                                    </div>*/}
-            {/*                                </div>*/}
-            {/*                            </div>*/}
-            {/*                        )*/}
-            {/*                    }*/}
-            {/*                    return null*/}
-            {/*                }}*/}
-            {/*            />*/}
-            {/*            /!* <CartesianGrid strokeDasharray="2 2" /> *!/*/}
-            {/*            <Legend*/}
-            {/*                formatter={(value, entry, index) => <span className="text-color-class">GPA</span>}*/}
-            {/*                verticalAlign="top"*/}
-            {/*                height={36}*/}
-            {/*            />*/}
-            {/*            <ReferenceLine y={8.7} stroke="white" strokeDasharray="3 3" label={{*/}
-            {/*                value: 'Average',*/}
-            {/*                position: 'insideTopRight',*/}
-            {/*                fill: "white",*/}
-            {/*                fontSize: 16*/}
-            {/*            }}/>*/}
+            {resultData.gpaList.length > 0 && <div className="px-5">
+                <ResponsiveContainer width="100%" height={400}>
+                    <LineChart
+                        width={600}
+                        height={300}
+                        data={resultData.gpaList}
+                        margin={{
+                            top: 5,
+                            right: 30,
+                            left: 10,
+                            bottom: 5,
+                        }}
+                    >
+                        {/* <XAxis dataKey="name"
+                            label={{
+                                key: 'xAxisLabel',
+                                value: 'Name',
+                                position: 'bottom',
+                                }}
+                            padding={{ left: 20, right: 20 }}
+                        /> */}
+                        <YAxis
+                            domain={[
+                                (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,
+                                (dataMax: number) => Math.round((dataMax + Number.EPSILON) * 100) / 100,
+                            ]}
+                            padding={{top: 10, bottom: 10}}
+                        />
+                        <Tooltip
+                            content={({active, payload}) => {
+                                if (active && payload && payload.length) {
+                                    return (
+                                        <div className="rounded-lg border bg-background p-2 shadow-sm">
+                                            <div className="grid grid-cols-2 gap-2">
+                                                <div className="flex flex-col">
+                                                    <span className="text-[0.70rem] uppercase text-muted-foreground">
+                                                        SGPA
+                                                    </span>
+                                                    <span className="font-bold text-muted-foreground">
+                                                        {payload[0].value}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                                return null
+                            }}
+                        />
+                        {/* <CartesianGrid strokeDasharray="2 2" /> */}
+                        <Legend
+                            formatter={(value, entry, index) => <span className="text-color-class">GPA</span>}
+                            verticalAlign="top"
+                            height={36}
+                        />
+                        <ReferenceLine y={resultData.avgGpa} stroke="white" strokeDasharray="3 3" label={{
+                            value: 'Average: ' + resultData.avgGpa.toFixed(4),
+                            position: 'insideTopRight',
+                            fill: "white",
+                            fontSize: 16
+                        }}/>
 
-            {/*            <Line*/}
-            {/*                type="monotone"*/}
-            {/*                dataKey={resultData.ranklist[0].sgpa !== undefined ? "sgpa" : "cgpa"}*/}
-            {/*                strokeWidth={4}*/}
-            {/*                dot={false}*/}
-            {/*                animationDuration={2000}*/}
-            {/*                activeDot={{*/}
-            {/*                    r: 6,*/}
-            {/*                    style: {fill: "var(--theme-primary)", opacity: 0.10},*/}
-            {/*                }}*/}
-            {/*                style={*/}
-            {/*                    {*/}
-            {/*                        stroke: "var(--theme-primary)",*/}
-            {/*                        opacity: 0.75,*/}
-            {/*                        "--theme-primary": `hsl(${*/}
-            {/*                            themes[6]?.cssVars["dark"].primary*/}
-            {/*                        })`,*/}
-            {/*                    } as React.CSSProperties*/}
-            {/*                }*/}
-            {/*            />*/}
-            {/*        </LineChart>*/}
-            {/*    </ResponsiveContainer>*/}
-            {/*</div>}*/}
+                        <Line
+                            type="monotone"
+                            dataKey={v => v}
+                            strokeWidth={4}
+                            dot={false}
+                            animationDuration={2000}
+                            activeDot={{
+                                r: 6,
+                                style: {fill: "var(--theme-primary)", opacity: 0.10},
+                            }}
+                            style={
+                                {
+                                    stroke: "var(--theme-primary)",
+                                    opacity: 0.75,
+                                    "--theme-primary": `hsl(${
+                                        themes[6]?.cssVars["dark"].primary
+                                    })`,
+                                } as React.CSSProperties
+                            }
+                        />
+                    </LineChart>
+                </ResponsiveContainer>
+            </div>}
+
+            
 
             <StudentDataDialog studentData={selectStudent} setStudentData={setSelectStudent}/>
 
@@ -292,5 +306,5 @@ export default function Ranklist() {
                 setSelectStudent={setSelectStudent}
             />}
         </>
-    )
+    );
 }
