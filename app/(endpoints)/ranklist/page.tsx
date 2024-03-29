@@ -1,9 +1,9 @@
-import Programmes from "@/components/ranklist/Programmes";
+import Ranklist from "@/components/ranklist/Ranklist";
 
 
 export default async function Page() {
 
-    return <Programmes />
+    return <Ranklist />
 
 }
 

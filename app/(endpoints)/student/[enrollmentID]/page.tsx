@@ -3,7 +3,6 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/compo
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {getStudentProfileData} from "@/app/lib/dataFetchClient";
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {
     LineChart,
     CartesianGrid,
