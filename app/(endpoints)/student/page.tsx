@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
 import {Label} from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox";
+import {Checkbox} from "@/components/ui/checkbox";
 
 
 export default function Page() {
@@ -37,6 +37,11 @@ export default function Page() {
     }
     const [open, setOpen] = useState(false);
     useEffect(() => {
+        setTimeout(
+            () =>
+                document.getElementsByTagName("body")[0].setAttribute("style", ""),
+            100
+        );
         setOpen(true);
     }, []);
 
@@ -53,13 +58,14 @@ export default function Page() {
                     <div className="flex flex-row items-center gap-3">
                         {/* // TODO: Save the value of the checkbox to localStorage
                         // @assigned-to: @lakshayGMZ */}
-                        <Checkbox id="transfer" onChange={() => {}}/>
+                        <Checkbox id="transfer" onChange={() => {
+                        }}/>
                         <Label htmlFor="transfer" className="text-right">
                             Are you a upgradation/transfer student?
                         </Label>
                     </div>
                     <div className="flex flex-row items-center gap-2">
-                        
+
                         <Label htmlFor="name" className="text-right">
                             Enrollment&nbsp;No.
                         </Label>
@@ -76,7 +82,7 @@ export default function Page() {
                         <Button onClick={handleSubmit} type="submit">Save changes</Button>
                         {/*
                         TODO: Add loader here
-                        @assigned-to: @lakshayGMZ 
+                        @assigned-to: @lakshayGMZ
                          */}
                     </DialogFooter>
                 </DialogContent>
@@ -94,7 +100,7 @@ export default function Page() {
                 </div>
 
                 <div className={"flex flex-row justify-between"}>
-                    <Card>
+                    <Card className={"transition-none transform-none "}>
                         <CardHeader>
                             <CardTitle>enrollment</CardTitle>
                         </CardHeader>
