@@ -144,7 +144,7 @@ export const columnsSem: ColumnDef<StudentDataJoined>[] = [
                 </Button>
             )
         },
-        cell: ({row}) => <div className="capitalize text-left">{row.original.name}{row.original.rank === 1 &&
+        cell: ({row}) => <div className="capitalize text-center">{row.original.name}{row.original.rank === 1 &&
             <Badge
                 className={"ml-2 rounded-2xl text-center align-middle"}
                 variant={row.original.rank === 1 ? "default" : "secondary"}

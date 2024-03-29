@@ -339,6 +339,7 @@ export default async function Page(
                                 />
                                 <Line
                                 type="monotone"
+                                dot={false}
                                 dataKey="sgpa"
                                 strokeWidth={4}
                                 activeDot={{
