@@ -208,16 +208,14 @@ export default function Ranklist() {
                 </div>
             </form>
 
-            {resultData.gpaList.length > 0 && <div className="px-5">
-                <ResponsiveContainer width="100%" height={400}>
+            {resultData.gpaList.length > 0 && <div className="justify-center">
+                <ResponsiveContainer width="99%" height={300}>
                     <LineChart
-                        width={600}
-                        height={300}
                         data={resultData.gpaList}
                         margin={{
                             top: 5,
-                            right: 30,
-                            left: 10,
+                            right: 20,
+                            left: -10,
                             bottom: 5,
                         }}
                     >
@@ -244,10 +242,18 @@ export default function Ranklist() {
                                             <div className="grid grid-cols-2 gap-2">
                                                 <div className="flex flex-col">
                                                     <span className="text-[0.70rem] uppercase text-muted-foreground">
-                                                        SGPA
+                                                        GPA
                                                     </span>
                                                     <span className="font-bold text-muted-foreground">
-                                                        {payload[0].value}
+                                                        {payload[0].payload.gpa}
+                                                    </span>
+                                                </div>
+                                                <div className="flex flex-col">
+                                                    <span className="text-[0.70rem] uppercase text-muted-foreground">
+                                                        Enrollment
+                                                    </span>
+                                                    <span className="font-bold">
+                                                        {payload[0].payload.enrollment}
                                                     </span>
                                                 </div>
                                             </div>
@@ -261,7 +267,7 @@ export default function Ranklist() {
                         <Legend
                             formatter={(value, entry, index) => <span className="text-color-class">GPA</span>}
                             verticalAlign="top"
-                            height={36}
+                            height={5}
                         />
                         <ReferenceLine y={resultData.avgGpa} stroke="white" strokeDasharray="3 3" label={{
                             value: 'Average: ' + resultData.avgGpa.toFixed(4),
@@ -272,7 +278,7 @@ export default function Ranklist() {
 
                         <Line
                             type="monotone"
-                            dataKey={v => v}
+                            dataKey="gpa"
                             strokeWidth={4}
                             dot={false}
                             animationDuration={2000}

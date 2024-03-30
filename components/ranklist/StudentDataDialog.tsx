@@ -14,6 +14,18 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {ChevronDown} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
+import {
+    LineChart,
+    CartesianGrid,
+    Line,
+    Legend,
+    XAxis,
+    YAxis,
+    Tooltip,
+    ResponsiveContainer,
+    ReferenceArea,
+    ReferenceLine,
+  } from "recharts";
 
 export function StudentDataDialog(
     {
@@ -88,6 +100,12 @@ export function StudentDataDialog(
             <DrawerContent>
                 <div className="w-screen md:max-w-4xl mx-auto p-4 md:p-6 shadow rounded">
                     <div className="flex flex-col space-y-4 relative">
+                        {/* Need icon for close button */}
+                        {/* <Button
+                            variant="outline"
+                            className="absolute top-0 right-0"
+                            onClick={() => handleDrawerClose(false)}
+                        /> */}
                         <div className="flex items-center justify-center space-x-4">
                             <h1 className="text-2xl font-semibold text-center">{studentData.data.name}</h1>
                             <Badge variant="default" className="ml-2">{studentData.data.rank}</Badge>
@@ -133,6 +151,25 @@ export function StudentDataDialog(
                                 </p>
                             </div>
                         </div>
+                        {/* Doesn't render unless the drawer is open already */}
+                        {/* <div className="h-40 w-full">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <LineChart
+                                    data={studentData.data.marksPerSemester}
+                                    margin={{top: 5, right: 30, left: 20, bottom: 5}}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3"/>
+                                    <XAxis dataKey="semester"/>
+                                    <YAxis/>
+                                    <Tooltip/>
+                                    <Legend/>
+                                    
+                                    <Line type="linear" dataKey="sgpa" stroke="#82ca9d"/>
+                                    <ReferenceArea x1={1} x2={2} label="Reference Area" stroke="red" strokeOpacity={0.3}/>
+                                    <ReferenceLine x={3} label="Line" stroke="red"/>
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </div> */}
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button variant="outline" className="rounded-2xl w-fit">
