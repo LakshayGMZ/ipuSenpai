@@ -87,12 +87,15 @@ interface StudentDataOverallSem extends BasicStudentData {
 interface GpaList {
     gpa: number;
     enrollment: string;
+    name: string;
+    percentage: number;
 }
 
 export interface StudentDataJoined extends StudentDataOverallSem, StudentDataPerSem {}
 export interface StudentResults {
     ranklist: StudentDataJoined[];
     avgGpa: number;
+    avgPercentage: number;
     gpaList: GpaList[];
 }
 
