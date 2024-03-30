@@ -51,6 +51,7 @@ export default function Ranklist() {
     const [semesters, setSemesters] = useState<RanklistQueryFields[]>([]);
     const [resultData, setResultData] = useState<StudentResults>({
         avgGpa: 0,
+        avgPercentage: 0,
         gpaList: [],
         ranklist: []
     });
@@ -208,7 +209,7 @@ export default function Ranklist() {
                 </div>
             </form>
 
-            {resultData.gpaList.length > 0 && <div className="justify-center">
+            {resultData.gpaList.length > 0 && <div>
                 <ResponsiveContainer width="99%" height={300}>
                     <LineChart
                         data={resultData.gpaList}
@@ -228,6 +229,18 @@ export default function Ranklist() {
                             padding={{ left: 20, right: 20 }}
                         /> */}
                         <YAxis
+                            yAxisId="left"
+                            dataKey={"gpa"}
+                            domain={[
+                                (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,
+                                (dataMax: number) => Math.round((dataMax + Number.EPSILON) * 100) / 100,
+                            ]}
+                            padding={{top: 10, bottom: 10}}
+                        />
+                        <YAxis
+                            yAxisId="right"
+                            orientation="right"
+                            dataKey={"percentage"}
                             domain={[
                                 (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,
                                 (dataMax: number) => Math.round((dataMax + Number.EPSILON) * 100) / 100,
@@ -239,7 +252,7 @@ export default function Ranklist() {
                                 if (active && payload && payload.length) {
                                     return (
                                         <div className="rounded-lg border bg-background p-2 shadow-sm">
-                                            <div className="grid grid-cols-2 gap-2">
+                                            <div className="grid grid-rows-2 grid-cols-2 gap-2">
                                                 <div className="flex flex-col">
                                                     <span className="text-[0.70rem] uppercase text-muted-foreground">
                                                         GPA
@@ -256,6 +269,22 @@ export default function Ranklist() {
                                                         {payload[0].payload.enrollment}
                                                     </span>
                                                 </div>
+                                                <div className="flex flex-col">
+                                                    <span className="text-[0.70rem] uppercase text-muted-foreground">
+                                                        Percentage
+                                                    </span>
+                                                    <span className="font-bold text-muted-foreground">
+                                                        {payload[0].payload.percentage.toFixed(2)}
+                                                    </span>
+                                                </div>
+                                                <div className="flex flex-col">
+                                                    <span className="text-[0.70rem] uppercase text-muted-foreground">
+                                                        Name
+                                                    </span>
+                                                    <span className="font-bold">
+                                                        {payload[0].payload.name}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     )
@@ -264,21 +293,56 @@ export default function Ranklist() {
                             }}
                         />
                         {/* <CartesianGrid strokeDasharray="2 2" /> */}
-                        <Legend
+                        {/* <Legend
                             formatter={(value, entry, index) => <span className="text-color-class">GPA</span>}
                             verticalAlign="top"
                             height={5}
-                        />
+                        /> */}
+                        <Legend verticalAlign="top" height={5} />
                         <ReferenceLine y={resultData.avgGpa} stroke="white" strokeDasharray="3 3" label={{
                             value: 'Average: ' + resultData.avgGpa.toFixed(4),
+                            position: 'insideBottomRight',
+                            fill: "white",
+                            fontSize: 16
+                        }}
+                        yAxisId="left"
+                        />
+                        <ReferenceLine y={resultData.avgPercentage} stroke="white" strokeDasharray="3 3" label={{
+                            value: 'Average: ' + resultData.avgPercentage.toFixed(4),
                             position: 'insideTopRight',
                             fill: "white",
                             fontSize: 16
-                        }}/>
+                        }}
+                        yAxisId="right"
+                        />
 
                         <Line
+                            name="GPA"
                             type="monotone"
+                            yAxisId="left"
                             dataKey="gpa"
+                            strokeWidth={4}
+                            dot={false}
+                            animationDuration={2000}
+                            activeDot={{
+                                r: 6,
+                                style: {fill: "var(--theme-primary)", opacity: 0.10},
+                            }}
+                            style={
+                                {
+                                    stroke: "var(--theme-primary)",
+                                    opacity: 0.75,
+                                    "--theme-primary": `hsl(${
+                                        themes[6]?.cssVars["dark"].primary
+                                    })`,
+                                } as React.CSSProperties
+                            }
+                        />
+                        <Line
+                            name="Percentage"
+                            type="monotone"
+                            yAxisId="right"
+                            dataKey="percentage"
                             strokeWidth={4}
                             dot={false}
                             animationDuration={2000}
