@@ -209,7 +209,7 @@ export default function Ranklist() {
             </form>
 
             {resultData.gpaList.length > 0 && <div className="justify-center">
-                <ResponsiveContainer width="99%" height={300} aspect={4.5}>
+                <ResponsiveContainer width="99%" height={300}>
                     <LineChart
                         data={resultData.gpaList}
                         margin={{
