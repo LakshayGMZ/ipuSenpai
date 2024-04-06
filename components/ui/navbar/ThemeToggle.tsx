@@ -10,11 +10,12 @@ import {useMuiTheme} from "@/app/lib/MUIThemeProvider";
 
 export function ThemeToggle() {
     const {setTheme, theme} = useTheme()
-    const [themeModeDark, setThemeModeDark] = useState(theme === "dark");
+    const [themeModeDark, setThemeModeDark] = useState(theme === "first");
     const setMuiTheme = useMuiTheme();
 
     useEffect(() => {
-        setTheme(themeModeDark ? "dark" : "light");
+        console.log(theme)
+        setTheme(themeModeDark ? "first" : "second");
         setMuiTheme(themeModeDark ? "dark" : "light");
     }, [setTheme, themeModeDark]);
 

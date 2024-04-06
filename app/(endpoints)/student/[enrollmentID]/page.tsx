@@ -3,22 +3,7 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/compo
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {getStudentProfileData} from "@/app/lib/dataFetchClient";
 import React from 'react';
-import {
-    LineChart,
-    CartesianGrid,
-    Line,
-    Legend,
-    XAxis,
-    YAxis,
-    Tooltip,
-    RadarChart,
-    PolarGrid,
-    PolarAngleAxis,
-    PolarRadiusAxis,
-    Radar,
-    ResponsiveContainer,
-  } from "recharts";
-import { themes } from "@/app/registry/themes";
+import {Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,} from "recharts";
 // import { useTheme } from "next-themes";
 // import { useConfig } from "@/hooks/use-config"
 
@@ -342,19 +327,6 @@ export default async function Page(
                                 dot={false}
                                 dataKey="sgpa"
                                 strokeWidth={4}
-                                activeDot={{
-                                    r: 6,
-                                    style: { fill: "var(--theme-primary)", opacity: 0.10 },
-                                  }}
-                                  style={
-                                    {
-                                      stroke: "var(--theme-primary)",
-                                      opacity: 0.75,
-                                      "--theme-primary": `hsl(${
-                                        themes[6]?.cssVars["dark"].primary
-                                      })`,
-                                    } as React.CSSProperties
-                                  }
                                   />
                                 {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
                             </LineChart>
@@ -427,17 +399,7 @@ export default async function Page(
                                 strokeWidth={4}
                                 activeDot={{
                                     r: 6,
-                                    style: { fill: "var(--theme-primary)", opacity: 0.10 },
                                   }}
-                                  style={
-                                    {
-                                      stroke: "var(--theme-primary)",
-                                      opacity: 0.75,
-                                      "--theme-primary": `hsl(${
-                                        themes[6]?.cssVars["dark"].primary
-                                      })`,
-                                    } as React.CSSProperties
-                                  }
                                   />
                                 {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
                             </LineChart>
@@ -506,19 +468,74 @@ export default async function Page(
                                 type="monotone"
                                 dataKey="sgpa"
                                 strokeWidth={4}
-                                activeDot={{
-                                    r: 6,
-                                    style: { fill: "var(--theme-primary)", opacity: 0.10 },
+                                  />
+                                {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </div>
+                </CardContent>
+                <CardContent className="pb-4 pt-8">
+                    <div className="h-[200px]">
+                        <ResponsiveContainer width="100%" height={300}>
+                            <LineChart
+                                width={500}
+                                height={250}
+                                data={studentData?.marksPerSemester.sort((a, b) => Number(a.semester) - Number(b.semester))}
+                                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                            >
+                                {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                                <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length]}
+                                label={{
+                                    key: 'xAxisLabel',
+                                    value: 'Semester',
+                                    position: 'bottom',
                                   }}
-                                  style={
-                                    {
-                                      stroke: "var(--theme-primary)",
-                                      opacity: 0.75,
-                                      "--theme-primary": `hsl(${
-                                        themes[6]?.cssVars["dark"].primary
-                                      })`,
-                                    } as React.CSSProperties
-                                  }
+                                padding={{ left: 20, right: 20 }}
+                                />
+                                <YAxis
+                                domain={[
+                                    (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,
+                                    (dataMax: number) => dataMax,
+                                ]}
+                                padding={{ top: 20, bottom: 20 }}
+                                />
+                                {/* 
+                                <YAxis 
+                                domain={[
+                                    parseFloat(data1[0].sgpa.slice(0, -1)),
+                                    parseFloat(data1[data1.length - 1].sgpa.slice(0, -1)),
+                                ]}/>
+                                */}
+                                <Tooltip
+                                    content={({ active, payload }) => {
+                                    if (active && payload && payload.length) {
+                                        return (
+                                        <div className="rounded-lg border bg-background p-2 shadow-sm">
+                                            <div className="grid grid-cols-2 gap-2">
+                                            <div className="flex flex-col">
+                                                <span className="text-[0.70rem] uppercase text-muted-foreground">
+                                                    SGPA
+                                                </span>
+                                                <span className="font-bold text-muted-foreground">
+                                                {payload[0].value}
+                                                </span>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        )
+                                    }
+
+                                    return null
+                                    }}
+                                />
+                                <Legend 
+                                verticalAlign="top"
+                                height={36}
+                                />
+                                <Line
+                                type="monotone"
+                                dataKey="sgpa"
+                                strokeWidth={4}
                                   />
                                 {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
                             </LineChart>
@@ -589,98 +606,7 @@ export default async function Page(
                                 strokeWidth={4}
                                 activeDot={{
                                     r: 6,
-                                    style: { fill: "var(--theme-primary)", opacity: 0.10 },
                                   }}
-                                  style={
-                                    {
-                                      stroke: "var(--theme-primary)",
-                                      opacity: 0.75,
-                                      "--theme-primary": `hsl(${
-                                        themes[6]?.cssVars["dark"].primary
-                                      })`,
-                                    } as React.CSSProperties
-                                  }
-                                  />
-                                {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </div>
-                </CardContent>
-                <CardContent className="pb-4 pt-8">
-                    <div className="h-[200px]">
-                        <ResponsiveContainer width="100%" height={300}>
-                            <LineChart
-                                width={500}
-                                height={250}
-                                data={studentData?.marksPerSemester.sort((a, b) => Number(a.semester) - Number(b.semester))}
-                                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                            >
-                                {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                                <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length]}
-                                label={{
-                                    key: 'xAxisLabel',
-                                    value: 'Semester',
-                                    position: 'bottom',
-                                  }}
-                                padding={{ left: 20, right: 20 }}
-                                />
-                                <YAxis
-                                domain={[
-                                    (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,
-                                    (dataMax: number) => dataMax,
-                                ]}
-                                padding={{ top: 20, bottom: 20 }}
-                                />
-                                {/* 
-                                <YAxis 
-                                domain={[
-                                    parseFloat(data1[0].sgpa.slice(0, -1)),
-                                    parseFloat(data1[data1.length - 1].sgpa.slice(0, -1)),
-                                ]}/>
-                                */}
-                                <Tooltip
-                                    content={({ active, payload }) => {
-                                    if (active && payload && payload.length) {
-                                        return (
-                                        <div className="rounded-lg border bg-background p-2 shadow-sm">
-                                            <div className="grid grid-cols-2 gap-2">
-                                            <div className="flex flex-col">
-                                                <span className="text-[0.70rem] uppercase text-muted-foreground">
-                                                    SGPA
-                                                </span>
-                                                <span className="font-bold text-muted-foreground">
-                                                {payload[0].value}
-                                                </span>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        )
-                                    }
-
-                                    return null
-                                    }}
-                                />
-                                <Legend 
-                                verticalAlign="top"
-                                height={36}
-                                />
-                                <Line
-                                type="monotone"
-                                dataKey="sgpa"
-                                strokeWidth={4}
-                                activeDot={{
-                                    r: 6,
-                                    style: { fill: "var(--theme-primary)", opacity: 0.10 },
-                                  }}
-                                  style={
-                                    {
-                                      stroke: "var(--theme-primary)",
-                                      opacity: 0.75,
-                                      "--theme-primary": `hsl(${
-                                        themes[6]?.cssVars["dark"].primary
-                                      })`,
-                                    } as React.CSSProperties
-                                  }
                                   />
                                 {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
                             </LineChart>

@@ -53,7 +53,7 @@ export default function RootLayout(
         <body className={cn(inter.className, "flex flex-col")}>
         <LoaderProvider>
             <ThemeProvider
-                attribute="class"
+                attribute="data-theme"
                 // enableSystem
                 disableTransitionOnChange
             >

@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import {AnimatePresence, motion, useMotionValueEvent, useScroll,} from "framer-motion";
 import {cn} from "@/lib/utils";
 import {NavbarTabs} from "@/components/ui/navbar/NavBarTabs";
+import ThemeChangerTray from "@/components/ui/navbar/ThemeChangerTray";
 
 export const FloatingNav = (
     {
@@ -54,6 +55,7 @@ export const FloatingNav = (
                         "px-4 py-2 whitespace-nowrap ",
                         className)}
                 >
+                    <ThemeChangerTray />
                     <NavbarTabs tabs={navItems} />
                 </motion.div>
             </AnimatePresence>
