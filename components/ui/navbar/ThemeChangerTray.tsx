@@ -34,9 +34,6 @@ export default function ThemeChangerTray() {
         setMuiTheme(mode);
     }, [color, mode]);
 
-    const handleSetTheme = () => {
-        setTheme(`${color}_${mode}`);
-    }
 
     return (
         <div className="flex items-center space-x-2">
