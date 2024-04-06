@@ -18,11 +18,11 @@ export default function ThemeChangerTray() {
     const {theme, setTheme} = useTheme();
     const setMuiTheme = useMuiTheme();
 
-    const [color, setColor] = useState(theme?.split("_")[0])
+    const [color, setColor] = useState(theme !== undefined ? theme?.split("_")[0] : "rose")
     const [mounted, setMounted] = useState(false);
 
     const [mode, setMode] = useState<'light' | 'dark'>
-    ((theme !== undefined ? theme!.split("_")[1] : "light") as ("light" | "dark" | (() => "light" | "dark")));
+    ((theme !== undefined ? theme!.split("_")[1] : "dark") as ("light" | "dark" | (() => "light" | "dark")));
 
 
     useEffect(() => {

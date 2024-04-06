@@ -54,6 +54,7 @@ export default function RootLayout(
         <LoaderProvider>
             <ThemeProvider
                 attribute="data-theme"
+                defaultTheme={"rose_dark"}
                 // enableSystem
                 disableTransitionOnChange
             >
