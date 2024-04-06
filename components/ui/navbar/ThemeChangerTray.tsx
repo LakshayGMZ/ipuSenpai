@@ -92,7 +92,7 @@ export default function ThemeChangerTray() {
                                                 size="sm"
                                                 value={themed.name}
                                                 key={themed.name}
-                                                onClick={(e: any) => setColor(e.target.value)}
+                                                onClick={(e) => setColor(e.currentTarget.value)}
                                                 className={cn(
                                                     "justify-start",
                                                     isActive && "border-2 border-primary"
@@ -102,6 +102,7 @@ export default function ThemeChangerTray() {
                                                     className={cn(
                                                         "mr-1 flex h-5 w-5 shrink-0 -translate-x-1 items-center justify-center rounded-full"
                                                     )}
+
                                                     style={{backgroundColor: `hsl(${themed.activeColor[mode]})`}}
                                                 >
                                                 {isActive && <CheckIcon className="h-4 w-4 text-white"/>}
