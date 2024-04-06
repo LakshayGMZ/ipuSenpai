@@ -38,7 +38,7 @@ export const NavbarTabs = (
     return (
         <div
             className={cn(
-                "flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar",
+                "navbarScrollHider flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar",
                 containerClassName
             )}
         >

@@ -26,3 +26,11 @@
   fill: hsl(var(--primary));
   opacity: 0.1;
 }
+
+.navbarScrollHider {
+  scrollbar-width: none;
+}
+
+.navbarScrollHider::-webkit-scrollbar {
+  width: 0;
+}
