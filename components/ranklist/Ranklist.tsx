@@ -132,7 +132,7 @@ export default function Ranklist() {
         <>
             <form className="lg:px-10">
                 <div className="rounded-lg mx-4 md:mx-10">
-                    <h1 className="text-4xl font-semibold mb-6">Ranklist</h1>
+                    <h1 className="mb-6 scroll-m-20 border-b pb-2 text-4xl font-semibold tracking-tight first:mt-0 lg:text-5xl">Ranklist</h1>
                     <div className="grid grid-cols-2 md:grid-rows-3 lg:grid-cols-3 lg:grid-rows-2 gap-6">
                         <PreBuiltSelect<RanklistSelectDataFields>
                             name={"programme"}
@@ -204,7 +204,7 @@ export default function Ranklist() {
                         data={resultData.gpaList}
                         margin={{
                             top: 5,
-                            right: 20,
+                            right: -10,
                             left: -10,
                             bottom: 5,
                         }}
@@ -282,14 +282,19 @@ export default function Ranklist() {
                             }}
                         />
                         {/* <CartesianGrid strokeDasharray="2 2" /> */}
-                        {/* <Legend
-                            formatter={(value, entry, index) => <span className="text-color-class">GPA</span>}
+                        <Legend
+                            formatter={(value, entry, index) => 
+                            <ul className={`flex flex-row leading-5 [&:not(:first-child)]:mt-5 text-color-css text-white`}>
+                                {index === 0 ? 'GPA' : 'Percentage'}
+                            </ul>}
                             verticalAlign="top"
                             height={5}
-                        /> */}
-                        <Legend verticalAlign="top" height={5} />
+                            iconType="plainline"
+                            iconSize={20}
+                        />
+                        {/* <Legend verticalAlign="top" height={5} /> */}
                         <ReferenceLine y={resultData.avgGpa} stroke="white" strokeDasharray="3 3" label={{
-                            value: 'Average: ' + resultData.avgGpa.toFixed(4),
+                            value: 'Average GPA: ' + resultData.avgGpa.toFixed(4),
                             position: 'insideBottomRight',
                             fill: "white",
                             fontSize: 16
@@ -297,7 +302,7 @@ export default function Ranklist() {
                         yAxisId="left"
                         />
                         <ReferenceLine y={resultData.avgPercentage} stroke="white" strokeDasharray="3 3" label={{
-                            value: 'Average: ' + resultData.avgPercentage.toFixed(4),
+                            value: 'Average %: ' + resultData.avgPercentage.toFixed(4),
                             position: 'insideTopRight',
                             fill: "white",
                             fontSize: 16
@@ -322,6 +327,8 @@ export default function Ranklist() {
                             strokeWidth={4}
                             dot={false}
                             animationDuration={2000}
+                            opacity={0.75}
+                            strokeDasharray="6 5 5"
                         />
                     </LineChart>
                 </ResponsiveContainer>

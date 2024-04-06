@@ -4,8 +4,6 @@ import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {getStudentProfileData} from "@/app/lib/dataFetchClient";
 import React from 'react';
 import {Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,} from "recharts";
-// import { useTheme } from "next-themes";
-// import { useConfig } from "@/hooks/use-config"
 
 export default async function Page(
     {
