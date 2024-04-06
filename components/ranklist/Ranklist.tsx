@@ -313,19 +313,6 @@ export default function Ranklist() {
                             strokeWidth={4}
                             dot={false}
                             animationDuration={2000}
-                            activeDot={{
-                                r: 6,
-                                style: {fill: "var(--theme-primary)", opacity: 0.10},
-                            }}
-                            style={
-                                {
-                                    stroke: "var(--theme-primary)",
-                                    opacity: 0.75,
-                                    "--theme-primary": `hsl(${
-                                        themes[6]?.cssVars["dark"].primary
-                                    })`,
-                                } as React.CSSProperties
-                            }
                         />
                         <Line
                             name="Percentage"
@@ -335,19 +322,6 @@ export default function Ranklist() {
                             strokeWidth={4}
                             dot={false}
                             animationDuration={2000}
-                            activeDot={{
-                                r: 6,
-                                style: {fill: "var(--theme-primary)", opacity: 0.10},
-                            }}
-                            style={
-                                {
-                                    stroke: "var(--theme-primary)",
-                                    opacity: 0.75,
-                                    "--theme-primary": `hsl(${
-                                        themes[6]?.cssVars["dark"].primary
-                                    })`,
-                                } as React.CSSProperties
-                            }
                         />
                     </LineChart>
                 </ResponsiveContainer>
