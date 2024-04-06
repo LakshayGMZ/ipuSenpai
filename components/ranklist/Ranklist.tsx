@@ -19,19 +19,8 @@ import {columnsOverall, columnsSem} from "@/app/lib/data";
 import {isMobile} from "@/app/lib/actions";
 import {useLoader} from "@/app/lib/LoaderContext";
 import {StudentDataDialog} from "@/components/ranklist/StudentDataDialog";
-import {
-    LineChart,
-    CartesianGrid,
-    Line,
-    Legend,
-    XAxis,
-    YAxis,
-    Tooltip,
-    ResponsiveContainer,
-    ReferenceArea,
-    ReferenceLine,
-  } from "recharts";
-import {themes} from "@/app/registry/themes";
+import {Legend, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, YAxis,} from "recharts";
+import {themes} from "@/components/themes/themes";
 
 export default function Ranklist() {
     const [selectedData, setSelectedData] = useState<RanklistSelectDataFields>({
@@ -324,19 +313,6 @@ export default function Ranklist() {
                             strokeWidth={4}
                             dot={false}
                             animationDuration={2000}
-                            activeDot={{
-                                r: 6,
-                                style: {fill: "var(--theme-primary)", opacity: 0.10},
-                            }}
-                            style={
-                                {
-                                    stroke: "var(--theme-primary)",
-                                    opacity: 0.75,
-                                    "--theme-primary": `hsl(${
-                                        themes[6]?.cssVars["dark"].primary
-                                    })`,
-                                } as React.CSSProperties
-                            }
                         />
                         <Line
                             name="Percentage"
@@ -346,19 +322,6 @@ export default function Ranklist() {
                             strokeWidth={4}
                             dot={false}
                             animationDuration={2000}
-                            activeDot={{
-                                r: 6,
-                                style: {fill: "var(--theme-primary)", opacity: 0.10},
-                            }}
-                            style={
-                                {
-                                    stroke: "var(--theme-primary)",
-                                    opacity: 0.75,
-                                    "--theme-primary": `hsl(${
-                                        themes[6]?.cssVars["dark"].primary
-                                    })`,
-                                } as React.CSSProperties
-                            }
                         />
                     </LineChart>
                 </ResponsiveContainer>

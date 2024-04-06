@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import {AnimatePresence, motion, useMotionValueEvent, useScroll,} from "framer-motion";
 import {cn} from "@/lib/utils";
 import {NavbarTabs} from "@/components/ui/navbar/NavBarTabs";
+import ThemeChangerTray from "@/components/ui/navbar/ThemeChangerTray";
 
 export const FloatingNav = (
     {
@@ -32,7 +33,7 @@ export const FloatingNav = (
     });
 
     return (
-        <div className={"flex max-w-fit fixed top-10 inset-x-0 mx-auto items-center z-[5000]"}>
+        <div className={"flex fixed top-10 inset-x-0 px-2 items-center z-[50]"}>
             <AnimatePresence mode="wait">
                 <motion.div
                     initial={{
@@ -47,13 +48,14 @@ export const FloatingNav = (
                         duration: 0.2,
                     }}
                     className={cn(
-                        "flex w-fit " +
+                        "flex w-full sm:w-fit " +
                         "border border-transparent dark:border-white/[0.2] rounded-full " +
                         "dark:bg-black bg-white m-auto " +
                         "shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] " +
                         "px-4 py-2 whitespace-nowrap ",
                         className)}
                 >
+                    <ThemeChangerTray />
                     <NavbarTabs tabs={navItems} />
                 </motion.div>
             </AnimatePresence>

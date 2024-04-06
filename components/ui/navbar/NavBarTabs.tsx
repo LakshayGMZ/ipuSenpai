@@ -5,25 +5,25 @@ import {motion} from "framer-motion";
 import {cn} from "@/lib/utils";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
-import {ThemeToggle} from "@/components/ui/navbar/ThemeToggle";
 
 type Tab = {
     name: string;
     link: string;
 };
 
-export const NavbarTabs = ({
-                               tabs: propTabs,
-                               containerClassName,
-                               activeTabClassName,
-                               tabClassName,
-                           }: {
-    tabs: Tab[];
-    containerClassName?: string;
-    activeTabClassName?: string;
-    tabClassName?: string;
-    contentClassName?: string;
-}) => {
+export const NavbarTabs = (
+    {
+        tabs: propTabs,
+        containerClassName,
+        activeTabClassName,
+        tabClassName,
+    }: {
+        tabs: Tab[];
+        containerClassName?: string;
+        activeTabClassName?: string;
+        tabClassName?: string;
+        contentClassName?: string;
+    }) => {
     const pathname = usePathname();
     const [active, setActive] = useState<Tab>(propTabs.find((i) => i.link == pathname) || propTabs[0]);
     const moveSelectedTabToTop = (idx: number) => {
@@ -38,14 +38,13 @@ export const NavbarTabs = ({
     return (
         <div
             className={cn(
-                "flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar",
+                "navbarScrollHider flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar",
                 containerClassName
             )}
         >
-            <ThemeToggle />
             {propTabs.map((tab, idx) => (
                 <Link
-                    key={idx+1}
+                    key={idx + 1}
                     href={tab.link}
                     onClick={() => {
                         moveSelectedTabToTop(idx);
