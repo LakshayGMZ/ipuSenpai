@@ -30,6 +30,7 @@ export default function ThemeChangerTray() {
     }, [])
 
     useEffect(() => {
+        console.log("resetting")
         setTheme(color + "_" + mode);
         setMuiTheme(mode);
     }, [color, mode]);
@@ -67,13 +68,10 @@ export default function ThemeChangerTray() {
                                 variant="ghost"
                                 size="icon"
                                 className="ml-auto rounded-[0.5rem]"
-                                // onClick={() => {
-                                //     setConfig({
-                                //         ...config,
-                                //         theme: "zinc",
-                                //         radius: 0.5,
-                                //     })
-                                // }}
+                                onClick={() => {
+                                    setColor("rose");
+                                    setMode("dark");
+                                }}
                             >
                                 <ResetIcon/>
                                 <span className="sr-only">Reset</span>
