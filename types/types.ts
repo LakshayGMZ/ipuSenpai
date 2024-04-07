@@ -58,6 +58,11 @@ export interface SubjectData {
     ExamType: string;
 }
 
+export interface SubjectDataWithSemester{
+    semester: number;
+    subjects: SubjectData[];
+}
+
 interface BasicStudentData {
     enrollment: string;
     name: string;
@@ -163,6 +168,6 @@ export interface StudentProfileData {
     creditsPercentage: number;
     semesters: number;
     marksPerSemester: MarksPerSemester[];
-    subject: SubjectData[];
+    subject: SubjectDataWithSemester[];
     cumulativeResult: CumulativeResult[];
 }
