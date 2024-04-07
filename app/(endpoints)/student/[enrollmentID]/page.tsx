@@ -1,11 +1,11 @@
 'use client'
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import {getStudentProfileData} from "@/app/lib/dataFetchClient";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getStudentProfileData } from "@/app/lib/dataFetchClient";
 import React, { useEffect } from 'react';
-import {Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,} from "recharts";
+import { Legend, Line, LineChart, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer, Tooltip, XAxis, YAxis, } from "recharts";
 import { useLoader } from "@/app/lib/LoaderContext";
-import { StudentProfileData } from "@/types/types";
+import { StudentProfileData, SubjectData } from "@/types/types";
 
 export default function Page(
     {
@@ -15,13 +15,25 @@ export default function Page(
     }) {
 
     const loader = useLoader();
+    loader.steps = [
+        {
+            text: "Gm lakshay",
+        },
+        {
+            text: "bkl lakshay",
+        },
+        {
+            text: "c lakshay",
+        }];
 
     const [studentData, setStudentData] = React.useState<StudentProfileData>();
+
     const handleResultFetch = async () => {
         const resData = await getStudentProfileData(params.enrollmentID);
         loader.inactiveLoader();
         setStudentData(resData);
     }
+    console.log(studentData?.marksPerSemester[0]);
 
     useEffect(() => {
         loader.activeLoader();
@@ -113,7 +125,7 @@ export default function Page(
                                 }
                             </TabsList>
 
-                            <TabsContent value="overall" className={"grid grid-cols-3 gap-4"}>
+                            <TabsContent value="overall" className={"grid grid-cols-3 gap-4 pt-10"}>
                                 <Card>
                                     <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
                                         <CardTitle>Marks</CardTitle>
@@ -193,7 +205,7 @@ export default function Page(
                             {studentData?.marksPerSemester.sort((i, j) => parseInt(i.semester) - parseInt(j.semester))
                                 .map((semData, idx) =>
                                     <TabsContent key={idx + 1} value={"Sem " + semData.semester}
-                                                 className={"grid grid-cols-3 gap-4"}>
+                                        className={"grid grid-cols-3 gap-4"}>
                                         <Card>
                                             <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
                                                 <CardTitle>Marks</CardTitle>
@@ -278,147 +290,125 @@ export default function Page(
                 </div>
 
                 {/* <div className={"col-span-1 bg-yellow-400"}/> */}
-                <CardContent className="pb-4 pt-8">
+                <CardContent className="pb-4 pt-8 col-span-1">
                     <div className="h-[200px]">
-                        <ResponsiveContainer width="100%" height={300}>
-                            <LineChart
-                                width={500}
-                                height={250}
-                                data={studentData?.marksPerSemester.sort((a, b) => Number(a.semester) - Number(b.semester))}
-                                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                        <ResponsiveContainer width={400} height={500}>
+                            <RadarChart
+                                data={studentData?.subject[0].subjects}
+                                margin={{ top: 5, right: 20, left: 20, bottom: 10 }}
                             >
-                                {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                                <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length || 1]}
-                                label={{
-                                    key: 'xAxisLabel',
-                                    value: 'Semester',
-                                    position: 'bottom',
-                                  }}
-                                padding={{ left: 20, right: 20 }}
-                                />
-                                <YAxis
-                                domain={[
-                                    (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,
-                                    (dataMax: number) => dataMax,
-                                ]}
-                                padding={{ top: 20, bottom: 20 }}
-                                />
-                                {/* 
-                                <YAxis 
-                                domain={[
-                                    parseFloat(data1[0].sgpa.slice(0, -1)),
-                                    parseFloat(data1[data1.length - 1].sgpa.slice(0, -1)),
-                                ]}/>
-                                */}
                                 <Tooltip
                                     content={({ active, payload }) => {
-                                    if (active && payload && payload.length) {
-                                        return (
-                                        <div className="rounded-lg border bg-background p-2 shadow-sm">
-                                            <div className="grid grid-cols-2 gap-2">
-                                            <div className="flex flex-col">
-                                                <span className="text-[0.70rem] uppercase text-muted-foreground">
-                                                    SGPA
-                                                </span>
-                                                <span className="font-bold text-muted-foreground">
-                                                {payload[0].value}
-                                                </span>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        )
-                                    }
+                                        if (active && payload && payload.length) {
+                                            return (
+                                                <div className="rounded-lg border bg-background p-2 shadow-sm">
+                                                    <div className="grid grid-cols-2 gap-2">
+                                                        <div className="flex flex-col">
+                                                            <span className="text-[0.70rem] uppercase text-muted-foreground">
+                                                                Marks
+                                                            </span>
+                                                            <span className="font-bold text-muted-foreground">
+                                                                {payload[0].value}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
 
-                                    return null
+                                        return null
                                     }}
                                 />
-                                <Legend 
-                                verticalAlign="top"
-                                height={36}
+                                <Legend
                                 />
-                                <Line
-                                type="monotone"
-                                dot={false}
-                                dataKey="sgpa"
-                                strokeWidth={4}
-                                  />
+                                <PolarGrid gridType="circle"/>
+                                <PolarAngleAxis dataKey="subcode" label="Subjects" 
+                                radius={80}
+                                />
+                                <PolarRadiusAxis angle={75} domain={[0, 100]} />
+
+                                <Radar
+                                    name="Semester 1"
+                                    dataKey="total"
+                                    fillOpacity={0.8}
+                                    dot={true}
+
+                                />
                                 {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
-                            </LineChart>
+                            </RadarChart>
                         </ResponsiveContainer>
                     </div>
                 </CardContent>
             </div>
+            <h1 className={"text-2xl font-bold pt-4 pb-3"}>Overall Statistics</h1>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
-            <Card className="pb-4 pt-4 gap-4">
-                    <div className="">
-                        <ResponsiveContainer width="100%" height={300}>
-                            <LineChart
-                                width={500}
-                                height={250}
-                                data={studentData?.marksPerSemester.sort((a, b) => Number(a.semester) - Number(b.semester))}
-                                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                            >
-                                {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                                <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length || 1]}
+                <Card className="pb-4 pt-4 gap-4">
+                    <ResponsiveContainer width="100%" height={300}>
+                        <LineChart
+                            data={studentData?.marksPerSemester.sort((a, b) => Number(a.semester) - Number(b.semester))}
+                            margin={{ top: 10, right: 20, left: 20, bottom: 18 }}
+                        >
+                            {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                            <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length || 1]}
                                 label={{
                                     key: 'xAxisLabel',
                                     value: 'Semester',
                                     position: 'bottom',
-                                  }}
+                                }}
                                 padding={{ left: 20, right: 20 }}
-                                />
-                                <YAxis
+                            />
+                            <YAxis
                                 domain={[
                                     (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,
                                     (dataMax: number) => dataMax,
                                 ]}
+                                label={
+                                    {
+                                        value: 'SGPA',
+                                        angle: -90,
+                                        position: 'insideLeft',
+                                    }
+                                }
                                 padding={{ top: 20, bottom: 20 }}
-                                />
-                                {/* 
+                            />
+                            {/* 
                                 <YAxis 
                                 domain={[
                                     parseFloat(data1[0].sgpa.slice(0, -1)),
                                     parseFloat(data1[data1.length - 1].sgpa.slice(0, -1)),
                                 ]}/>
                                 */}
-                                <Tooltip
-                                    content={({ active, payload }) => {
+                            <Tooltip
+                                content={({ active, payload }) => {
                                     if (active && payload && payload.length) {
                                         return (
-                                        <div className="rounded-lg border bg-background p-2 shadow-sm">
-                                            <div className="grid grid-cols-2 gap-2">
-                                            <div className="flex flex-col">
-                                                <span className="text-[0.70rem] uppercase text-muted-foreground">
-                                                    SGPA
-                                                </span>
-                                                <span className="font-bold text-muted-foreground">
-                                                {payload[0].value}
-                                                </span>
+                                            <div className="rounded-lg border bg-background p-2 shadow-sm">
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div className="flex flex-col">
+                                                        <span className="text-[0.70rem] uppercase text-muted-foreground">
+                                                            SGPA
+                                                        </span>
+                                                        <span className="font-bold text-muted-foreground">
+                                                            {payload[0].value}
+                                                        </span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            </div>
-                                        </div>
                                         )
                                     }
 
                                     return null
-                                    }}
-                                />
-                                <Legend 
-                                verticalAlign="top"
-                                height={36}
-                                />
-                                <Line
+                                }}
+                            />
+                            <Line
                                 type="monotone"
+                                dot={false}
                                 dataKey="sgpa"
                                 strokeWidth={4}
-                                activeDot={{
-                                    r: 6,
-                                  }}
-                                  />
-                                {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </div>
+                            />
+                            {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
+                        </LineChart>
+                    </ResponsiveContainer>
                 </Card>
                 <CardContent className="pb-4 pt-8">
                     <div className="h-[200px]">
@@ -431,19 +421,19 @@ export default function Page(
                             >
                                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
                                 <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length || 1]}
-                                label={{
-                                    key: 'xAxisLabel',
-                                    value: 'Semester',
-                                    position: 'bottom',
-                                  }}
-                                padding={{ left: 20, right: 20 }}
+                                    label={{
+                                        key: 'xAxisLabel',
+                                        value: 'Semester',
+                                        position: 'bottom',
+                                    }}
+                                    padding={{ left: 20, right: 20 }}
                                 />
                                 <YAxis
-                                domain={[
-                                    (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,
-                                    (dataMax: number) => dataMax,
-                                ]}
-                                padding={{ top: 20, bottom: 20 }}
+                                    domain={[
+                                        (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,
+                                        (dataMax: number) => dataMax,
+                                    ]}
+                                    padding={{ top: 20, bottom: 20 }}
                                 />
                                 {/* 
                                 <YAxis 
@@ -454,35 +444,35 @@ export default function Page(
                                 */}
                                 <Tooltip
                                     content={({ active, payload }) => {
-                                    if (active && payload && payload.length) {
-                                        return (
-                                        <div className="rounded-lg border bg-background p-2 shadow-sm">
-                                            <div className="grid grid-cols-2 gap-2">
-                                            <div className="flex flex-col">
-                                                <span className="text-[0.70rem] uppercase text-muted-foreground">
-                                                    SGPA
-                                                </span>
-                                                <span className="font-bold text-muted-foreground">
-                                                {payload[0].value}
-                                                </span>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        )
-                                    }
+                                        if (active && payload && payload.length) {
+                                            return (
+                                                <div className="rounded-lg border bg-background p-2 shadow-sm">
+                                                    <div className="grid grid-cols-2 gap-2">
+                                                        <div className="flex flex-col">
+                                                            <span className="text-[0.70rem] uppercase text-muted-foreground">
+                                                                SGPA
+                                                            </span>
+                                                            <span className="font-bold text-muted-foreground">
+                                                                {payload[0].value}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
 
-                                    return null
+                                        return null
                                     }}
                                 />
-                                <Legend 
-                                verticalAlign="top"
-                                height={36}
+                                <Legend
+                                    verticalAlign="top"
+                                    height={36}
                                 />
                                 <Line
-                                type="monotone"
-                                dataKey="sgpa"
-                                strokeWidth={4}
-                                  />
+                                    type="monotone"
+                                    dataKey="sgpa"
+                                    strokeWidth={4}
+                                />
                                 {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
                             </LineChart>
                         </ResponsiveContainer>
@@ -499,19 +489,19 @@ export default function Page(
                             >
                                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
                                 <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length || 1]}
-                                label={{
-                                    key: 'xAxisLabel',
-                                    value: 'Semester',
-                                    position: 'bottom',
-                                  }}
-                                padding={{ left: 20, right: 20 }}
+                                    label={{
+                                        key: 'xAxisLabel',
+                                        value: 'Semester',
+                                        position: 'bottom',
+                                    }}
+                                    padding={{ left: 20, right: 20 }}
                                 />
                                 <YAxis
-                                domain={[
-                                    (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,
-                                    (dataMax: number) => dataMax,
-                                ]}
-                                padding={{ top: 20, bottom: 20 }}
+                                    domain={[
+                                        (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,
+                                        (dataMax: number) => dataMax,
+                                    ]}
+                                    padding={{ top: 20, bottom: 20 }}
                                 />
                                 {/* 
                                 <YAxis 
@@ -522,35 +512,35 @@ export default function Page(
                                 */}
                                 <Tooltip
                                     content={({ active, payload }) => {
-                                    if (active && payload && payload.length) {
-                                        return (
-                                        <div className="rounded-lg border bg-background p-2 shadow-sm">
-                                            <div className="grid grid-cols-2 gap-2">
-                                            <div className="flex flex-col">
-                                                <span className="text-[0.70rem] uppercase text-muted-foreground">
-                                                    SGPA
-                                                </span>
-                                                <span className="font-bold text-muted-foreground">
-                                                {payload[0].value}
-                                                </span>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        )
-                                    }
+                                        if (active && payload && payload.length) {
+                                            return (
+                                                <div className="rounded-lg border bg-background p-2 shadow-sm">
+                                                    <div className="grid grid-cols-2 gap-2">
+                                                        <div className="flex flex-col">
+                                                            <span className="text-[0.70rem] uppercase text-muted-foreground">
+                                                                SGPA
+                                                            </span>
+                                                            <span className="font-bold text-muted-foreground">
+                                                                {payload[0].value}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
 
-                                    return null
+                                        return null
                                     }}
                                 />
-                                <Legend 
-                                verticalAlign="top"
-                                height={36}
+                                <Legend
+                                    verticalAlign="top"
+                                    height={36}
                                 />
                                 <Line
-                                type="monotone"
-                                dataKey="sgpa"
-                                strokeWidth={4}
-                                  />
+                                    type="monotone"
+                                    dataKey="sgpa"
+                                    strokeWidth={4}
+                                />
                                 {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
                             </LineChart>
                         </ResponsiveContainer>
@@ -567,19 +557,19 @@ export default function Page(
                             >
                                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
                                 <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length || 1]}
-                                label={{
-                                    key: 'xAxisLabel',
-                                    value: 'Semester',
-                                    position: 'bottom',
-                                  }}
-                                padding={{ left: 20, right: 20 }}
+                                    label={{
+                                        key: 'xAxisLabel',
+                                        value: 'Semester',
+                                        position: 'bottom',
+                                    }}
+                                    padding={{ left: 20, right: 20 }}
                                 />
                                 <YAxis
-                                domain={[
-                                    (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,
-                                    (dataMax: number) => dataMax,
-                                ]}
-                                padding={{ top: 20, bottom: 20 }}
+                                    domain={[
+                                        (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,
+                                        (dataMax: number) => dataMax,
+                                    ]}
+                                    padding={{ top: 20, bottom: 20 }}
                                 />
                                 {/* 
                                 <YAxis 
@@ -590,38 +580,38 @@ export default function Page(
                                 */}
                                 <Tooltip
                                     content={({ active, payload }) => {
-                                    if (active && payload && payload.length) {
-                                        return (
-                                        <div className="rounded-lg border bg-background p-2 shadow-sm">
-                                            <div className="grid grid-cols-2 gap-2">
-                                            <div className="flex flex-col">
-                                                <span className="text-[0.70rem] uppercase text-muted-foreground">
-                                                    SGPA
-                                                </span>
-                                                <span className="font-bold text-muted-foreground">
-                                                {payload[0].value}
-                                                </span>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        )
-                                    }
+                                        if (active && payload && payload.length) {
+                                            return (
+                                                <div className="rounded-lg border bg-background p-2 shadow-sm">
+                                                    <div className="grid grid-cols-2 gap-2">
+                                                        <div className="flex flex-col">
+                                                            <span className="text-[0.70rem] uppercase text-muted-foreground">
+                                                                SGPA
+                                                            </span>
+                                                            <span className="font-bold text-muted-foreground">
+                                                                {payload[0].value}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
 
-                                    return null
+                                        return null
                                     }}
                                 />
-                                <Legend 
-                                verticalAlign="top"
-                                height={36}
+                                <Legend
+                                    verticalAlign="top"
+                                    height={36}
                                 />
                                 <Line
-                                type="monotone"
-                                dataKey="sgpa"
-                                strokeWidth={4}
-                                activeDot={{
-                                    r: 6,
-                                  }}
-                                  />
+                                    type="monotone"
+                                    dataKey="sgpa"
+                                    strokeWidth={4}
+                                    activeDot={{
+                                        r: 6,
+                                    }}
+                                />
                                 {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
                             </LineChart>
                         </ResponsiveContainer>

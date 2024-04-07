@@ -16,9 +16,15 @@
 .recharts-layer.recharts-line > path {
   stroke: hsl(var(--primary));
 }
+
 .recharts-layer .recharts-dot {
   /*fill: hsl(var(--primary));*/
   stroke: hsl(var(--primary));
+  opacity: 0.75;
+}
+
+.recharts-layer.recharts-radar {
+  fill: hsl(var(--primary));
   opacity: 0.75;
 }
 
