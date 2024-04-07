@@ -2,16 +2,32 @@
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {getStudentProfileData} from "@/app/lib/dataFetchClient";
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,} from "recharts";
+import { useLoader } from "@/app/lib/LoaderContext";
+import { StudentProfileData } from "@/types/types";
 
-export default async function Page(
+export default function Page(
     {
         params
     }: {
         params: { enrollmentID: string }
     }) {
-    const studentData = await getStudentProfileData(params.enrollmentID);
+
+    const loader = useLoader();
+
+    const [studentData, setStudentData] = React.useState<StudentProfileData>();
+    const handleResultFetch = async () => {
+        const resData = await getStudentProfileData(params.enrollmentID);
+        loader.inactiveLoader();
+        setStudentData(resData);
+    }
+
+    useEffect(() => {
+        loader.activeLoader();
+        handleResultFetch();
+    }, []);
+
     // const { theme: mode } = useTheme()
     // const [config] = useConfig()
 
@@ -272,7 +288,7 @@ export default async function Page(
                                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                             >
                                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                                <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length]}
+                                <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length || 1]}
                                 label={{
                                     key: 'xAxisLabel',
                                     value: 'Semester',
@@ -343,7 +359,7 @@ export default async function Page(
                                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                             >
                                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                                <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length]}
+                                <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length || 1]}
                                 label={{
                                     key: 'xAxisLabel',
                                     value: 'Semester',
@@ -414,7 +430,7 @@ export default async function Page(
                                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                             >
                                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                                <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length]}
+                                <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length || 1]}
                                 label={{
                                     key: 'xAxisLabel',
                                     value: 'Semester',
@@ -482,7 +498,7 @@ export default async function Page(
                                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                             >
                                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                                <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length]}
+                                <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length || 1]}
                                 label={{
                                     key: 'xAxisLabel',
                                     value: 'Semester',
@@ -550,7 +566,7 @@ export default async function Page(
                                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                             >
                                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                                <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length]}
+                                <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length || 1]}
                                 label={{
                                     key: 'xAxisLabel',
                                     value: 'Semester',
