@@ -50,7 +50,7 @@ export default function Page() {
                     <DialogHeader>
                         <DialogTitle>Student Profile Dashboard</DialogTitle>
                         <DialogDescription>
-                            Enter your enrollment here. Click save when you're done.
+                            Enter your enrollment here. Click save when you&apos;re done.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="flex flex-row items-center gap-4 py-4">
@@ -106,7 +106,7 @@ export default function Page() {
                 </Card>
                 <Card className="border">
                     <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                        <CardTitle>Shuchi'in Academy</CardTitle>
+                        <CardTitle>Shuchi&apos;in Academy</CardTitle>
                     </CardHeader>
                     <CardContent className="font-semibold p-5">
                         6969
