@@ -284,7 +284,7 @@ export default function Ranklist() {
                         {/* <CartesianGrid strokeDasharray="2 2" /> */}
                         <Legend
                             formatter={(value, entry, index) => 
-                            <ul className={`flex flex-row leading-5 [&:not(:first-child)]:mt-5 text-color-css text-white`}>
+                            <ul className={`flex flex-row leading-5 [&:not(:first-child)]:mt-5 text-color-css dark:text-white text-slate-950`}>
                                 {index === 0 ? 'GPA' : 'Percentage'}
                             </ul>}
                             verticalAlign="top"
