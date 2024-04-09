@@ -33,7 +33,7 @@ export const FloatingNav = (
     });
 
     return (
-        <div className={"flex fixed top-10 inset-x-0 px-2 items-center z-[50]"}>
+        <div className={"flex fixed top-10 inset-x-0 px-2 items-center z-[5000]"}>
             <AnimatePresence mode="wait">
                 <motion.div
                     initial={{
