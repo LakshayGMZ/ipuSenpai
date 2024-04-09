@@ -59,7 +59,7 @@ export interface SubjectData {
 }
 
 export interface SubjectDataWithSemester{
-    semester: number;
+    semester: string;
     subjects: SubjectData[];
 }
 

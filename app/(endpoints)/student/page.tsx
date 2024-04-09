@@ -5,14 +5,7 @@ import React, {useEffect, useState} from "react";
 import {redirect, useRouter} from "next/navigation";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle
-} from "@/components/ui/dialog";
+import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
 import {Label} from "@/components/ui/label"
 
@@ -53,26 +46,24 @@ export default function Page() {
                             Enter your enrollment here. Click save when you&apos;re done.
                         </DialogDescription>
                     </DialogHeader>
-                    <div className="flex flex-row items-center gap-4 py-4">
+                    <form className="grid grid-cols-3 items-center gap-4 py-4" onSubmit={handleSubmit}>
                         <Label htmlFor="name" className="text-right">
                             Enrollment&nbsp;No.
                         </Label>
                         <Input
                             value={value}
-                            onChange={(e) => setValue(e.target.value)}
-                            className="col-span-3"
-                            // TODO: Enforce pattern for enrollment number
-                            // @assigned-to: @lakshayGMZ
-                            // pattern="^[0-9]{4,}$"
+                            onChange={(e) => {
+                                if (/^\d+$/.test(e.target.value) || e.target.value === "") setValue(e.target.value);
+                            }}
+                            className="col-span-2"
+                            autoFocus={true}
                         />
-                    </div>
-                    <DialogFooter>
-                        <Button onClick={handleSubmit} type="submit">Save changes</Button>
-                        {/*
-                        TODO: Add loader here
-                        @assigned-to: @lakshayGMZ
-                         */}
-                    </DialogFooter>
+                        <Button
+                            // onClick={handleSubmit}
+                            className={"col-span-3"}
+                            type="submit"
+                        >Save changes</Button>
+                    </form>
                 </DialogContent>
             </Dialog>
             <div className={"absolute inset-0 backdrop-blur-md"}></div>
@@ -88,56 +79,56 @@ export default function Page() {
                 </div>
 
                 <div className={"flex flex-row justify-between gap-4"}>
-                <Card>
-                    <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                        <CardTitle>
+                    <Card>
+                        <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                            <CardTitle>
+                                01096202722
+                            </CardTitle>
+                            <CardDescription>
+                                Enrollment
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className="font-semibold p-5">
                             01096202722
-                        </CardTitle>
-                        <CardDescription>
-                            Enrollment
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="font-semibold p-5">
-                        01096202722
-                        <CardDescription>
-                            SID
-                        </CardDescription>
-                    </CardContent>
-                </Card>
-                <Card className="border">
-                    <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                        <CardTitle>Shuchi&apos;in Academy</CardTitle>
-                    </CardHeader>
-                    <CardContent className="font-semibold p-5">
-                        6969
-                        <CardDescription>
-                            Institute Code
-                        </CardDescription>
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                        <CardTitle>High School</CardTitle>
-                    </CardHeader>
-                    <CardContent className="font-semibold p-5">
-                        6969
-                        <CardDescription>
-                            Programme Code
-                        </CardDescription>
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                        <CardTitle>Student President</CardTitle>
-                    </CardHeader>
-                    <CardContent className="font-semibold p-5">
-                        6969
-                        <CardDescription>
-                            Branch Code
-                        </CardDescription>
-                    </CardContent>
-                </Card>
-            </div>
+                            <CardDescription>
+                                SID
+                            </CardDescription>
+                        </CardContent>
+                    </Card>
+                    <Card className="border">
+                        <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                            <CardTitle>Shuchi&apos;in Academy</CardTitle>
+                        </CardHeader>
+                        <CardContent className="font-semibold p-5">
+                            6969
+                            <CardDescription>
+                                Institute Code
+                            </CardDescription>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                            <CardTitle>High School</CardTitle>
+                        </CardHeader>
+                        <CardContent className="font-semibold p-5">
+                            6969
+                            <CardDescription>
+                                Programme Code
+                            </CardDescription>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                            <CardTitle>Student President</CardTitle>
+                        </CardHeader>
+                        <CardContent className="font-semibold p-5">
+                            6969
+                            <CardDescription>
+                                Branch Code
+                            </CardDescription>
+                        </CardContent>
+                    </Card>
+                </div>
 
                 <div className={"grid grid-cols-3 grid-rows-1 gap-4"}>
                     <div className={"col-span-2"}>
@@ -153,40 +144,43 @@ export default function Page() {
                                 </TabsList>
 
                                 <TabsContent value="overall" className={"grid grid-cols-3 gap-4"}>
-                                <Card>
-                                    <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                                        <CardTitle>Marks</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="font-semibold p-5">
-                                        1000 / 1000
-                                        <CardDescription>
-                                            Total Marks Obtained
-                                        </CardDescription>
-                                    </CardContent>
-                                </Card>
-                                <Card>
-                                    <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                                        <CardTitle>CGPA</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="font-semibold p-5">
-                                        10.000
-                                        <CardDescription>
-                                            Cumulative Grade Point Average
-                                        </CardDescription>
-                                    </CardContent>
-                                </Card>
-                                <Card>
-                                    <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                                        <CardTitle>Percentage</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="font-semibold p-5">
-                                        100%
-                                        <CardDescription>
-                                            Percentage of Marks Obtained
-                                        </CardDescription>
-                                    </CardContent>
-                                </Card>
-                                {/* <div className="flex items-center space-x-2 col-span-3">
+                                    <Card>
+                                        <CardHeader
+                                            className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                            <CardTitle>Marks</CardTitle>
+                                        </CardHeader>
+                                        <CardContent className="font-semibold p-5">
+                                            1000 / 1000
+                                            <CardDescription>
+                                                Total Marks Obtained
+                                            </CardDescription>
+                                        </CardContent>
+                                    </Card>
+                                    <Card>
+                                        <CardHeader
+                                            className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                            <CardTitle>CGPA</CardTitle>
+                                        </CardHeader>
+                                        <CardContent className="font-semibold p-5">
+                                            10.000
+                                            <CardDescription>
+                                                Cumulative Grade Point Average
+                                            </CardDescription>
+                                        </CardContent>
+                                    </Card>
+                                    <Card>
+                                        <CardHeader
+                                            className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                            <CardTitle>Percentage</CardTitle>
+                                        </CardHeader>
+                                        <CardContent className="font-semibold p-5">
+                                            100%
+                                            <CardDescription>
+                                                Percentage of Marks Obtained
+                                            </CardDescription>
+                                        </CardContent>
+                                    </Card>
+                                    {/* <div className="flex items-center space-x-2 col-span-3">
                                     <Checkbox/>
                                     <label
                                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -194,40 +188,43 @@ export default function Page() {
                                         Show Credit Info
                                     </label>
                                 </div> */}
-                                <Card>
-                                    <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                                        <CardTitle>Credit Marks</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="font-semibold p-5">
-                                        2500 / 2500
-                                        <CardDescription>
-                                            Total Credit Marks Obtained
-                                        </CardDescription>
-                                    </CardContent>
-                                </Card>
-                                <Card>
-                                    <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                                        <CardTitle>Total Credits</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="font-semibold p-5">
-                                        69
-                                        <CardDescription>
-                                            Total Credits Overall
-                                        </CardDescription>
-                                    </CardContent>
-                                </Card>
-                                <Card>
-                                    <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                                        <CardTitle>C. Percentage</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="font-semibold p-5">
-                                        100%
-                                        <CardDescription>
-                                            Percentage of Credit Marks Obtained
-                                        </CardDescription>
-                                    </CardContent>
-                                </Card>
-                            </TabsContent>
+                                    <Card>
+                                        <CardHeader
+                                            className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                            <CardTitle>Credit Marks</CardTitle>
+                                        </CardHeader>
+                                        <CardContent className="font-semibold p-5">
+                                            2500 / 2500
+                                            <CardDescription>
+                                                Total Credit Marks Obtained
+                                            </CardDescription>
+                                        </CardContent>
+                                    </Card>
+                                    <Card>
+                                        <CardHeader
+                                            className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                            <CardTitle>Total Credits</CardTitle>
+                                        </CardHeader>
+                                        <CardContent className="font-semibold p-5">
+                                            69
+                                            <CardDescription>
+                                                Total Credits Overall
+                                            </CardDescription>
+                                        </CardContent>
+                                    </Card>
+                                    <Card>
+                                        <CardHeader
+                                            className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                            <CardTitle>C. Percentage</CardTitle>
+                                        </CardHeader>
+                                        <CardContent className="font-semibold p-5">
+                                            100%
+                                            <CardDescription>
+                                                Percentage of Credit Marks Obtained
+                                            </CardDescription>
+                                        </CardContent>
+                                    </Card>
+                                </TabsContent>
                             </Tabs>
                         </div>
                     </div>

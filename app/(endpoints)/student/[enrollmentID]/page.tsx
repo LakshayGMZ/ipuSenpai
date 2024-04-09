@@ -1,11 +1,24 @@
 'use client'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getStudentProfileData } from "@/app/lib/dataFetchClient";
-import React, { useEffect } from 'react';
-import { Legend, Line, LineChart, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer, Tooltip, XAxis, YAxis, } from "recharts";
-import { useLoader } from "@/app/lib/LoaderContext";
-import { StudentProfileData, SubjectData } from "@/types/types";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import {getStudentProfileData} from "@/app/lib/dataFetchClient";
+import React, {useEffect, useState} from 'react';
+import {
+    Legend,
+    Line,
+    LineChart,
+    PolarAngleAxis,
+    PolarGrid,
+    PolarRadiusAxis,
+    Radar,
+    RadarChart,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis,
+} from "recharts";
+import {useLoader} from "@/app/lib/LoaderContext";
+import {StudentProfileData} from "@/types/types";
 
 export default function Page(
     {
@@ -15,19 +28,9 @@ export default function Page(
     }) {
 
     const loader = useLoader();
-    loader.steps = [
-        {
-            text: "Gm lakshay",
-        },
-        {
-            text: "bkl lakshay",
-        },
-        {
-            text: "c lakshay",
-        }];
 
     const [studentData, setStudentData] = React.useState<StudentProfileData>();
-
+    const [selectedSem, setSelectedSem] = useState("overall");
     const handleResultFetch = async () => {
         const resData = await getStudentProfileData(params.enrollmentID);
         loader.inactiveLoader();
@@ -47,7 +50,7 @@ export default function Page(
 
     return (
         <div className={"w-full px-6 flex-row gap-6"}>
-            <div className={"w-full flex flex-row justify-between text-2xl font-bold scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xlscroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0"}>
+            <div className={"w-full flex flex-row justify-between text-2xl font-bold scroll-m-20 tracking-tight lg:text-5xlscroll-m-20 pb-2 first:mt-0"}>
                 <h1>
                     Hi, {studentData?.name}
                 </h1>
@@ -111,14 +114,20 @@ export default function Page(
                 <div className={"col-span-2"}>
                     <h1 className={"text-2xl font-bold pt-4 pb-3"}>Results</h1>
                     <div>
-                        <Tabs className={""} defaultValue={"overall"}>
-                            <TabsList className="grid grid-cols-4 mb-2">
-                                <TabsTrigger value="overall">Overall</TabsTrigger>
+                        <Tabs
+                            className={""}
+                            defaultValue={"overall"}
+                            onValueChange={value => setSelectedSem(value)}
+                        >
+                            <TabsList className="flex flex-row  mb-2">
+                                <TabsTrigger className={"flex-[1_1_0]"} value="overall">Overall</TabsTrigger>
                                 {studentData?.marksPerSemester.sort((i, j) => parseInt(i.semester) - parseInt(j.semester))
                                     .map((semData, idx) =>
                                         <TabsTrigger
                                             key={idx + 1}
-                                            value={"Sem " + semData.semester}>
+                                            className={"flex-[1_1_0]"}
+                                            value={semData.semester}
+                                        >
                                             Sem {semData.semester}
                                         </TabsTrigger>
                                     )
@@ -204,7 +213,7 @@ export default function Page(
 
                             {studentData?.marksPerSemester.sort((i, j) => parseInt(i.semester) - parseInt(j.semester))
                                 .map((semData, idx) =>
-                                    <TabsContent key={idx + 1} value={"Sem " + semData.semester}
+                                    <TabsContent key={idx + 1} value={semData.semester}
                                         className={"grid grid-cols-3 gap-4"}>
                                         <Card>
                                             <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
@@ -294,7 +303,7 @@ export default function Page(
                     <div className="h-[200px]">
                         <ResponsiveContainer width={400} height={500}>
                             <RadarChart
-                                data={studentData?.subject[0].subjects}
+                                data={selectedSem === "overall" ? undefined : studentData?.subject.find(i => i.semester === selectedSem)?.subjects}
                                 margin={{ top: 5, right: 20, left: 20, bottom: 10 }}
                             >
                                 <Tooltip
