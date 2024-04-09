@@ -19,6 +19,8 @@ import {
 } from "recharts";
 import {useLoader} from "@/app/lib/LoaderContext";
 import {StudentProfileData} from "@/types/types";
+import OverallTest from "@/app/(endpoints)/student/[enrollmentID]/OverallTest";
+import SemTest from "@/app/(endpoints)/student/[enrollmentID]/SemTest";
 
 export default function Page(
     {
@@ -50,7 +52,8 @@ export default function Page(
 
     return (
         <div className={"w-full px-6 flex-row gap-6"}>
-            <div className={"w-full flex flex-row justify-between text-2xl font-bold scroll-m-20 tracking-tight lg:text-5xlscroll-m-20 pb-2 first:mt-0"}>
+            <div
+                className={"w-full flex flex-row justify-between text-2xl font-bold scroll-m-20 tracking-tight lg:text-5xlscroll-m-20 pb-2 first:mt-0"}>
                 <h1>
                     Hi, {studentData?.name}
                 </h1>
@@ -214,9 +217,10 @@ export default function Page(
                             {studentData?.marksPerSemester.sort((i, j) => parseInt(i.semester) - parseInt(j.semester))
                                 .map((semData, idx) =>
                                     <TabsContent key={idx + 1} value={semData.semester}
-                                        className={"grid grid-cols-3 gap-4"}>
+                                                 className={"grid grid-cols-3 gap-4"}>
                                         <Card>
-                                            <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                            <CardHeader
+                                                className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
                                                 <CardTitle>Marks</CardTitle>
                                             </CardHeader>
                                             <CardContent className="font-semibold p-5">
@@ -227,7 +231,8 @@ export default function Page(
                                             </CardContent>
                                         </Card>
                                         <Card>
-                                            <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                            <CardHeader
+                                                className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
                                                 <CardTitle>SGPA</CardTitle>
                                             </CardHeader>
                                             <CardContent className="font-semibold p-5">
@@ -238,7 +243,8 @@ export default function Page(
                                             </CardContent>
                                         </Card>
                                         <Card>
-                                            <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                            <CardHeader
+                                                className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
                                                 <CardTitle>Percentage</CardTitle>
                                             </CardHeader>
                                             <CardContent className="font-semibold p-5">
@@ -257,7 +263,8 @@ export default function Page(
                                             </label>
                                         </div> */}
                                         <Card>
-                                            <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                            <CardHeader
+                                                className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
                                                 <CardTitle>Credit Marks</CardTitle>
                                             </CardHeader>
                                             <CardContent className="font-semibold p-5">
@@ -268,7 +275,8 @@ export default function Page(
                                             </CardContent>
                                         </Card>
                                         <Card>
-                                            <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                            <CardHeader
+                                                className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
                                                 <CardTitle>Total Credits</CardTitle>
                                             </CardHeader>
                                             <CardContent className="font-semibold p-5">
@@ -279,7 +287,8 @@ export default function Page(
                                             </CardContent>
                                         </Card>
                                         <Card>
-                                            <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                            <CardHeader
+                                                className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
                                                 <CardTitle>C. Percentage</CardTitle>
                                             </CardHeader>
                                             <CardContent className="font-semibold p-5">
@@ -304,16 +313,17 @@ export default function Page(
                         <ResponsiveContainer width={400} height={500}>
                             <RadarChart
                                 data={selectedSem === "overall" ? undefined : studentData?.subject.find(i => i.semester === selectedSem)?.subjects}
-                                margin={{ top: 5, right: 20, left: 20, bottom: 10 }}
+                                margin={{top: 5, right: 20, left: 20, bottom: 10}}
                             >
                                 <Tooltip
-                                    content={({ active, payload }) => {
+                                    content={({active, payload}) => {
                                         if (active && payload && payload.length) {
                                             return (
                                                 <div className="rounded-lg border bg-background p-2 shadow-sm">
                                                     <div className="grid grid-cols-2 gap-2">
                                                         <div className="flex flex-col">
-                                                            <span className="text-[0.70rem] uppercase text-muted-foreground">
+                                                            <span
+                                                                className="text-[0.70rem] uppercase text-muted-foreground">
                                                                 Marks
                                                             </span>
                                                             <span className="font-bold text-muted-foreground">
@@ -331,10 +341,10 @@ export default function Page(
                                 <Legend
                                 />
                                 <PolarGrid gridType="circle"/>
-                                <PolarAngleAxis dataKey="subcode" label="Subjects" 
-                                radius={80}
+                                <PolarAngleAxis dataKey="subcode" label="Subjects"
+                                                radius={80}
                                 />
-                                <PolarRadiusAxis angle={75} domain={[0, 100]} />
+                                <PolarRadiusAxis angle={75} domain={[0, 100]}/>
 
                                 <Radar
                                     name="Semester 1"
@@ -349,22 +359,23 @@ export default function Page(
                     </div>
                 </CardContent>
             </div>
+            {selectedSem === "overall" ? <OverallTest /> : <SemTest sem={selectedSem} />}
             <h1 className={"text-2xl font-bold pt-4 pb-3"}>Overall Statistics</h1>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
                 <Card className="pb-4 pt-4 gap-4">
                     <ResponsiveContainer width="100%" height={300}>
                         <LineChart
                             data={studentData?.marksPerSemester.sort((a, b) => Number(a.semester) - Number(b.semester))}
-                            margin={{ top: 10, right: 20, left: 20, bottom: 18 }}
+                            margin={{top: 10, right: 20, left: 20, bottom: 18}}
                         >
                             {/* <CartesianGrid strokeDasharray="3 3" /> */}
                             <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length || 1]}
-                                label={{
-                                    key: 'xAxisLabel',
-                                    value: 'Semester',
-                                    position: 'bottom',
-                                }}
-                                padding={{ left: 20, right: 20 }}
+                                   label={{
+                                       key: 'xAxisLabel',
+                                       value: 'Semester',
+                                       position: 'bottom',
+                                   }}
+                                   padding={{left: 20, right: 20}}
                             />
                             <YAxis
                                 domain={[
@@ -378,7 +389,7 @@ export default function Page(
                                         position: 'insideLeft',
                                     }
                                 }
-                                padding={{ top: 20, bottom: 20 }}
+                                padding={{top: 20, bottom: 20}}
                             />
                             {/* 
                                 <YAxis 
@@ -388,13 +399,14 @@ export default function Page(
                                 ]}/>
                                 */}
                             <Tooltip
-                                content={({ active, payload }) => {
+                                content={({active, payload}) => {
                                     if (active && payload && payload.length) {
                                         return (
                                             <div className="rounded-lg border bg-background p-2 shadow-sm">
                                                 <div className="grid grid-cols-2 gap-2">
                                                     <div className="flex flex-col">
-                                                        <span className="text-[0.70rem] uppercase text-muted-foreground">
+                                                        <span
+                                                            className="text-[0.70rem] uppercase text-muted-foreground">
                                                             SGPA
                                                         </span>
                                                         <span className="font-bold text-muted-foreground">
@@ -426,23 +438,23 @@ export default function Page(
                                 width={500}
                                 height={250}
                                 data={studentData?.marksPerSemester.sort((a, b) => Number(a.semester) - Number(b.semester))}
-                                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                                margin={{top: 5, right: 30, left: 20, bottom: 5}}
                             >
                                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
                                 <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length || 1]}
-                                    label={{
-                                        key: 'xAxisLabel',
-                                        value: 'Semester',
-                                        position: 'bottom',
-                                    }}
-                                    padding={{ left: 20, right: 20 }}
+                                       label={{
+                                           key: 'xAxisLabel',
+                                           value: 'Semester',
+                                           position: 'bottom',
+                                       }}
+                                       padding={{left: 20, right: 20}}
                                 />
                                 <YAxis
                                     domain={[
                                         (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,
                                         (dataMax: number) => dataMax,
                                     ]}
-                                    padding={{ top: 20, bottom: 20 }}
+                                    padding={{top: 20, bottom: 20}}
                                 />
                                 {/* 
                                 <YAxis 
@@ -452,13 +464,14 @@ export default function Page(
                                 ]}/>
                                 */}
                                 <Tooltip
-                                    content={({ active, payload }) => {
+                                    content={({active, payload}) => {
                                         if (active && payload && payload.length) {
                                             return (
                                                 <div className="rounded-lg border bg-background p-2 shadow-sm">
                                                     <div className="grid grid-cols-2 gap-2">
                                                         <div className="flex flex-col">
-                                                            <span className="text-[0.70rem] uppercase text-muted-foreground">
+                                                            <span
+                                                                className="text-[0.70rem] uppercase text-muted-foreground">
                                                                 SGPA
                                                             </span>
                                                             <span className="font-bold text-muted-foreground">
@@ -494,23 +507,23 @@ export default function Page(
                                 width={500}
                                 height={250}
                                 data={studentData?.marksPerSemester.sort((a, b) => Number(a.semester) - Number(b.semester))}
-                                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                                margin={{top: 5, right: 30, left: 20, bottom: 5}}
                             >
                                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
                                 <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length || 1]}
-                                    label={{
-                                        key: 'xAxisLabel',
-                                        value: 'Semester',
-                                        position: 'bottom',
-                                    }}
-                                    padding={{ left: 20, right: 20 }}
+                                       label={{
+                                           key: 'xAxisLabel',
+                                           value: 'Semester',
+                                           position: 'bottom',
+                                       }}
+                                       padding={{left: 20, right: 20}}
                                 />
                                 <YAxis
                                     domain={[
                                         (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,
                                         (dataMax: number) => dataMax,
                                     ]}
-                                    padding={{ top: 20, bottom: 20 }}
+                                    padding={{top: 20, bottom: 20}}
                                 />
                                 {/* 
                                 <YAxis 
@@ -520,13 +533,14 @@ export default function Page(
                                 ]}/>
                                 */}
                                 <Tooltip
-                                    content={({ active, payload }) => {
+                                    content={({active, payload}) => {
                                         if (active && payload && payload.length) {
                                             return (
                                                 <div className="rounded-lg border bg-background p-2 shadow-sm">
                                                     <div className="grid grid-cols-2 gap-2">
                                                         <div className="flex flex-col">
-                                                            <span className="text-[0.70rem] uppercase text-muted-foreground">
+                                                            <span
+                                                                className="text-[0.70rem] uppercase text-muted-foreground">
                                                                 SGPA
                                                             </span>
                                                             <span className="font-bold text-muted-foreground">
@@ -562,23 +576,23 @@ export default function Page(
                                 width={500}
                                 height={250}
                                 data={studentData?.marksPerSemester.sort((a, b) => Number(a.semester) - Number(b.semester))}
-                                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                                margin={{top: 5, right: 30, left: 20, bottom: 5}}
                             >
                                 {/* <CartesianGrid strokeDasharray="3 3" /> */}
                                 <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length || 1]}
-                                    label={{
-                                        key: 'xAxisLabel',
-                                        value: 'Semester',
-                                        position: 'bottom',
-                                    }}
-                                    padding={{ left: 20, right: 20 }}
+                                       label={{
+                                           key: 'xAxisLabel',
+                                           value: 'Semester',
+                                           position: 'bottom',
+                                       }}
+                                       padding={{left: 20, right: 20}}
                                 />
                                 <YAxis
                                     domain={[
                                         (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,
                                         (dataMax: number) => dataMax,
                                     ]}
-                                    padding={{ top: 20, bottom: 20 }}
+                                    padding={{top: 20, bottom: 20}}
                                 />
                                 {/* 
                                 <YAxis 
@@ -588,13 +602,14 @@ export default function Page(
                                 ]}/>
                                 */}
                                 <Tooltip
-                                    content={({ active, payload }) => {
+                                    content={({active, payload}) => {
                                         if (active && payload && payload.length) {
                                             return (
                                                 <div className="rounded-lg border bg-background p-2 shadow-sm">
                                                     <div className="grid grid-cols-2 gap-2">
                                                         <div className="flex flex-col">
-                                                            <span className="text-[0.70rem] uppercase text-muted-foreground">
+                                                            <span
+                                                                className="text-[0.70rem] uppercase text-muted-foreground">
                                                                 SGPA
                                                             </span>
                                                             <span className="font-bold text-muted-foreground">
