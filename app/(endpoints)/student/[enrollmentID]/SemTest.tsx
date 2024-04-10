@@ -17,10 +17,10 @@ export default function SemTest(
             <h1 className={"text-2xl font-bold pt-4 pb-3"}>Semester {sem} Statistics</h1>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-4 pb-5"}>
                 <Card className="pb-4 pt-4 gap-4">
-                    <ResponsiveContainer>
+                    <ResponsiveContainer width="100%" height={350}>
                         <ComposedChart
                             data={studentData?.subject.find(i => i.semester === sem)?.subjects}
-                            margin={{ top: 10, right: 20, left: 20, bottom: 18 }}
+                            margin={{ top: 10, right: 10, left: 15, bottom: 18 }}
                             syncMethod="index"
                             syncId={"overallSyncID"}
                             layout="horizontal"
@@ -34,7 +34,7 @@ export default function SemTest(
                                 }}
                                 padding={{ left: 20, right: 20 }}
                                 angle={0}
-                                offset={30}
+                                offset={10}
                                 fontSize={12}
                             />
                             <YAxis
