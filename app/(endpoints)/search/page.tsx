@@ -10,6 +10,7 @@ import {getAllInstitutes, getProgrammes, getSearchByStudentResult} from "@/app/l
 import {batches} from "@/app/lib/data";
 import {useLoader} from "@/app/lib/LoaderContext";
 import StudentCard from "@/components/search/StudentCard";
+import Link from "next/link";
 
 export default function Page() {
     const loader = useLoader();
@@ -117,7 +118,7 @@ export default function Page() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-10 mx-10 md:mx-20 ">
                 {
                     resultData.map((data, idx) =>
-                        <StudentCard key={idx + 1} data={data}/>
+                        <Link href={"/student/" + data.enrollment} key={idx + 1}><StudentCard data={data}/></Link>
                     )
                 }
             </div>
