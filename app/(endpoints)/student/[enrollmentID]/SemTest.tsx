@@ -1,8 +1,12 @@
+import {StudentProfileData} from "@/types/types";
+
 export default function SemTest(
     {
         sem,
+        data
     }:{
-        sem: string;
+        sem: string,
+        data?: StudentProfileData
     }
 ) {
 

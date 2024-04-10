@@ -33,7 +33,7 @@ export default function Page(
 
     const loader = useLoader();
 
-    const [studentData, setStudentData] = React.useState<StudentProfileData>();
+    const [studentData, setStudentData] = useState<StudentProfileData>();
     const [selectedSem, setSelectedSem] = useState("overall");
     const handleResultFetch = async () => {
         const resData = await getStudentProfileData(params.enrollmentID);
@@ -385,7 +385,7 @@ export default function Page(
                     </div>
                 </CardContent>
             </div>
-            {selectedSem === "overall" ? <OverallTest/> : <SemTest sem={selectedSem}/>}
+            {selectedSem === "overall" ? <OverallTest data={studentData}/> : <SemTest sem={selectedSem} data={studentData}/>}
             <h1 className={"text-2xl font-bold pt-4 pb-3"}>Overall Statistics</h1>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
                 <Card className="pb-4 pt-4 gap-4">
