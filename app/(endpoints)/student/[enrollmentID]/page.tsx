@@ -21,6 +21,8 @@ import {useLoader} from "@/app/lib/LoaderContext";
 import {StudentProfileData} from "@/types/types";
 import OverallTest from "@/app/(endpoints)/student/[enrollmentID]/OverallTest";
 import SemTest from "@/app/(endpoints)/student/[enrollmentID]/SemTest";
+import {cn} from "@/lib/utils";
+import {motion} from "framer-motion";
 
 export default function Page(
     {
@@ -123,15 +125,39 @@ export default function Page(
                             onValueChange={value => setSelectedSem(value)}
                         >
                             <TabsList className="flex flex-row  mb-2">
-                                <TabsTrigger className={"flex-[1_1_0]"} value="overall">Overall</TabsTrigger>
+                                <TabsTrigger
+                                    className={"flex-[1_1_0] relative"}
+                                    value="overall"
+                                >
+                                    {selectedSem == "overall" && <motion.div
+                                        layoutId="clickedbutton2"
+                                        transition={{type: "spring", bounce: 0.3, duration: 0.6}}
+                                        className={cn(
+                                            "absolute inset-0 bg-primary-foreground rounded-full"
+                                        )}
+                                    />}
+                                    <span className="relative block text-primary">
+                                                Overall
+                                    </span>
+                                </TabsTrigger>
                                 {studentData?.marksPerSemester.sort((i, j) => parseInt(i.semester) - parseInt(j.semester))
                                     .map((semData, idx) =>
                                         <TabsTrigger
                                             key={idx + 1}
-                                            className={"flex-[1_1_0]"}
+                                            className={"flex-[1_1_0] relative"}
                                             value={semData.semester}
                                         >
-                                            Sem {semData.semester}
+                                            {selectedSem == semData.semester && <motion.div
+                                                layoutId="clickedbutton2"
+                                                transition={{type: "spring", bounce: 0.3, duration: 0.6}}
+                                                className={cn(
+                                                    "absolute inset-0 bg-primary-foreground rounded-full"
+                                                )}
+                                            />}
+                                            <span className="relative block text-primary">
+                                                Sem {semData.semester}
+                                            </span>
+
                                         </TabsTrigger>
                                     )
                                 }
@@ -359,7 +385,7 @@ export default function Page(
                     </div>
                 </CardContent>
             </div>
-            {selectedSem === "overall" ? <OverallTest /> : <SemTest sem={selectedSem} />}
+            {selectedSem === "overall" ? <OverallTest/> : <SemTest sem={selectedSem}/>}
             <h1 className={"text-2xl font-bold pt-4 pb-3"}>Overall Statistics</h1>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
                 <Card className="pb-4 pt-4 gap-4">
