@@ -445,7 +445,7 @@ export default function Page(
                     </ResponsiveContainer>
                 </CardContent>
             </div>
-            {selectedSem === "overall" ? <OverallTest studentData={studentData}/> :
+            {studentData == undefined ? null : selectedSem === "overall" ? <OverallTest studentData={studentData}/> :
                 <SemTest sem={selectedSem} studentData={studentData}/>}
             {/* <h1>Absolute Result Breakdown</h1>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
