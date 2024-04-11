@@ -340,7 +340,7 @@ export default function Page(
                 </div>
 
                 <CardContent>
-                    <ResponsiveContainer className={"min-h-[20rem] max-h-[25rem]"} width={450}>
+                    <ResponsiveContainer className={"min-h-[20rem] max-h-[25rem] pt-1 mt-5 -mx-2"} width={450}>
                         {(selectedSem !== "overall") ?
                             <RadarChart
                                 data={studentData?.subject.find(i => i.semester === selectedSem)?.subjects}
@@ -436,7 +436,6 @@ export default function Page(
                                 <RadialBar
                                 dataKey="frequency"
                                 fill="var(--primary)"
-                                
                                 >
                                     <LabelList dataKey="grade" position="inside" fill="var(--primary-foreground)" fontWeight={600} />
                                 </RadialBar>
