@@ -136,7 +136,7 @@ export interface MarksPerSemester {
     subjects: SubjectData[];
 }
 
-interface CumulativeResult {
+export interface CumulativeResult {
     semester: string;
     cgpa: string;
     percentage: string;
