@@ -1,7 +1,7 @@
 import {StudentProfileData} from "@/types/types";
-import { Card, CardContent } from "@/components/ui/card";
-import { ResponsiveContainer, XAxis, YAxis, Tooltip, Line, Legend, LineChart, ScatterChart, Scatter } from "recharts";
-import { DataTable } from "@/components/ranklist/DataTable";
+import {Card} from "@/components/ui/card";
+import {Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {OverallResultTable} from "@/components/student/OverallResultTable";
 
 export default function OverallTest(
     {
@@ -177,11 +177,7 @@ export default function OverallTest(
             </div>
 
             <h1 className={"text-2xl font-bold pt-4 pb-3"}>Absolute Result Breakdown</h1>
-            {/* TODO:
-                Add a table to show the absolute result breakdown
-
-                Just copy from the ranklist drawer for overall
-            */}
+            {studentData && <OverallResultTable resultData={studentData.marksPerSemester}/>}
             {/* {studentData?.marksPerSemester?.length > 0 && <DataTable
                 columns={studentData?.marksPerSemester[0].sgpa !== undefined ? columnsSem : columnsOverall}
                 pagination={pagination}

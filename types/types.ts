@@ -122,7 +122,7 @@ export interface StudentSearchCard {
 
 // Student profile.
 
-interface MarksPerSemester {
+export interface MarksPerSemester {
     semester: string;
     marks: string;
     total: string;

@@ -1,6 +1,7 @@
 import {StudentProfileData} from "@/types/types";
-import { Card, CardContent } from "@/components/ui/card";
-import { ResponsiveContainer, XAxis, YAxis, Tooltip, Line, Legend, LineChart, Bar, BarChart, ComposedChart, RadialBarChart, RadialBar, Scatter, ScatterChart, PieChart, Pie } from "recharts";
+import {Card} from "@/components/ui/card";
+import {Bar, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {SemResultTable} from "@/components/student/SemResultTable";
 
 export default function SemTest(
     {
@@ -150,7 +151,8 @@ export default function SemTest(
                                 type="monotone"
                                 dot={true}
                                 dataKey="total"
-                                stroke="hsl(var(--background))"
+                                style={{stroke: "hsl(var(--secondary-foreground))"}}
+                                // stroke=
                                 strokeWidth={4}
                             />
                             {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
@@ -162,20 +164,7 @@ export default function SemTest(
                 */}
             </div>
             <h1 className={"text-2xl font-bold pt-4 pb-3"}>Result Breakdown</h1>
-            {/* TODO:
-                - Add a table to show the result breakdown
-                Columns:
-                - Subject Code
-                - Subject Name (Credits)
-                - Internal
-                - External
-                - Total
-                - Grade
-                (Don't forget to add the Exam Type as well)
-
-                Kidding, Just copy the table from the ranklist drawer and modify it accordingly
-
-            */}
+            <SemResultTable resultData={studentData!.subject.find(i => i.semester === sem)!.subjects} />
         </>
     )
 }
