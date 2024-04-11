@@ -1,17 +1,33 @@
-import {StudentProfileData} from "@/types/types";
-import {Card} from "@/components/ui/card";
-import {Bar, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import {SemResultTable} from "@/components/student/SemResultTable";
+import { StudentProfileData, GradeFrequency } from "@/types/types";
+import { Card } from "@/components/ui/card";
+import { Bar, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis, RadialBar, RadialBarChart, LabelList } from "recharts";
+import { SemResultTable } from "@/components/student/SemResultTable";
 
 export default function SemTest(
     {
         sem,
         studentData
-    }:{
+    }: {
         sem: string,
         studentData?: StudentProfileData
     }
 ) {
+
+    let frequencygrades: GradeFrequency[] = []
+
+    studentData?.subject.find(i => i.semester === sem)?.subjects.forEach((subject) => {
+        if (subject.grade) {
+            let grade = frequencygrades.find((grade) => grade.grade === subject.grade)
+            if (grade) {
+                grade.frequency += 1
+            } else {
+                frequencygrades.push({
+                    grade: subject.grade,
+                    frequency: 1
+                })
+            }
+        }
+    })
 
     return (
         <>
@@ -66,15 +82,15 @@ export default function SemTest(
                                             <div className="rounded-lg  bg-background p-2 shadow-sm">
                                                 <div className="grid grid-rows-3 grid-cols-3 gap-0">
                                                     {payload[0].payload.internal !== "" &&
-                                                    <div className="flex flex-row flex-col grid-row-1">
-                                                        <span
-                                                            className="text-[0.70rem] uppercase text-muted-foreground">
-                                                            Internal
-                                                        </span>
-                                                        <span className="font-bold text-muted-foreground">
-                                                            {payload[0].payload.internal}
-                                                        </span>
-                                                    </div>}
+                                                        <div className="flex flex-row flex-col grid-row-1">
+                                                            <span
+                                                                className="text-[0.70rem] uppercase text-muted-foreground">
+                                                                Internal
+                                                            </span>
+                                                            <span className="font-bold text-muted-foreground">
+                                                                {payload[0].payload.internal}
+                                                            </span>
+                                                        </div>}
                                                     <div className="flex flex-row flex-col grid-row-1">
                                                         <span
                                                             className="text-[0.70rem] uppercase text-muted-foreground">
@@ -151,7 +167,7 @@ export default function SemTest(
                                 type="monotone"
                                 dot={true}
                                 dataKey="total"
-                                style={{stroke: "var(--secondary-foreground)"}}
+                                style={{ stroke: "var(--secondary-foreground)" }}
                                 // stroke=
                                 strokeWidth={4}
                             />
@@ -159,9 +175,63 @@ export default function SemTest(
                         </ComposedChart>
                     </ResponsiveContainer>
                 </Card>
+
                 {/* TODO
                     Need a frequency distribution chart for the grades
                 */}
+
+<Card className="pb-4 pt-4 gap-4">
+                    <ResponsiveContainer width="100%" height={350}>
+                    <RadialBarChart
+                                data={frequencygrades.sort((i, j) => i.frequency - j.frequency).reverse()}
+                                innerRadius="12%" 
+                                outerRadius="100%" 
+                                startAngle={0} 
+                                endAngle={360}
+                            >
+                                
+                                <Tooltip
+                                    content={({active, payload}) => {
+                                        if (active && payload && payload.length) {
+                                            return (
+                                                <div className="rounded-lg border bg-background p-2 shadow-sm">
+                                                    <div className="grid grid-cols-2 gap-2">
+                                                        <div className="flex flex-col">
+                                                            <span
+                                                                className="text-[0.70rem] uppercase text-muted-foreground">
+                                                                Grade
+                                                            </span>
+                                                            <span className="font-bold text-muted-foreground">
+                                                                {payload[0].payload.grade}
+                                                            </span>
+                                                        </div>
+                                                        <div className="flex flex-col">
+                                                            <span
+                                                                className="text-[0.70rem] uppercase text-muted-foreground">
+                                                                Frequency
+                                                            </span>
+                                                            <span className="font-bold text-muted-foreground">
+                                                                {payload[0].payload.frequency}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
+
+                                        return null
+                                    }}
+                                />
+                                <RadialBar
+                                dataKey="frequency"
+                                fill="var(--primary)"
+                                
+                                >
+                                    <LabelList dataKey="grade" position="inside" fill="var(--primary-foreground)" fontWeight={600} />
+                                </RadialBar>
+                            </RadialBarChart>
+                    </ResponsiveContainer>
+                </Card>
             </div>
             <h1 className={"text-2xl font-bold pt-4 pb-3"}>Result Breakdown</h1>
             <SemResultTable resultData={studentData!.subject.find(i => i.semester === sem)!.subjects} />

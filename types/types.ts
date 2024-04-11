@@ -147,6 +147,11 @@ export interface CumulativeResult {
     totalcreditmarks: string;
 }
 
+export interface GradeFrequency {
+    grade: string;
+    frequency: number;
+}
+
 export interface StudentProfileData {
     enrollment: string;
     name: string;
