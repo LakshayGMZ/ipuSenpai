@@ -139,19 +139,19 @@ export default function SemTest(
                             />
                             <Bar
                                 dataKey="internal"
-                                fill="hsl(var(--primary-foreground))"
+                                fill="var(--primary-foreground)"
                                 stackId="subject"
                             />
                             <Bar
                                 dataKey="external"
-                                fill="hsl(var(--primary))"
+                                fill="var(--primary)"
                                 stackId="subject"
                             />
                             <Line
                                 type="monotone"
                                 dot={true}
                                 dataKey="total"
-                                style={{stroke: "hsl(var(--secondary-foreground))"}}
+                                style={{stroke: "var(--secondary-foreground)"}}
                                 // stroke=
                                 strokeWidth={4}
                             />
