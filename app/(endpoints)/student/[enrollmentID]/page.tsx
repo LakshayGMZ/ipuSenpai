@@ -16,7 +16,7 @@ import {
     Tooltip,
 } from "recharts";
 import {useLoader} from "@/app/lib/LoaderContext";
-import {StudentProfileData, GradeFrequency} from "@/types/types";
+import {GradeFrequency, StudentProfileData} from "@/types/types";
 import OverallTest from "@/app/(endpoints)/student/[enrollmentID]/OverallTest";
 import SemTest from "@/app/(endpoints)/student/[enrollmentID]/SemTest";
 import {cn} from "@/lib/utils";
@@ -125,7 +125,7 @@ export default function Page(
                 </Card>
             </div>
 
-            <div className={"grid md:grid-cols-1 md:grid-rows-2 lg:grid-cols-3 lg:grid-rows-1 gap-4 pb-4 overflow-x-scroll"}>
+            <div className={"grid md:grid-cols-1 md:grid-rows-2 lg:grid-cols-3 lg:grid-rows-1 gap-4 pb-4 overflow-x-scroll md:overflow-x-hidden"}>
                 <div className={"lg:col-span-2 "}>
                     <h1 className={"text-2xl font-bold pt-4 pb-3"}>Results</h1>
                     <Tabs
@@ -340,7 +340,7 @@ export default function Page(
                 </div>
 
                 <CardContent>
-                    <ResponsiveContainer className={"min-h-[20rem] max-h-[25rem] pt-1 mt-5 -mx-2"} width={450}>
+                    <ResponsiveContainer className={"min-h-[20rem] max-h-[25rem] pt-1 mt-5"}>
                         {(selectedSem !== "overall") ?
                             <RadarChart
                                 data={studentData?.subject.find(i => i.semester === selectedSem)?.subjects}
