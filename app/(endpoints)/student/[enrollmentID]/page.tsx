@@ -47,7 +47,7 @@ export default function Page(
     }, []);
 
     return (
-        <div className={"w-full px-6 flex-row gap-6"}>
+        <div className={"w-full px-3 md:px-6 flex-row gap-6"}>
             <div
                 className={"w-full flex flex-row justify-between text-2xl font-bold scroll-m-20 tracking-tight lg:text-5xlscroll-m-20 pb-2 first:mt-0"}>
                 <h1>
@@ -109,15 +109,15 @@ export default function Page(
                 </Card>
             </div>
 
-            <div className={"grid md:grid-cols-1 md:grid-rows-2 lg:grid-cols-3 lg:grid-rows-1 gap-4 pb-4"}>
-                <div className={"lg:col-span-2"}>
+            <div className={"grid md:grid-cols-1 md:grid-rows-2 lg:grid-cols-3 lg:grid-rows-1 gap-4 pb-4 overflow-x-scroll"}>
+                <div className={"lg:col-span-2 "}>
                     <h1 className={"text-2xl font-bold pt-4 pb-3"}>Results</h1>
                     <Tabs
                         className={""}
                         defaultValue={"overall"}
                         onValueChange={value => setSelectedSem(value)}
                     >
-                        <TabsList className="flex flex-row  mb-2">
+                        <TabsList className="flex flex-row mb-2">
                             <TabsTrigger
                                 className={"flex-[1_1_0] relative"}
                                 value="overall"
