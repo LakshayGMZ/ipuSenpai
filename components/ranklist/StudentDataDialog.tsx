@@ -203,7 +203,7 @@ export function StudentDataDialog(
                         <hr/>
                         <div className="relative w-full md:w-full max-h-[50vh] overflow-auto">
                             <Table className={"min-w-max"}>
-                                <TableHeader style={{backgroundColor: "hsl(var(--background))"}}
+                                <TableHeader style={{backgroundColor: "var(--background)"}}
                                              className={"sticky top-0"}>
                                     <TableRow>
                                         {(studentData.data.sgpa == undefined ?

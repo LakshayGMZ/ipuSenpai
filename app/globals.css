@@ -15,22 +15,22 @@
 }
 
 .recharts-layer.recharts-line > path {
-  stroke: hsl(var(--primary));
+  stroke: var(--primary);
 }
 
 .recharts-layer .recharts-dot {
-  /*fill: hsl(var(--primary));*/
-  stroke: hsl(var(--primary));
+  /*fill: var(--primary);*/
+  stroke: var(--primary);
   opacity: 0.75;
 }
 
 .recharts-layer.recharts-radar {
-  fill: hsl(var(--primary));
+  fill: var(--primary);
   opacity: 0.75;
 }
 
 .recharts-layer.recharts-active-dot {
-  fill: hsl(var(--primary));
+  fill: var(--primary);
   opacity: 0.1;
 }
 

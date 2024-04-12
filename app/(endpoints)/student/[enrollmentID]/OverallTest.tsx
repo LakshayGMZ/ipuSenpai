@@ -179,13 +179,7 @@ export default function OverallTest(
 
             <h1 className={"text-2xl font-bold pt-4 pb-3"}>Absolute Result Breakdown</h1>
             <OverallResultTable resultData={studentData.marksPerSemester}/>
-            {/* {studentData.marksPerSemester.length > 0 && <DataTable
-                columns={studentData.marksPerSemester[0].sgpa !== undefined ? columnsSem : columnsOverall}
-                pagination={pagination}
-                setPagination={setPagination}
-                data={resultData.ranklist}
-                setSelectStudent={setSelectStudent}
-            />} */}
+
             <h1 className={"text-2xl font-bold pt-4 pb-3"}>Cumulative Result Breakdown</h1>
             <CummulativeResultTable resultData={studentData.cumulativeResult} />
         </>

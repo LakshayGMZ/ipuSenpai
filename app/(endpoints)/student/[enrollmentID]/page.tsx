@@ -4,20 +4,19 @@ import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {getStudentProfileData} from "@/app/lib/dataFetchClient";
 import React, {useEffect, useState} from 'react';
 import {
-    Line,
-    LineChart,
+    LabelList,
     PolarAngleAxis,
     PolarGrid,
     PolarRadiusAxis,
     Radar,
     RadarChart,
+    RadialBar,
+    RadialBarChart,
     ResponsiveContainer,
     Tooltip,
-    XAxis,
-    YAxis,
 } from "recharts";
 import {useLoader} from "@/app/lib/LoaderContext";
-import {StudentProfileData} from "@/types/types";
+import {StudentProfileData, GradeFrequency} from "@/types/types";
 import OverallTest from "@/app/(endpoints)/student/[enrollmentID]/OverallTest";
 import SemTest from "@/app/(endpoints)/student/[enrollmentID]/SemTest";
 import {cn} from "@/lib/utils";
@@ -39,12 +38,29 @@ export default function Page(
         loader.inactiveLoader();
         setStudentData(resData);
     }
-    console.log(studentData?.marksPerSemester[0]);
 
     useEffect(() => {
         loader.activeLoader();
         handleResultFetch();
     }, []);
+
+    let frequencygrades: GradeFrequency[] = []
+
+    studentData?.subject.forEach((semester) => {
+        semester.subjects.forEach((subject) => {
+            if (subject.grade) {
+                let grade = frequencygrades.find((grade) => grade.grade === subject.grade)
+                if (grade) {
+                    grade.frequency += 1
+                } else {
+                    frequencygrades.push({
+                        grade: subject.grade,
+                        frequency: 1
+                    })
+                }
+            }
+        })
+    })
 
     return (
         <div className={"w-full px-3 md:px-6 flex-row gap-6"}>
@@ -324,7 +340,7 @@ export default function Page(
                 </div>
 
                 <CardContent>
-                    <ResponsiveContainer className={"min-h-[20rem] max-h-[30rem] aspect-square"}>
+                    <ResponsiveContainer className={"min-h-[20rem] max-h-[25rem] pt-1 mt-5 -mx-2"} width={450}>
                         {(selectedSem !== "overall") ?
                             <RadarChart
                                 data={studentData?.subject.find(i => i.semester === selectedSem)?.subjects}
@@ -377,40 +393,14 @@ export default function Page(
                                 />
                                 {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
                             </RadarChart> :
-                            <LineChart
-                                data={studentData?.marksPerSemester.sort((a, b) => Number(a.semester) - Number(b.semester))}
-                                margin={{top: 10, right: 20, left: 20, bottom: 18}}
+                            <RadialBarChart
+                                data={frequencygrades.sort((i, j) => i.frequency - j.frequency).reverse()}
+                                innerRadius="12%"
+                                outerRadius="100%"
+                                startAngle={0}
+                                endAngle={360}
                             >
-                                {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                                <XAxis dataKey="semester" domain={[0, studentData?.marksPerSemester.length || 1]}
-                                       label={{
-                                           key: 'xAxisLabel',
-                                           value: 'Semester',
-                                           position: 'bottom',
-                                       }}
-                                       padding={{left: 20, right: 20}}
-                                />
-                                <YAxis
-                                    domain={[
-                                        (dataMin: number) => Math.round((dataMin + Number.EPSILON) * 100) / 100,
-                                        (dataMax: number) => Math.round((dataMax + Number.EPSILON) * 100) / 100
-                                    ]}
-                                    label={
-                                        {
-                                            value: 'SGPA',
-                                            angle: -90,
-                                            position: 'insideLeft',
-                                        }
-                                    }
-                                    padding={{top: 20, bottom: 20}}
-                                />
-                                {/*
-                                    <YAxis
-                                    domain={[
-                                        parseFloat(data1[0].sgpa.slice(0, -1)),
-                                        parseFloat(data1[data1.length - 1].sgpa.slice(0, -1)),
-                                    ]}/>
-                                    */}
+
                                 <Tooltip
                                     content={({active, payload}) => {
                                         if (active && payload && payload.length) {
@@ -420,10 +410,19 @@ export default function Page(
                                                         <div className="flex flex-col">
                                                             <span
                                                                 className="text-[0.70rem] uppercase text-muted-foreground">
-                                                                SGPA
+                                                                Grade
                                                             </span>
                                                             <span className="font-bold text-muted-foreground">
-                                                                {payload[0].value}
+                                                                {payload[0].payload.grade}
+                                                            </span>
+                                                        </div>
+                                                        <div className="flex flex-col">
+                                                            <span
+                                                                className="text-[0.70rem] uppercase text-muted-foreground">
+                                                                Frequency
+                                                            </span>
+                                                            <span className="font-bold text-muted-foreground">
+                                                                {payload[0].payload.frequency}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -434,14 +433,13 @@ export default function Page(
                                         return null
                                     }}
                                 />
-                                <Line
-                                    type="monotone"
-                                    dot={false}
-                                    dataKey="sgpa"
-                                    strokeWidth={4}
-                                />
-                                {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
-                            </LineChart>}
+                                <RadialBar
+                                dataKey="frequency"
+                                fill="var(--primary)"
+                                >
+                                    <LabelList dataKey="grade" position="inside" fill="var(--primary-foreground)" fontWeight={600} />
+                                </RadialBar>
+                            </RadialBarChart>}
                     </ResponsiveContainer>
                 </CardContent>
             </div>
