@@ -66,7 +66,7 @@ export function SemResultTable(
             </DropdownMenu>
             <div className={"w-full overflow-x-scroll"}>
                 <Table className={"min-w-max"}>
-                    <TableHeader style={{backgroundColor: "hsl(var(--background))"}}
+                    <TableHeader style={{backgroundColor: "var(--background)"}}
                                  className={"sticky top-0"}>
                         <TableRow>
                             <TableHeaderForSem/>

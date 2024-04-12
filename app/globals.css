@@ -42,3 +42,6 @@
   width: 0;
 }
 
+tr:hover {
+  background: color-mix(in hsl, var(--muted) 50%, transparent);
+}
