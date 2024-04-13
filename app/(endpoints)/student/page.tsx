@@ -1,17 +1,70 @@
-"use client"
-
-import {Input} from "@/components/ui/input"
-import React, {useEffect, useState} from "react";
-import {redirect, useRouter} from "next/navigation";
+'use client'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import React, {useEffect, useState} from 'react';
+import {
+    LabelList,
+    PolarAngleAxis,
+    PolarGrid,
+    PolarRadiusAxis,
+    Radar,
+    RadarChart,
+    RadialBar,
+    RadialBarChart,
+    ResponsiveContainer,
+    Tooltip,
+} from "recharts";
+import {GradeFrequency, StudentProfileData} from "@/types/types";
+import OverallTest from "@/app/(endpoints)/student/[enrollmentID]/OverallTest";
+import SemTest from "@/app/(endpoints)/student/[enrollmentID]/SemTest";
+import {cn} from "@/lib/utils";
+import {motion} from "framer-motion";
+import {redirect, useRouter} from "next/navigation";
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from "@/components/ui/dialog";
+import {Label} from "@/components/ui/label";
+import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
-import {Label} from "@/components/ui/label"
 
+const studentData: StudentProfileData = {
+    "enrollment": "69696969696",
+    "name": "Miyuki Shirogane",
+    "programme": "PRESIDENT'S COURSE",
+    "specialization": "STRATEGIC LEADERSHIP",
+    "institute": "SHUCHIIN ACADEMY",
+    "batch": "Unknown",
+    "sid": "1234567890",
+    "transfer": false,
+    "instCode": "SA",
+    "progCode": "PC",
+    "marks": 4250,
+    "creditMarks": 8925,
+    "totalCreditMarks": 9500,
+    "totalCreditMarksWeighted": 780,
+    "totalCredits": 95,
+    "total": 4900,
+    "cgpa": 9.736842,
+    "percentage": 98,
+    "creditsPercentage": 94,
+    "semesters": 3,
+    "marksPerSemester": [],
+    "subject": [
+        {
+            "semester": "3",
+            "subjects": []
+        },
+        {
+            "semester": "2",
+            "subjects": []
+        },
+        {
+            "semester": "1",
+            "subjects": []
+        }
+    ],
+    "cumulativeResult": []
+}
 
 export default function Page() {
-
     const [value, setValue] = useState("");
     const router = useRouter();
 
@@ -36,60 +89,82 @@ export default function Page() {
         setOpen(true);
     }, []);
 
+    const [selectedSem, setSelectedSem] = useState("overall");
+
+    let frequencygrades: GradeFrequency[] = [
+        {
+            "grade": "A+",
+            "frequency": 14
+        },
+        {
+            "grade": "O",
+            "frequency": 8
+        },
+        {
+            "grade": "B+",
+            "frequency": 5
+        },
+        {
+            "grade": "A",
+            "frequency": 5
+        }
+    ];
+
+
     return (
         <>
             <Dialog open={open}>
-                <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                        <DialogTitle>Student Profile Dashboard</DialogTitle>
-                        <DialogDescription>
-                            Enter your enrollment here. Click save when you&apos;re done.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <form className="grid grid-cols-3 items-center gap-4 py-4" onSubmit={handleSubmit}>
-                        <Label htmlFor="name" className="text-right">
-                            Enrollment&nbsp;No.
-                        </Label>
-                        <Input
-                            value={value}
-                            onChange={(e) => {
-                                if (/^\d+$/.test(e.target.value) || e.target.value === "") setValue(e.target.value);
-                            }}
-                            className="col-span-2"
-                            autoFocus={true}
-                        />
-                        <Button
-                            // onClick={handleSubmit}
-                            className={"col-span-3"}
-                            type="submit"
-                        >Save changes</Button>
-                    </form>
-                </DialogContent>
-            </Dialog>
-            <div className={"absolute inset-0 backdrop-blur-md"}></div>
-            <div className={"w-full px-6 flex flex-col gap-6"}>
-
-                <div className={"w-full flex flex-row justify-between text-2xl font-bold"}>
+            <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                    <DialogTitle>Student Profile Dashboard</DialogTitle>
+                    <DialogDescription>
+                        Enter your enrollment here. Click save when you&apos;re done.
+                    </DialogDescription>
+                </DialogHeader>
+                <form className="grid grid-cols-3 items-center gap-4 py-4" onSubmit={handleSubmit}>
+                    <Label htmlFor="name" className="text-right">
+                        Enrollment&nbsp;No.
+                    </Label>
+                    <Input
+                        value={value}
+                        onChange={(e) => {
+                            if (/^\d+$/.test(e.target.value) || e.target.value === "") setValue(e.target.value);
+                        }}
+                        className="col-span-2"
+                        autoFocus={true}
+                    />
+                    <Button
+                        // onClick={handleSubmit}
+                        className={"col-span-3"}
+                        type="submit"
+                        disabled={value.length !== 11}
+                    >Save changes</Button>
+                </form>
+            </DialogContent>
+        </Dialog>
+            <div className={"absolute z-30 inset-0 backdrop-blur-md"}></div>
+            <div className={"w-full px-3 md:px-6 flex-row gap-6"}>
+                <div
+                    className={"w-full flex flex-row justify-between text-2xl font-bold scroll-m-20 tracking-tight lg:text-5xlscroll-m-20 pb-2 first:mt-0"}>
                     <h1>
-                        Hi, Miyuki Shirogane
+                        Hi, {studentData?.name}
                     </h1>
                     <h2>
-                        2020
+                        {studentData?.batch}
                     </h2>
                 </div>
-
-                <div className={"flex flex-row justify-between gap-4"}>
+                <div className={"grid  md:grid-cols-2 lg:grid-cols-4 justify-between gap-4"}>
                     <Card>
                         <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
                             <CardTitle>
-                                01096202722
+                                {studentData?.enrollment}
                             </CardTitle>
                             <CardDescription>
                                 Enrollment
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="font-semibold p-5">
-                            01096202722
+                            {studentData?.sid}
                             <CardDescription>
                                 SID
                             </CardDescription>
@@ -97,10 +172,10 @@ export default function Page() {
                     </Card>
                     <Card className="border">
                         <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                            <CardTitle>Shuchi&apos;in Academy</CardTitle>
+                            <CardTitle>{studentData?.institute.split('(')[0]}</CardTitle>
                         </CardHeader>
                         <CardContent className="font-semibold p-5">
-                            6969
+                            {studentData?.instCode}
                             <CardDescription>
                                 Institute Code
                             </CardDescription>
@@ -108,10 +183,10 @@ export default function Page() {
                     </Card>
                     <Card>
                         <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                            <CardTitle>High School</CardTitle>
+                            <CardTitle>{studentData?.programme}</CardTitle>
                         </CardHeader>
                         <CardContent className="font-semibold p-5">
-                            6969
+                            {studentData?.progCode}
                             <CardDescription>
                                 Programme Code
                             </CardDescription>
@@ -119,10 +194,10 @@ export default function Page() {
                     </Card>
                     <Card>
                         <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                            <CardTitle>Student President</CardTitle>
+                            <CardTitle>{studentData?.specialization}</CardTitle>
                         </CardHeader>
                         <CardContent className="font-semibold p-5">
-                            6969
+                            {studentData?.progCode}
                             <CardDescription>
                                 Branch Code
                             </CardDescription>
@@ -130,137 +205,249 @@ export default function Page() {
                     </Card>
                 </div>
 
-                <div className={"grid grid-cols-3 grid-rows-1 gap-4"}>
-                    <div className={"col-span-2"}>
+                <div
+                    className={"grid md:grid-cols-1 md:grid-rows-2 lg:grid-cols-3 lg:grid-rows-1 gap-4 pb-4 overflow-x-scroll md:overflow-x-hidden"}>
+                    <div className={"lg:col-span-2 "}>
+                        <h1 className={"text-2xl font-bold pt-4 pb-3"}>Results</h1>
+                        <Tabs
+                            className={""}
+                            defaultValue={"overall"}
+                            onValueChange={value => setSelectedSem(value)}
+                        >
+                            <TabsList className="flex flex-row mb-2">
+                                <TabsTrigger
+                                    className={"flex-[1_1_0] relative"}
+                                    value="overall"
+                                >
+                                    {selectedSem == "overall" && <motion.div
+                                        layoutId="clickedbutton2"
+                                        transition={{type: "spring", bounce: 0.3, duration: 0.6}}
+                                        className={cn(
+                                            "absolute inset-0 bg-primary-foreground rounded-full"
+                                        )}
+                                    />}
+                                    <span className="relative block text-primary">
+                                        Overall
+                                    </span>
+                                </TabsTrigger>
+                                <TabsTrigger
+                                    className={"flex-[1_1_0] relative"}
+                                    value="1"
+                                >
+                                    <span className="relative block text-primary">
+                                        Sem 1
+                                    </span>
+                                </TabsTrigger>
+                                <TabsTrigger
+                                    className={"flex-[1_1_0] relative"}
+                                    value="2"
+                                >
+                                    <span className="relative block text-primary">
+                                        Sem 2
+                                    </span>
+                                </TabsTrigger>
+                                <TabsTrigger
+                                    className={"flex-[1_1_0] relative"}
+                                    value="3"
+                                >
+                                    <span className="relative block text-primary">
+                                        Sem 3
+                                    </span>
+                                </TabsTrigger>
+                            </TabsList>
 
-                        <h1>Results</h1>
-                        <div>
-                            <Tabs className={""} defaultValue={"overall"}>
-                                <TabsList className="grid grid-cols-4 mb-2">
-                                    <TabsTrigger value="overall">Overall</TabsTrigger>
-                                    <TabsTrigger value="sem1">Sem 1</TabsTrigger>
-                                    <TabsTrigger value="sem2">Sem 2</TabsTrigger>
-                                    <TabsTrigger value="sem3">Sem 3</TabsTrigger>
-                                </TabsList>
-
-                                <TabsContent value="overall" className={"grid grid-cols-3 gap-4"}>
-                                    <Card>
-                                        <CardHeader
-                                            className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                                            <CardTitle>Marks</CardTitle>
-                                        </CardHeader>
-                                        <CardContent className="font-semibold p-5">
-                                            1000 / 1000
-                                            <CardDescription>
-                                                Total Marks Obtained
-                                            </CardDescription>
-                                        </CardContent>
-                                    </Card>
-                                    <Card>
-                                        <CardHeader
-                                            className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                                            <CardTitle>CGPA</CardTitle>
-                                        </CardHeader>
-                                        <CardContent className="font-semibold p-5">
-                                            10.000
-                                            <CardDescription>
-                                                Cumulative Grade Point Average
-                                            </CardDescription>
-                                        </CardContent>
-                                    </Card>
-                                    <Card>
-                                        <CardHeader
-                                            className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                                            <CardTitle>Percentage</CardTitle>
-                                        </CardHeader>
-                                        <CardContent className="font-semibold p-5">
-                                            100%
-                                            <CardDescription>
-                                                Percentage of Marks Obtained
-                                            </CardDescription>
-                                        </CardContent>
-                                    </Card>
-                                    {/* <div className="flex items-center space-x-2 col-span-3">
-                                    <Checkbox/>
-                                    <label
-                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                    >
-                                        Show Credit Info
-                                    </label>
-                                </div> */}
-                                    <Card>
-                                        <CardHeader
-                                            className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                                            <CardTitle>Credit Marks</CardTitle>
-                                        </CardHeader>
-                                        <CardContent className="font-semibold p-5">
-                                            2500 / 2500
-                                            <CardDescription>
-                                                Total Credit Marks Obtained
-                                            </CardDescription>
-                                        </CardContent>
-                                    </Card>
-                                    <Card>
-                                        <CardHeader
-                                            className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                                            <CardTitle>Total Credits</CardTitle>
-                                        </CardHeader>
-                                        <CardContent className="font-semibold p-5">
-                                            69
-                                            <CardDescription>
-                                                Total Credits Overall
-                                            </CardDescription>
-                                        </CardContent>
-                                    </Card>
-                                    <Card>
-                                        <CardHeader
-                                            className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
-                                            <CardTitle>C. Percentage</CardTitle>
-                                        </CardHeader>
-                                        <CardContent className="font-semibold p-5">
-                                            100%
-                                            <CardDescription>
-                                                Percentage of Credit Marks Obtained
-                                            </CardDescription>
-                                        </CardContent>
-                                    </Card>
-                                </TabsContent>
-                            </Tabs>
-                        </div>
+                            <TabsContent value="overall" className={"grid grid-cols-2 md:grid-cols-3 gap-4"}>
+                                <Card>
+                                    <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                        <CardTitle>Marks</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="font-semibold p-5">
+                                        {studentData?.marks} / {studentData?.total}
+                                        <CardDescription>
+                                            Total Marks Obtained
+                                        </CardDescription>
+                                    </CardContent>
+                                </Card>
+                                <Card>
+                                    <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                        <CardTitle>CGPA</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="font-semibold p-5">
+                                        {Number(studentData?.cgpa).toFixed(3)}
+                                        <CardDescription>
+                                            Cumulative Grade Point Average
+                                        </CardDescription>
+                                    </CardContent>
+                                </Card>
+                                <Card>
+                                    <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                        <CardTitle>Percentage</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="font-semibold p-5">
+                                        {Number(studentData?.percentage).toFixed(3)}%
+                                        <CardDescription>
+                                            Percentage of Marks Obtained
+                                        </CardDescription>
+                                    </CardContent>
+                                </Card>
+                                <Card>
+                                    <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                        <CardTitle>Credit Marks</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="font-semibold p-5">
+                                        {studentData?.creditMarks} / {studentData?.totalCreditMarks}
+                                        <CardDescription>
+                                            Total Credit Marks Obtained
+                                        </CardDescription>
+                                    </CardContent>
+                                </Card>
+                                <Card>
+                                    <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                        <CardTitle>Total Credits</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="font-semibold p-5">
+                                        {studentData?.totalCredits}
+                                        <CardDescription>
+                                            Total Credits Overall
+                                        </CardDescription>
+                                    </CardContent>
+                                </Card>
+                                <Card>
+                                    <CardHeader className="rounded-t-2xl border-b border-gray-200 dark:border-gray-800">
+                                        <CardTitle>C. Percentage</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="font-semibold p-5">
+                                        {Number(studentData?.creditsPercentage).toFixed(3)}%
+                                        <CardDescription>
+                                            Percentage of Credit Marks Obtained
+                                        </CardDescription>
+                                    </CardContent>
+                                </Card>
+                            </TabsContent>
+                        </Tabs>
                     </div>
-                    {/* <div className={"col-span-1 bg-yellow-400"}>
 
-                    </div> */}
+                    <CardContent>
+                        <ResponsiveContainer className={"min-h-[20rem] max-h-[25rem] pt-1 mt-5"}>
+                            {(selectedSem !== "overall") ?
+                                <RadarChart
+                                    data={studentData?.subject.find(i => i.semester === selectedSem)?.subjects}
+
+                                >
+                                    <Tooltip
+                                        content={({active, payload}) => {
+                                            if (active && payload && payload.length) {
+                                                return (
+                                                    <div className="rounded-lg border bg-background p-2 shadow-sm">
+                                                        <div className="grid grid-rows-2 gap-y-1 text-muted-foreground">
+                                                            <div className="flex flex-col col-span-1">
+                                                            <span
+                                                                className="text-[0.70rem] uppercase ">
+                                                                Marks
+                                                            </span>
+                                                                <span className="font-bold">
+                                                                {payload[0].payload.total}
+                                                            </span>
+                                                            </div>
+                                                            <div className="flex flex-col col-span-1">
+                                                            <span
+                                                                className="text-[0.70rem] uppercase">
+                                                                Subject
+                                                            </span>
+                                                                <span className="font-bold">
+                                                                {payload[0].payload.subname}
+                                                            </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }
+                                            return null
+                                        }}
+                                    />
+                                    {/* <Legend fill={`hsl(--primary)`} iconType="circle" color="text-primary"
+                                /> */}
+                                    <PolarGrid gridType="circle"/>
+                                    <PolarAngleAxis dataKey="subcode" label="Subjects" fontWeight={550}
+                                                    radius={80}
+                                    />
+                                    <PolarRadiusAxis angle={75} domain={[0, 100]}/>
+
+                                    <Radar
+                                        name={"Semester " + selectedSem}
+                                        dataKey="total"
+                                        fillOpacity={0.8}
+                                        dot={true}
+                                    />
+                                    {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
+                                </RadarChart> :
+                                <RadialBarChart
+                                    data={frequencygrades.sort((i, j) => i.frequency - j.frequency).reverse()}
+                                    innerRadius="12%"
+                                    outerRadius="100%"
+                                    startAngle={0}
+                                    endAngle={360}
+                                >
+
+                                    <Tooltip
+                                        content={({active, payload}) => {
+                                            if (active && payload && payload.length) {
+                                                return (
+                                                    <div className="rounded-lg border bg-background p-2 shadow-sm">
+                                                        <div className="grid grid-cols-2 gap-2">
+                                                            <div className="flex flex-col">
+                                                            <span
+                                                                className="text-[0.70rem] uppercase text-muted-foreground">
+                                                                Grade
+                                                            </span>
+                                                                <span className="font-bold text-muted-foreground">
+                                                                {payload[0].payload.grade}
+                                                            </span>
+                                                            </div>
+                                                            <div className="flex flex-col">
+                                                            <span
+                                                                className="text-[0.70rem] uppercase text-muted-foreground">
+                                                                Frequency
+                                                            </span>
+                                                                <span className="font-bold text-muted-foreground">
+                                                                {payload[0].payload.frequency}
+                                                            </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }
+
+                                            return null
+                                        }}
+                                    />
+                                    <RadialBar
+                                        dataKey="frequency"
+                                        fill="var(--primary)"
+                                    >
+                                        <LabelList dataKey="grade" position="inside" fill="var(--primary-foreground)"
+                                                   fontWeight={600}/>
+                                    </RadialBar>
+                                </RadialBarChart>}
+                        </ResponsiveContainer>
+                    </CardContent>
                 </div>
-                {/* <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
-                    <div className={"h-80 bg-amber-400"}></div>
-                    <div className={"h-80 bg-amber-400"}></div>
-                    <div className={"h-80 bg-amber-400"}></div>
-                    <div className={"h-80 bg-amber-400"}></div>
-                </div> */}
+                {studentData == undefined ? null : selectedSem === "overall" ?
+                    <OverallTest studentData={studentData}/> :
+                    <SemTest sem={selectedSem} studentData={studentData}/>}
+                {/* <h1>Absolute Result Breakdown</h1>
+            <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
+                <div className={"h-80 bg-amber-400"}></div>
+                <div className={"h-80 bg-amber-400"}></div>
+            </div>
+            <h1>Cumulative Result Breakdown</h1>
+            <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
+                <div className={"h-80 bg-amber-400"}></div>
+                <div className={"h-80 bg-amber-400"}></div>
+            </div> */}
             </div>
         </>
 
-
-    );
-}
-
-function SearchIcon(props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <circle cx="11" cy="11" r="8"/>
-            <path d="m21 21-4.3-4.3"/>
-        </svg>
     )
 }
+

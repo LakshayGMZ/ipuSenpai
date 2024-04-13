@@ -158,6 +158,7 @@ export interface StudentProfileData {
     programme: string;
     specialization: string;
     institute: string;
+    transfer: boolean;
     batch: string;
     sid: string;
     instCode: string;
