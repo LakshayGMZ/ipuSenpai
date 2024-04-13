@@ -1,7 +1,18 @@
-import { StudentProfileData, GradeFrequency } from "@/types/types";
-import { Card } from "@/components/ui/card";
-import { Bar, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis, RadialBar, RadialBarChart, LabelList } from "recharts";
-import { SemResultTable } from "@/components/student/SemResultTable";
+import {GradeFrequency, StudentProfileData} from "@/types/types";
+import {Card} from "@/components/ui/card";
+import {
+    Bar,
+    ComposedChart,
+    LabelList,
+    Line,
+    RadialBar,
+    RadialBarChart,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis
+} from "recharts";
+import {SemResultTable} from "@/components/student/SemResultTable";
 
 export default function SemTest(
     {

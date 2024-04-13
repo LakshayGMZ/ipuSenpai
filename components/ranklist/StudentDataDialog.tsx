@@ -14,18 +14,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {ChevronDown} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
-import {
-    LineChart,
-    CartesianGrid,
-    Line,
-    Legend,
-    XAxis,
-    YAxis,
-    Tooltip,
-    ResponsiveContainer,
-    ReferenceArea,
-    ReferenceLine,
-  } from "recharts";
 
 export function StudentDataDialog(
     {
