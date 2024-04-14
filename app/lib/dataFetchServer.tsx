@@ -1,14 +1,24 @@
 import {StudentProfileData} from "@/types/types";
-
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "http://localhost:3000";
+
+const baseUrl: string = process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "http://localhost:3000";
+
+const getAbsoluteUrl = (path: string) => {
+    return (new URL(path, baseUrl)).href;
+}
+
 
 export async function getStudentProfileData(enrollment: string): Promise<StudentProfileData> {
-    const res = await axios.get<StudentProfileData>(`/student/${enrollment}`);
+    const res = await fetch(getAbsoluteUrl(`/student/${enrollment}`), {
+        next: {
+            revalidate: 3600
+        }
+    });
 
-    if (res.status !== 200) {
-        throw new Error('Failed to fetch data. URL: ' + res.config.url)
+    if (!res.ok) {
+        throw new Error('Failed to fetch data. URL: ' + res.url)
     }
-    return res.data;
+    return await res.json();
 }

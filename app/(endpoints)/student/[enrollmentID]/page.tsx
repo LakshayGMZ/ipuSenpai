@@ -95,10 +95,6 @@ export default async function Page(
             </div>
             {/* CLIENT COMPONENT BELOW */}
             <ResultSemTabs studentData={studentData} frequencyGrades={frequencygrades} />
-
-            {/*{studentData == undefined ? null : selectedSem === "overall" ? <OverallTest studentData={studentData}/> :*/}
-            {/*    <SemTest sem={selectedSem} studentData={studentData}/>}*/}
-
         </div>
     )
 }
