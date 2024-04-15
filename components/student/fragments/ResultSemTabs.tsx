@@ -32,9 +32,9 @@ export default function ResultSemTabs(
     const [selectedSem, setSelectedSem] = useState("overall");
 
     return (
-        <>
+        <div>
             <div
-                className={"grid md:grid-cols-1 md:grid-rows-2 lg:grid-cols-3 lg:grid-rows-1 gap-4 pb-4 overflow-x-scroll md:overflow-x-hidden"}>
+                className={" md:grid-cols-1 md:grid-rows-2 lg:grid-cols-3 lg:grid-rows-1 gap-4 pb-4 overflow-x-scroll md:overflow-x-hidden"}>
                 <div className={"lg:col-span-2 "}>
                     <h1 className={"text-2xl font-bold pt-4 pb-3"}>Results</h1>
                     <Tabs
@@ -354,7 +354,7 @@ export default function ResultSemTabs(
                 </CardContent>
             </div>
             <ResultChartsCollection studentData={studentData} selectedSem={selectedSem} />
-        </>
+        </div>
 
     );
 }
