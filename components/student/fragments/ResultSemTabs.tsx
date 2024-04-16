@@ -248,7 +248,7 @@ export default function ResultSemTabs(
                     </Tabs>
                 </div>
 
-                <CardContent className={"flex-grow min-w-[17rem] min-h-[20rem] max-h-[25rem] mt-5 !p-0"}>
+                <CardContent className={"flex-grow min-w-[18rem] min-h-[20rem] max-h-[25rem] mt-5"}>
                     <ResponsiveContainer>
                         {(selectedSem !== "overall") ?
                             <RadarChart
