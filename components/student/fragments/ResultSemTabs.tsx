@@ -249,7 +249,7 @@ export default function ResultSemTabs(
                 </div>
 
                 <CardContent className={"flex-grow min-w-[18rem] min-h-[20rem] max-h-[25rem] mt-5"}>
-                    <ResponsiveContainer>
+                    <ResponsiveContainer className={"min-h-[20rem]"}>
                         {(selectedSem !== "overall") ?
                             <RadarChart
                                 data={studentData?.subject.find(i => i.semester === selectedSem)?.subjects}
