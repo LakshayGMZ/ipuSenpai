@@ -34,8 +34,8 @@ export default function ResultSemTabs(
     return (
         <div>
             <div
-                className={" md:grid-cols-1 md:grid-rows-2 lg:grid-cols-3 lg:grid-rows-1 gap-4 pb-4 overflow-x-scroll md:overflow-x-hidden"}>
-                <div className={"lg:col-span-2 "}>
+                className={"flex flex-col md:flex-row gap-4 pb-4 overflow-x-scroll md:overflow-x-hidden"}>
+                <div className={"md:w-3/4 "}>
                     <h1 className={"text-2xl font-bold pt-4 pb-3"}>Results</h1>
                     <Tabs
                         className={""}
@@ -248,8 +248,8 @@ export default function ResultSemTabs(
                     </Tabs>
                 </div>
 
-                <CardContent>
-                    <ResponsiveContainer className={"min-h-[20rem] max-h-[25rem] pt-1 mt-5"}>
+                <CardContent className={"flex-grow min-w-[17rem] min-h-[20rem] max-h-[25rem] mt-5 !p-0"}>
+                    <ResponsiveContainer>
                         {(selectedSem !== "overall") ?
                             <RadarChart
                                 data={studentData?.subject.find(i => i.semester === selectedSem)?.subjects}
