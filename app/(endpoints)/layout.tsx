@@ -8,7 +8,7 @@ export default function DashboardLayout(
         children: React.ReactNode
     }) {
     return (
-        <div className={"mt-28 overflow-x-clip"}>
+        <div className={"mt-20 overflow-x-clip"}>
             {children}
             <MultiStepLoader/>
         </div>
