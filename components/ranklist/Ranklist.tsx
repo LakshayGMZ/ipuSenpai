@@ -20,7 +20,6 @@ import {isMobile} from "@/app/lib/actions";
 import {useLoader} from "@/app/lib/LoaderContext";
 import {StudentDataDialog} from "@/components/ranklist/StudentDataDialog";
 import {Legend, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, YAxis,} from "recharts";
-import {themes} from "@/components/themes/themes";
 
 export default function Ranklist() {
     const [selectedData, setSelectedData] = useState<RanklistSelectDataFields>({

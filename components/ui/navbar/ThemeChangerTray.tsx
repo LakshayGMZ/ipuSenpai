@@ -37,7 +37,7 @@ export default function ThemeChangerTray() {
 
 
     return (
-        <div className="flex items-center space-x-2 mr-2">
+        <div className="flex items-center space-x-2 mr-2 z-50">
             <Popover>
                 <PopoverTrigger asChild>
                     <Button

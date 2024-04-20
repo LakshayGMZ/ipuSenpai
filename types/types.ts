@@ -122,7 +122,7 @@ export interface StudentSearchCard {
 
 // Student profile.
 
-interface MarksPerSemester {
+export interface MarksPerSemester {
     semester: string;
     marks: string;
     total: string;
@@ -136,7 +136,7 @@ interface MarksPerSemester {
     subjects: SubjectData[];
 }
 
-interface CumulativeResult {
+export interface CumulativeResult {
     semester: string;
     cgpa: string;
     percentage: string;
@@ -147,12 +147,18 @@ interface CumulativeResult {
     totalcreditmarks: string;
 }
 
+export interface GradeFrequency {
+    grade: string;
+    frequency: number;
+}
+
 export interface StudentProfileData {
     enrollment: string;
     name: string;
     programme: string;
     specialization: string;
     institute: string;
+    transfer: boolean;
     batch: string;
     sid: string;
     instCode: string;

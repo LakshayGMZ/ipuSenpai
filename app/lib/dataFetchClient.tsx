@@ -4,7 +4,7 @@ import {StudentProfileData} from "@/types/types";
 
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "http://localhost:3000";
 
 export async function getStudentProfileData(enrollment: string): Promise<StudentProfileData> {
     const res = await axios.get<StudentProfileData>(`/student/${enrollment}`);
