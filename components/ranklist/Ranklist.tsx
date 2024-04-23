@@ -104,14 +104,18 @@ export default function Ranklist(
 
     useEffect(() => {
         const currUrl = new URL(window.location.href)
-        if (currUrl.searchParams.get("programme") !== null) {
-            currUrl.searchParams.set("page", String(pagination.pageIndex - 1));
-            router.push(currUrl.toString());
+        const currPage = parseInt(String(currUrl.searchParams.get("page")));
+        if (currPage !== null) {
+            if (currPage > 0) {
+                currUrl.searchParams.set("page", String(pagination.pageIndex - 1));
+                router.push(currUrl.toString());
+            }
+
         }
     }, [pagination.pageIndex]);
 
     const handleSubmit = () => {
-        router.push(`?batch=${selectedData.batch}&institute=${encodeURI(selectedData.institute)}&programme=${encodeURI(selectedData.programme)}&semester=${selectedData.semester}&shift=${selectedData.shift}&specialization=${selectedData.specialization}`);
+        router.push(`?batch=${selectedData.batch}&institute=${encodeURIComponent(selectedData.institute)}&programme=${encodeURIComponent(selectedData.programme)}&semester=${selectedData.semester}&shift=${selectedData.shift}&specialization=${selectedData.specialization}`);
     }
 
     return (

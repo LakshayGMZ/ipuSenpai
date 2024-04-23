@@ -35,9 +35,11 @@ export async function getResult(
         `/rank/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&pageNumber=${data.page}&pageSize=${data.pageSize}/${data.shift === "*" ? encodeURI(data.institute) : ""}`
 
     const res = await fetch(getAbsoluteUrl(url));
+    console.log(res.url)
     if (!res.ok) {
         throw new Error('Failed to fetch data. URL: ' + res.url)
     }
+
 
     return {totalPages: parseInt(res.headers.get("x-total-page-count")!), ...(await res.json())};
 }
