@@ -18,6 +18,8 @@ export interface RanklistSelectDataFields {
     shift: string;
     batch: string;
     semester: string;
+    page?: number;
+    pageSize?: number;
 }
 
 export interface SearchSelectDataFields {
@@ -101,6 +103,7 @@ export interface StudentResults {
     ranklist: StudentDataJoined[];
     avgGpa: number;
     avgPercentage: number;
+    totalPages?: number;
     gpaList: GpaList[];
 }
 
