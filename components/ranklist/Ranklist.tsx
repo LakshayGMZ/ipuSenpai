@@ -104,8 +104,10 @@ export default function Ranklist(
 
     useEffect(() => {
         const currUrl = new URL(window.location.href)
-        currUrl.searchParams.set("page", String(pagination.pageIndex - 1));
-        router.push(currUrl.toString());
+        if (currUrl.searchParams.get("programme") !== null) {
+            currUrl.searchParams.set("page", String(pagination.pageIndex - 1));
+            router.push(currUrl.toString());
+        }
     }, [pagination.pageIndex]);
 
     const handleSubmit = () => {
