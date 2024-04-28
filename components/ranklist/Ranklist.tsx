@@ -75,6 +75,10 @@ export default function Ranklist(
     }, []);
 
     useEffect(() => {
+        loader.inactiveLoader();
+    }, [results]);
+
+    useEffect(() => {
         const fetchInstitutes = async () =>
             setInstitutes(await getInstitutes(selectedData.programme));
         if (selectedData.programme !== "") fetchInstitutes();
@@ -179,7 +183,7 @@ export default function Ranklist(
                             disabled={Object.values(selectedData).some(i => i === "")}
                             onClick={async (e) => {
                                 e.preventDefault();
-                                // loader.activeLoader();
+                                loader.activeLoader();
                                 handleSubmit();
                             }}
                         >Search</Button>
