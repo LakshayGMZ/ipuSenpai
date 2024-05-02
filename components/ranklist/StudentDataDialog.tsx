@@ -12,8 +12,9 @@ import {
     DropdownMenuContent,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import {ChevronDown} from "lucide-react";
+import {ChevronDown, ExternalLinkIcon} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
+import Link from "next/link";
 
 export function StudentDataDialog(
     {
@@ -97,6 +98,15 @@ export function StudentDataDialog(
                         <div className="flex items-center justify-center space-x-4">
                             <h1 className="text-2xl font-semibold text-center">{studentData.data.name}</h1>
                             <Badge variant="default" className="ml-2">{studentData.data.rank}</Badge>
+                            <Link
+                                className="inline-flex items-center gap-2 rounded-md border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:border-gray-800 dark:bg-gray-800 dark:text-gray-50 dark:hover:bg-gray-700 dark:focus-visible:ring-gray-300"
+
+                                href={"/student/" + studentData.data.enrollment}
+                                target="_blank"
+                            >
+                                Open in new tab
+                                <ExternalLinkIcon className="h-4 w-4" />
+                            </Link>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
