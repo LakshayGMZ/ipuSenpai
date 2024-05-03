@@ -34,16 +34,16 @@ export const FloatingNavMobile = (
             <div className="flex justify-center relative">
                 <div className="flex flex-row small-12 text-left relative">
 
-                    <span id="titolo-pillol" className="opacity-100" data="hamburger-menu">Home</span>
+                    <span id="titolo-pillol" className="opacity-100">Home</span>
 
-                    <div id="mobile-pillol" data="hamburger-menu"
+                    <div id="mobile-pillol"
                          className={"bg-black translate-x-0 translate-y-0 h-[60px] w-full rounded-[27px]"}>
 
                     </div>
 
 
                     <a className="buttolo-mobile">
-            <span id="mcbuttonM" className="McButton" data="hamburger-menu`">
+            <span id="mcbuttonM" className="McButton">
                 <b className="top-[27.7778%]"></b>
                 <b className="bottom-[5px]"></b>
             </span>
