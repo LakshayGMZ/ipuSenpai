@@ -24,6 +24,7 @@ import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} fro
 import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 
 const studentData: StudentProfileData = {
     "enrollment": "69696969696",
@@ -114,15 +115,24 @@ export default function Page() {
     return (
         <>
             <Dialog open={open}>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[450px]">
                 <DialogHeader>
                     <DialogTitle>Student Profile Dashboard</DialogTitle>
                     <DialogDescription>
-                        Enter your enrollment here. Click save when you&apos;re done.
+                        Enter your enrollment number here. 
                     </DialogDescription>
                 </DialogHeader>
-                <form className="grid grid-cols-3 items-center gap-4 py-4" onSubmit={handleSubmit}>
-                    <Label htmlFor="name" className="text-right">
+                <div className="flex flex-row gap-4 items-center justify-between rounded-lg border p-4">
+                    <Label htmlFor="save" className="text-left">
+                        Save Enrollment No.
+                        <DialogDescription className="text-xs">
+                            Saves enrollment for future visits.
+                        </DialogDescription>
+                    </Label>
+                    <Switch className="text-sm"/>
+                </div>
+                <form className="grid grid-cols-3 items-center gap-4" onSubmit={handleSubmit}>
+                    <Label htmlFor="name" className="text-center">
                         Enrollment&nbsp;No.
                     </Label>
                     <Input
@@ -130,7 +140,7 @@ export default function Page() {
                         onChange={(e) => {
                             if (/^\d+$/.test(e.target.value) || e.target.value === "") setValue(e.target.value);
                         }}
-                        className="col-span-2"
+                        className="col-span-2 border-2"
                         autoFocus={true}
                     />
                     <Button

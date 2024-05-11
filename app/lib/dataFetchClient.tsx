@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import {StudentProfileData} from "@/types/types";
 
