@@ -51,23 +51,30 @@ export default function RootLayout(
     return (
         <html lang="en" suppressHydrationWarning>
         <body className={cn(inter.className, "flex flex-col")}>
-        <LoaderProvider>
-            <ThemeProvider
-                attribute="data-theme"
-                defaultTheme={"rose_dark"}
-                // enableSystem
-                disableTransitionOnChange
-            >
-                <MUIThemeProvider>
 
-                    <FloatingNav navItems={navItems}/>
-                    {children}
-                    <SpeedInsights/>
+        <div className="h-screen overflow-y-auto flex gridBackground">
+            <div className="absolute pointer-events-none inset-y-0 mx-0 w-full flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_5%,black)]"></div>
+            <div className={"z-10 w-screen"}>
+                <LoaderProvider>
+                    <ThemeProvider
+                        attribute="data-theme"
+                        defaultTheme={"rose_dark"}
+                        // enableSystem
+                        disableTransitionOnChange
+                    >
+                        <MUIThemeProvider>
 
-                </MUIThemeProvider>
-            </ThemeProvider>
+                            <FloatingNav navItems={navItems}/>
+                            {children}
+                            <SpeedInsights/>
 
-        </LoaderProvider>
+                        </MUIThemeProvider>
+                    </ThemeProvider>
+                </LoaderProvider>
+            </div>
+        </div>
+
+
         </body>
         </html>
     );
