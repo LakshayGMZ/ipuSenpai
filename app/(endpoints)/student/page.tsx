@@ -77,11 +77,9 @@ export default function Page() {
     }, []);
 
     const handleSubmit = (event: any) => {
-        if (saveEnroll) {
-            event.preventDefault();
-            localStorage.setItem("studentEnrollment", value);
-            router.push("/student/" + value);
-        }
+        event.preventDefault();
+        if (saveEnroll) localStorage.setItem("studentEnrollment", value);
+        router.push("/student/" + value);
     }
     const [open, setOpen] = useState(false);
     useEffect(() => {
