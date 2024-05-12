@@ -13,8 +13,8 @@ import {ThemeProvider} from "@/app/lib/ThemeProvider";
 const inter = Inter({subsets: ["latin"]});
 
 export const metadata: Metadata = {
-    title: "IPUSenpai",
-    description: "A comprehensive database of IP University results.",
+    title: "IPU Senpai",
+    description: "The modern and better IPU ranklist.",
 };
 
 const navItems = [
@@ -68,6 +68,7 @@ export default function RootLayout(
             </ThemeProvider>
 
         </LoaderProvider>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
         </body>
         </html>
     );
