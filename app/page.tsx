@@ -25,6 +25,9 @@ export default function Page() {
                         className="w-full h-full fixed"
                         particleColor="#FFFFFF"
                     />
+                    <div className="absolute top-0 left-0 px-5 py-4">
+                        <img src="/logo.png" alt="logo" className="w-14 h-15" />
+                    </div>
                     <div className="absolute top-0 right-0 p-4">
                         <a
                             href="https://github.com/lakshayGMZ/ipuSenpai"

@@ -51,6 +51,9 @@ export default function RootLayout(
     return (
         <html lang="en" suppressHydrationWarning>
         <body className={cn(inter.className, "flex flex-col")}>
+        <link rel="icon" href="/favicon.ico" sizes="48x48 32x32 16x16" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+        <link rel="manifest" href="/site.webmanifest" />
         <LoaderProvider>
             <ThemeProvider
                 attribute="data-theme"
