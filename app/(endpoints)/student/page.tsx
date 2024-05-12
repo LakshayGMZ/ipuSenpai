@@ -24,7 +24,7 @@ import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} fro
 import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
+import {Switch} from "@/components/ui/switch";
 
 const studentData: StudentProfileData = {
     "enrollment": "69696969696",
@@ -68,6 +68,7 @@ const studentData: StudentProfileData = {
 export default function Page() {
     const [value, setValue] = useState("");
     const router = useRouter();
+    const [saveEnroll, setSaveEnroll] = useState(false);
 
     useEffect(() => {
         if (localStorage.getItem("studentEnrollment") !== null) {
@@ -76,9 +77,11 @@ export default function Page() {
     }, []);
 
     const handleSubmit = (event: any) => {
-        event.preventDefault();
-        localStorage.setItem("studentEnrollment", value);
-        router.push("/student/" + value);
+        if (saveEnroll) {
+            event.preventDefault();
+            localStorage.setItem("studentEnrollment", value);
+            router.push("/student/" + value);
+        }
     }
     const [open, setOpen] = useState(false);
     useEffect(() => {
@@ -129,7 +132,11 @@ export default function Page() {
                             Saves enrollment for future visits.
                         </DialogDescription>
                     </Label>
-                    <Switch className="text-sm"/>
+                    <Switch
+                        checked={saveEnroll}
+                        onCheckedChange={(checked) => setSaveEnroll(checked)}
+                        className="text-sm"
+                    />
                 </div>
                 <form className="grid grid-cols-3 items-center gap-4" onSubmit={handleSubmit}>
                     <Label htmlFor="name" className="text-center">
