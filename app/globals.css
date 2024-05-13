@@ -45,11 +45,3 @@
 tr:hover {
   background: color-mix(in hsl, var(--muted) 50%, transparent);
 }
-
-.gridBackground {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' width='48' height='48' fill='none' stroke='rgba(255,255,255,0.3)'%3E%3Cpath d='M0 .5H47.5V48'/%3E%3C/svg%3E%0A");
-}
-
-*::-webkit-scrollbar {
-  z-index: 40;
-}

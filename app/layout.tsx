@@ -54,29 +54,23 @@ export default function RootLayout(
         <link rel="icon" href="/favicon.ico" sizes="48x48 32x32 16x16"/>
         <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
         <link rel="manifest" href="/site.webmanifest"/>
+        <LoaderProvider>
+            <ThemeProvider
+                attribute="data-theme"
+                defaultTheme={"rose_dark"}
+                // enableSystem
+                disableTransitionOnChange
+            >
+                <MUIThemeProvider>
 
-        <div className="h-screen overflow-y-auto flex gridBackground">
-            <div className="absolute pointer-events-none inset-y-0 mx-0 w-full flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_5%,black)]"></div>
-            <div className={"z-10 w-screen"}>
-                <LoaderProvider>
-                    <ThemeProvider
-                        attribute="data-theme"
-                        defaultTheme={"rose_dark"}
-                        // enableSystem
-                        disableTransitionOnChange
-                    >
-                        <MUIThemeProvider>
+                    <FloatingNav navItems={navItems}/>
+                    {children}
+                    <SpeedInsights/>
 
-                            <FloatingNav navItems={navItems}/>
-                            {children}
-                            <SpeedInsights/>
+                </MUIThemeProvider>
+            </ThemeProvider>
 
-                        </MUIThemeProvider>
-                    </ThemeProvider>
-
-                </LoaderProvider>
-            </div>
-        </div>
+        </LoaderProvider>
         <link rel="icon" href="/favicon.ico" sizes="any"/>
         </body>
         </html>
