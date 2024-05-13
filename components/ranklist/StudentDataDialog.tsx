@@ -64,7 +64,8 @@ export function StudentDataDialog(
     const router = useRouter();
     const handlePopState = () => {
         // e.preventDefault();
-        if (document.documentURI.endsWith("/ranklist")) handleDrawerClose(false);
+        const currUrl = new URL(document.documentURI);
+        if (currUrl.pathname === "/ranklist") handleDrawerClose(false);
     }
 
     const handleDrawerClose = (open: boolean) => {
@@ -73,7 +74,7 @@ export function StudentDataDialog(
     }
 
     useEffect(() => {
-        if (studentData.open && studentData.data.enrollment !== "") router.push("#drawer");
+        if (studentData.open && studentData.data.enrollment !== "") history.pushState(null, "", "#drawer");
     }, [studentData.open]);
 
     useEffect(() => {
