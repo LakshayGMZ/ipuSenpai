@@ -31,8 +31,8 @@ export async function getResult(
 ): Promise<StudentResults> {
 
     const url = data.semester !== "0" ?
-        `/rank/semester/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&sem=${data.semester}&pageNumber=${data.page}&pageSize=${data.pageSize}/${data.shift === "*" ? encodeURI(data.institute): ""}` :
-        `/rank/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&pageNumber=${data.page}&pageSize=${data.pageSize}/${data.shift === "*" ? encodeURI(data.institute) : ""}`
+        `/rank/semester/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&sem=${data.semester}&pageNumber=${parseInt(String(data.page)) - 1}&pageSize=${data.pageSize}/${data.shift === "*" ? encodeURI(data.institute): ""}` :
+        `/rank/instcode=${data.shift}&progcode=${data.specialization}&batch=${data.batch}&pageNumber=${parseInt(String(data.page)) - 1}&pageSize=${data.pageSize}/${data.shift === "*" ? encodeURI(data.institute) : ""}`
 
     const res = await fetch(getAbsoluteUrl(url));
     console.log(res.url)

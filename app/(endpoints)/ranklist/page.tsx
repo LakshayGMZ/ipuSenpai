@@ -11,7 +11,7 @@ export default async function Page({searchParams}: any) {
         shift: searchParams["shift"] || "",
         batch: searchParams["batch"] || "",
         semester: searchParams["semester"] || "",
-        page: searchParams["page"] || "0",
+        page: searchParams["page"] || "1",
         pageSize: searchParams["pageSize"] || "100",
     }
     let studentResults: StudentResults = {

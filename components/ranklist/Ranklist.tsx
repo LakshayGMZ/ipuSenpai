@@ -108,14 +108,8 @@ export default function Ranklist(
 
     useEffect(() => {
         const currUrl = new URL(window.location.href)
-        const currPage = parseInt(String(currUrl.searchParams.get("page")));
-        if (currPage !== null) {
-            if (currPage > 0) {
-                currUrl.searchParams.set("page", String(pagination.pageIndex - 1));
-                router.push(currUrl.toString());
-            }
-
-        }
+        currUrl.searchParams.set("page", String(pagination.pageIndex));
+        router.push(currUrl.toString());
     }, [pagination.pageIndex]);
 
     const handleSubmit = () => {
