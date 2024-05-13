@@ -22,9 +22,32 @@ Sentry.init({
   // You can remove this option if you're not planning to use the Sentry Session Replay feature:
   integrations: [
     Sentry.replayIntegration({
-      // Additional Replay configuration goes in here, for example:
-      maskAllText: true,
+      maskAllText: false,
       blockAllMedia: true,
+    }),
+    Sentry.feedbackIntegration({
+      colorScheme: "light",
+      // themeLight: {
+      //   // background: "var(--background)",
+      //   // backgroundHover: "",
+      //   border: "var(--ring)",
+      //   borderRadius: "var(--radius)",
+      //   error: "",
+      //   foreground: "",
+      //   formBorderRadius: "var(--radius)",
+      //   formContentBorderRadius: "",
+      //   inputOutlineFocus: "var(--ring)",
+      //   submitBackground: "",
+      //   submitBackgroundHover: "var(--primary)",
+      //   submitForeground: "",
+      //   submitForegroundHover: "",
+      //   submitOutlineFocus: "",
+      //   success: ""
+      //
+      // },
+      isNameRequired: true,
+      isEmailRequired: true,
+      showBranding: false,
     }),
   ],
 });
