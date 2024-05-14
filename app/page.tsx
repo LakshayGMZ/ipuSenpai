@@ -33,9 +33,9 @@ export default function Page() {
                 <div className="relative h-screen overflow-hidden">
                     <div className="relative inset-x-0 bottom-0 bg-black bg-opacity-50 p-6 text-white z-0">
                         <p>
-                            Hmm. I see you've found me. I'm batman.
+                            Hmm. I see you ve found me. Im batman.
                             Just kidding. <br />
-                            No, fr though. I'm BATMAN <br /> 
+                            No, fr though. Im BATMAN <br /> 
 
                         </p>
                     </div>
