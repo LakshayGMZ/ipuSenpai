@@ -27,23 +27,27 @@ import {Input} from "@/components/ui/input"
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
 import {StudentDataJoined} from "@/types/types";
 import {Pagination} from "@mui/material";
+import {useRouter} from "next/navigation";
 
 
 export function DataTable(
     {
         data,
         columns,
-        pagination,
-        setPagination,
+        page,
+        pageSize,
+        totalPages,
         setSelectStudent
     }: {
         data: StudentDataJoined[]
         columns: ColumnDef<StudentDataJoined>[],
-        pagination: { pageSize: number, pageIndex: number, totalPages?: number },
-        setPagination: Dispatch<SetStateAction<{ pageIndex: number, pageSize: number; totalPages?: number; }>>,
+        page: number,
+        pageSize: number,
+        totalPages: number,
         setSelectStudent: Dispatch<SetStateAction<{ open: boolean; data: StudentDataJoined; }>>
     }
 ) {
+    const router = useRouter();
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
         []
@@ -66,16 +70,14 @@ export function DataTable(
         getFilteredRowModel: getFilteredRowModel(),
         onColumnVisibilityChange: setColumnVisibility,
         onRowSelectionChange: setRowSelection,
-        onPaginationChange: setPagination,
         autoResetPageIndex: false,
+        rowCount: pageSize,
         manualPagination: true,
-        rowCount: pagination.pageSize,
         state: {
             sorting,
             columnFilters,
             columnVisibility,
             rowSelection,
-            pagination
         },
     })
 
@@ -90,16 +92,17 @@ export function DataTable(
                     }
                     className="max-w-sm rounded-2xl flex-[1_1_0px]"
                 />
-                {pagination.totalPages! >= 2 && <Pagination
+                {totalPages! >= 2 && <Pagination
                     className={"flex-[1_1_0px] flex justify-center"}
                     variant="outlined"
                     shape="rounded"
-                    count={pagination.totalPages}
-                    defaultValue={1}
-                    page={pagination.pageIndex}
-                    onChange={(e, v) =>
-                        setPagination(prevState =>
-                            ({...prevState, pageIndex: v}))}
+                    count={totalPages}
+                    defaultValue={page}
+                    onChange={(e, v) =>{
+                        const currUrl = new URL(window.location.href)
+                        currUrl.searchParams.set("page", String(v));
+                        router.push(currUrl.toString());
+                    }}
                     showFirstButton
                     showLastButton/>
                 }
