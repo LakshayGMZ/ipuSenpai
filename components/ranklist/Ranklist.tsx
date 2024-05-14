@@ -54,11 +54,6 @@ export default function Ranklist(
             totalCredits: 0
         }
     });
-    const [pagination, setPagination] = useState<{ totalPages?: number, pageIndex: number, pageSize: number }>({
-        pageIndex: parseInt(String(data.page!)),
-        pageSize: parseInt(String(data.pageSize!)),
-        totalPages: results.totalPages
-    });
     const is_mobile = useRef<boolean>(false);
 
     useEffect(() => {
@@ -76,6 +71,7 @@ export default function Ranklist(
 
     useEffect(() => {
         loader.inactiveLoader();
+        console.log("hmm")
     }, [results]);
 
     useEffect(() => {
@@ -105,12 +101,6 @@ export default function Ranklist(
         if (selectedData.programme !== "" && selectedData.institute !== "" && selectedData.batch !== "")
             fetchSemester();
     }, [selectedData.institute, selectedData.programme, selectedData.batch]);
-
-    useEffect(() => {
-        const currUrl = new URL(window.location.href)
-        currUrl.searchParams.set("page", String(pagination.pageIndex));
-        router.push(currUrl.toString());
-    }, [pagination.pageIndex]);
 
     const handleSubmit = () => {
         router.push(`?batch=${selectedData.batch}&institute=${encodeURIComponent(selectedData.institute)}&programme=${encodeURIComponent(selectedData.programme)}&semester=${selectedData.semester}&shift=${selectedData.shift}&specialization=${selectedData.specialization}`);
@@ -326,9 +316,10 @@ export default function Ranklist(
             <StudentDataDialog studentData={selectStudent} setStudentData={setSelectStudent}/>
 
             {results.ranklist.length > 0 && <DataTable
+                page={parseInt(String(data.page))}
+                pageSize={parseInt(String(data.pageSize))}
+                totalPages={results.totalPages || 1}
                 columns={results.ranklist[0].sgpa !== undefined ? columnsSem : columnsOverall}
-                pagination={pagination}
-                setPagination={setPagination}
                 data={results.ranklist}
                 setSelectStudent={setSelectStudent}
             />}
