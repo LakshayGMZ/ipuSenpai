@@ -1,14 +1,6 @@
 "use client"
 
-import {
-    getBatches,
-    getInstitutes,
-    getProgrammes,
-    getResult,
-    getSemesters,
-    getShifts,
-    getSpecs
-} from "@/app/lib/dataFetch";
+import {getBatches, getInstitutes, getProgrammes, getSemesters, getShifts, getSpecs} from "@/app/lib/dataFetchServer";
 import * as React from "react";
 import {useEffect, useRef, useState} from "react";
 import {PreBuiltSelect} from "@/components/ui/select";
@@ -20,16 +12,19 @@ import {isMobile} from "@/app/lib/actions";
 import {useLoader} from "@/app/lib/LoaderContext";
 import {StudentDataDialog} from "@/components/ranklist/StudentDataDialog";
 import {Legend, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, YAxis,} from "recharts";
+import {useRouter} from "next/navigation";
 
-export default function Ranklist() {
-    const [selectedData, setSelectedData] = useState<RanklistSelectDataFields>({
-        programme: "",
-        institute: "",
-        specialization: "",
-        shift: "",
-        batch: "",
-        semester: "",
-    })
+export default function Ranklist(
+    {
+        data,
+        results
+    }:{
+        data: RanklistSelectDataFields,
+        results: StudentResults
+    }) {
+    console.log(data)
+    const router = useRouter();
+    const [selectedData, setSelectedData] = useState<RanklistSelectDataFields>(data);
     const loader = useLoader();
     const [programmes, setProgrammes] = useState<RanklistQueryFields[]>([]);
     const [institutes, setInstitutes] = useState<RanklistQueryFields[]>([]);
@@ -37,12 +32,7 @@ export default function Ranklist() {
     const [shifts, setShifts] = useState<RanklistQueryFields[]>([]);
     const [batches, setBatches] = useState<RanklistQueryFields[]>([]);
     const [semesters, setSemesters] = useState<RanklistQueryFields[]>([]);
-    const [resultData, setResultData] = useState<StudentResults>({
-        avgGpa: 0,
-        avgPercentage: 0,
-        gpaList: [],
-        ranklist: []
-    });
+
     const [selectStudent, setSelectStudent] = useState<{ open: boolean; data: StudentDataJoined; }>({
         open: false,
         data: {
@@ -65,9 +55,9 @@ export default function Ranklist() {
         }
     });
     const [pagination, setPagination] = useState<{ totalPages?: number, pageIndex: number, pageSize: number }>({
-        pageIndex: 1,
-        pageSize: 100,
-        totalPages: 1
+        pageIndex: parseInt(String(data.page!)),
+        pageSize: parseInt(String(data.pageSize!)),
+        totalPages: results.totalPages
     });
     const is_mobile = useRef<boolean>(false);
 
@@ -83,6 +73,10 @@ export default function Ranklist() {
             setProgrammes(await getProgrammes());
         fetchProgrammes();
     }, []);
+
+    useEffect(() => {
+        loader.inactiveLoader();
+    }, [results]);
 
     useEffect(() => {
         const fetchInstitutes = async () =>
@@ -104,12 +98,6 @@ export default function Ranklist() {
         if (selectedData.institute !== "") fetchShifts();
     }, [selectedData.institute]);
 
-    const handleResultFetch = async (flag: String) => {
-        const pgIdx = flag === "search" ? 0 : pagination.pageIndex - 1;
-        const resData = await getResult(selectedData, setPagination, pgIdx, pagination.pageSize);
-        loader.inactiveLoader();
-        setResultData(resData);
-    }
 
     useEffect(() => {
         const fetchSemester = async () =>
@@ -118,14 +106,15 @@ export default function Ranklist() {
             fetchSemester();
     }, [selectedData.institute, selectedData.programme, selectedData.batch]);
 
-
     useEffect(() => {
-        if (Object.values(selectedData).every(i => i !== "")) {
-            loader.activeLoader();
-            (async () => await handleResultFetch("normal"))();
-        }
+        const currUrl = new URL(window.location.href)
+        currUrl.searchParams.set("page", String(pagination.pageIndex));
+        router.push(currUrl.toString());
     }, [pagination.pageIndex]);
 
+    const handleSubmit = () => {
+        router.push(`?batch=${selectedData.batch}&institute=${encodeURIComponent(selectedData.institute)}&programme=${encodeURIComponent(selectedData.programme)}&semester=${selectedData.semester}&shift=${selectedData.shift}&specialization=${selectedData.specialization}`);
+    }
 
     return (
         <>
@@ -189,18 +178,17 @@ export default function Ranklist() {
                             onClick={async (e) => {
                                 e.preventDefault();
                                 loader.activeLoader();
-                                // setPagination(prevState => ({...prevState, pageIndex: 1}))
-                                await handleResultFetch("search");
+                                handleSubmit();
                             }}
                         >Search</Button>
                     </div>
                 </div>
             </form>
 
-            {resultData.gpaList.length > 0 && <div>
+            {results.gpaList.length > 0 && <div>
                 <ResponsiveContainer width="99%" height={300}>
                     <LineChart
-                        data={resultData.gpaList}
+                        data={results.gpaList}
                         margin={{
                             top: 5,
                             right: -10,
@@ -282,7 +270,7 @@ export default function Ranklist() {
                         />
                         {/* <CartesianGrid strokeDasharray="2 2" /> */}
                         <Legend
-                            formatter={(value, entry, index) => 
+                            formatter={(value, entry, index) =>
                             <ul className={`flex flex-row leading-5 [&:not(:first-child)]:mt-5 text-color-css dark:text-white text-slate-950`}>
                                 {index === 0 ? 'GPA' : 'Percentage'}
                             </ul>}
@@ -292,16 +280,16 @@ export default function Ranklist() {
                             iconSize={20}
                         />
                         {/* <Legend verticalAlign="top" height={5} /> */}
-                        <ReferenceLine y={resultData.avgGpa} stroke="white" strokeDasharray="3 3" label={{
-                            value: 'Average GPA: ' + resultData.avgGpa.toFixed(4),
+                        <ReferenceLine y={results.avgGpa} stroke="white" strokeDasharray="3 3" label={{
+                            value: 'Average GPA: ' + results.avgGpa.toFixed(4),
                             position: 'insideBottomRight',
                             fill: "white",
                             fontSize: 16
                         }}
                         yAxisId="left"
                         />
-                        <ReferenceLine y={resultData.avgPercentage} stroke="white" strokeDasharray="3 3" label={{
-                            value: 'Average %: ' + resultData.avgPercentage.toFixed(4),
+                        <ReferenceLine y={results.avgPercentage} stroke="white" strokeDasharray="3 3" label={{
+                            value: 'Average %: ' + results.avgPercentage.toFixed(4),
                             position: 'insideTopRight',
                             fill: "white",
                             fontSize: 16
@@ -333,15 +321,15 @@ export default function Ranklist() {
                 </ResponsiveContainer>
             </div>}
 
-            
+
 
             <StudentDataDialog studentData={selectStudent} setStudentData={setSelectStudent}/>
 
-            {resultData.ranklist.length > 0 && <DataTable
-                columns={resultData.ranklist[0].sgpa !== undefined ? columnsSem : columnsOverall}
+            {results.ranklist.length > 0 && <DataTable
+                columns={results.ranklist[0].sgpa !== undefined ? columnsSem : columnsOverall}
                 pagination={pagination}
                 setPagination={setPagination}
-                data={resultData.ranklist}
+                data={results.ranklist}
                 setSelectStudent={setSelectStudent}
             />}
         </>

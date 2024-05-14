@@ -12,8 +12,9 @@ import {
     DropdownMenuContent,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import {ChevronDown} from "lucide-react";
+import {ChevronDown, ExternalLinkIcon} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
+import Link from "next/link";
 
 export function StudentDataDialog(
     {
@@ -63,7 +64,8 @@ export function StudentDataDialog(
     const router = useRouter();
     const handlePopState = () => {
         // e.preventDefault();
-        if (document.documentURI.endsWith("/ranklist")) handleDrawerClose(false);
+        const currUrl = new URL(document.documentURI);
+        if (currUrl.pathname === "/ranklist") handleDrawerClose(false);
     }
 
     const handleDrawerClose = (open: boolean) => {
@@ -72,7 +74,7 @@ export function StudentDataDialog(
     }
 
     useEffect(() => {
-        if (studentData.open && studentData.data.enrollment !== "") router.push("#drawer");
+        if (studentData.open && studentData.data.enrollment !== "") history.pushState(null, "", "#drawer");
     }, [studentData.open]);
 
     useEffect(() => {
@@ -97,6 +99,14 @@ export function StudentDataDialog(
                         <div className="flex items-center justify-center space-x-4">
                             <h1 className="text-2xl font-semibold text-center">{studentData.data.name}</h1>
                             <Badge variant="default" className="ml-2">{studentData.data.rank}</Badge>
+                            <Link
+                                href={"/student/" + studentData.data.enrollment}
+                                target="_blank"
+                            >
+                                <Button variant="outline">
+                                    <ExternalLinkIcon className="h-4 w-4" />
+                                </Button>
+                            </Link>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
