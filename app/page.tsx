@@ -11,13 +11,30 @@ import {Divider} from "@mui/material";
 import {customFetch} from "@/app/lib/dataFetchServer";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {AnimatePresence, motion} from "framer-motion";
-import Link from "next/link";
+import {CountUp} from "countup.js";
+
+const options = {
+    startVal: 0,
+    duration: 3,
+    suffix: '+',
+};
+
+interface CounterType {
+    student: number,
+    result: number,
+    programme: number,
+    institute: number,
+    actualResult: number
+}
 
 export default function Page() {
-    const [studentCount, setStudentCount] = useState(0);
-    const [programmeCount, setProgrammeCount] = useState(0);
-    const [instituteCount, setInstituteCount] = useState(0);
-    const [resultCount, setResultCount] = useState(0);
+    const [counterStats, setCounterStats] = useState<CounterType>({
+        student: 0,
+        result: 0,
+        programme: 0,
+        institute: 0,
+        actualResult: 0
+    })
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
     useEffect(() => {
@@ -28,19 +45,15 @@ export default function Page() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await customFetch<number>("/count/student");
-            setStudentCount(response);
-            const response2 = await customFetch<number>("/count/programme");
-            setProgrammeCount(response2);
-            const response3 = await customFetch<number>("/count/institute");
-            setInstituteCount(response3);
-            const response4 = await customFetch<number>("/count/result");
-            setResultCount(response4);
+            const response = await customFetch<CounterType>("/count");
+            new CountUp("studentCounter", response.student, options).start();
+            new CountUp("programmeCounter", response.programme, options).start();
+            new CountUp("instituteCounter", response.institute, options).start();
+            new CountUp("resultCounter", response.result, options).start();
+            setCounterStats(response);
         };
-
         fetchData();
     }, [])
-
 
     return (
         <div className={"px-[15%]"}>
@@ -68,35 +81,38 @@ export default function Page() {
 
                 </p>
             </div>
-            <Divider className={"my-4"} variant="middle"/>
 
-            <div
-                className={"grid grid-cols-1 md:grid-cols-2  py-10"}
-            >
+            <Divider className={"my-6"} variant="middle"/>
+
+            <div className={"grid grid-cols-1 md:grid-cols-2"}>
                 {
                     [
                         {
                             title: "Institutes",
-                            description: instituteCount
+                            id: "instituteCounter",
+                            description: counterStats.institute
                         },
                         {
                             title: "Students",
-                            description: studentCount
+                            id: "studentCounter",
+                            description: counterStats.student
                         },
                         {
                             title: "Programmes",
-                            description: programmeCount
+                            id: "programmeCounter",
+                            description: counterStats.programme
                         },
                         {
                             title: "Results",
-                            description: resultCount
+                            id: "resultCounter",
+                            description: counterStats.result
                         }
                     ].map((item: {
                         title: string;
+                        id: string;
                         description: number;
                     }, idx) => (
-                        <Link
-                            href={"#blank"}
+                        <div
                             key={idx + 1}
                             className="relative group  block p-2 h-full w-full"
                             onMouseEnter={() => setHoveredIndex(idx)}
@@ -105,7 +121,7 @@ export default function Page() {
                             <AnimatePresence>
                                 {hoveredIndex === idx && (
                                     <motion.span
-                                        className="absolute z-[-1] inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
+                                        className="absolute z-[-1] inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-lg"
                                         layoutId="hoverBackground"
                                         initial={{opacity: 0}}
                                         animate={{
@@ -119,17 +135,46 @@ export default function Page() {
                                     />
                                 )}
                             </AnimatePresence>
-                            <Card>
+                            <Card className={"hover:scale-100"}>
                                 <CardHeader>
                                     <CardTitle>{item.title}</CardTitle>
                                 </CardHeader>
 
                                 <CardContent>
-                                    <h2 className={"text-4xl font-medium"}>{item.description}</h2>
+                                    <h2 id={item.id} className={"text-4xl font-medium"}>{item.description}</h2>
                                 </CardContent>
+
                             </Card>
-                        </Link>
+                        </div>
                     ))}
+            </div>
+
+            <Divider className={"my-6"} variant="middle"/>
+
+            <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
+                <div className={"bg-white aspect-square"}>
+                    Graph 1
+                </div>
+                <div className={"bg-white aspect-square"}>
+                    Graph 2
+                </div>
+                <div className={"bg-white aspect-square"}>
+                    Graph 3
+                </div>
+                <div className={"bg-white aspect-square"}>
+                    Graph 4
+                </div>
+            </div>
+
+            <Divider className={"my-6"} variant="middle"/>
+
+            <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
+                <div className={"bg-white aspect-square"}>
+                    Vedant
+                </div>
+                <div className={"bg-white aspect-square"}>
+                    Lakshay
+                </div>
             </div>
         </div>
     );
