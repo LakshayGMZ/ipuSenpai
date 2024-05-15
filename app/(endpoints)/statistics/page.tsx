@@ -1,8 +1,8 @@
 "use client";
 import axios from "axios"
-import { Card, CardContent, CardHeader, CardDescription, CardTitle } from "@/components/ui/cardStatistics";
-import { useEffect, useState } from "react";
-import React from "react";
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/cardStatistics";
+import React, {useEffect, useState} from "react";
+import {customFetch} from "@/app/lib/dataFetchServer";
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "http://localhost:3000";
 
@@ -15,14 +15,14 @@ export default function Page() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get(`/count/student`);
-            setStudentCount(response.data);
-            const response2 = await axios.get(`/count/programme`);
-            setProgrammeCount(response2.data);
-            const response3 = await axios.get(`/count/institute`);
-            setInstituteCount(response3.data);
-            const response4 = await axios.get(`/count/result`);
-            setResultCount(response4.data);
+            const response = await customFetch<number>("/count/student");
+            setStudentCount(response);
+            const response2 = await customFetch<number>("/count/programme");
+            setProgrammeCount(response2);
+            const response3 = await customFetch<number>("/count/institute");
+            setInstituteCount(response3);
+            const response4 = await customFetch<number>("/count/result");
+            setResultCount(response4);
         };
 
         fetchData();
