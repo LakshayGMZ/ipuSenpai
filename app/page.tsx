@@ -168,14 +168,12 @@ export default function Page() {
 
             <Divider className={"my-6"} variant="middle"/>
 
-            <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
-                <div className={"bg-white aspect-square"}>
-                    Vedant
-                </div>
-                <div className={"bg-white aspect-square"}>
-                    Lakshay
-                </div>
-            </div>
+            <iframe
+                src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=LakshayGMZ&theme=gotham"}></iframe>
+            <iframe
+                src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=martian0x80&theme=gotham"}></iframe>
+
+
         </div>
     );
 }
