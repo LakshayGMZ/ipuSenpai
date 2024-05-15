@@ -111,3 +111,12 @@ export async function getSemesters(progname: string, institute: string, batch: s
     return [{name: "Overall", value: "0"}, ...(await res.json())];
 }
 
+export async function customFetch<T>(url: string): Promise<T> {
+    const res = await fetch(getAbsoluteUrl(url));
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch data. URL: ' + res.url)
+    }
+    return res.json();
+}
+
