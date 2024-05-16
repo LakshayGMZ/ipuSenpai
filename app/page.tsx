@@ -7,25 +7,15 @@ import { customFetch } from "@/app/lib/dataFetchServer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AnimatePresence, motion } from "framer-motion";
 import { CountUp } from "countup.js";
+import { Mail } from "lucide-react";
 import {
-    LabelList,
-    PolarAngleAxis,
-    PolarGrid,
-    PolarRadiusAxis,
-    Radar,
-    RadarChart,
-    RadialBar,
-    RadialBarChart,
     ResponsiveContainer,
     Tooltip,
     Bar,
     ComposedChart,
     Line,
-    XAxis,
-    YAxis,
-    BarChart
 } from "recharts";
-import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
+import { Button } from "@/components/ui/button";
 
 const options = {
     startVal: 0,
@@ -92,24 +82,6 @@ export default function Page() {
         }
     });
 
-    const us0 = [
-        {
-            id: 1,
-            name: "martian0x80",
-            designation: "Backend Developer",
-            image: "/vedant.gif",
-        },
-
-    ];
-    const us1 = [
-        {
-            id: 1,
-            name: "LakshayGMZ",
-            designation: "Frontend Developer",
-            image: "/lakshay.png",
-        },
-    ];
-
     useEffect(() => {
         const gradient = new Gradient();
         gradient.initGradient("#gradient-canvas");
@@ -156,12 +128,9 @@ export default function Page() {
                 IPU SENPAI
             </h1>
 
-            <div className="bg-black bg-opacity-50 p-6 text-white text-center">
+            <div className="bg-black bg-opacity-50 p-6 text-white text-center text-2xl font-medium rounded-xl">
                 <p>
-                    Hmm. I see you ve found me. Im batman.
-                    Just kidding. <br />
-                    No, fr though. Im BATMAN <br />
-
+                    The modern, open-source, beautiful and better ranklist and result portal for GGSIPU.
                 </p>
             </div>
 
@@ -232,15 +201,21 @@ export default function Page() {
                     ))}
             </div>
 
+            <div className="text-center mt-4">
+                <p className="text-[0.75rem] text-neutral-400 dark:text-neutral-500">
+                    Note: The actual number of results is {counterStats.actualResult}. The number of results shown here is the number of result rows expanded in the database per subject.
+                </p>
+            </div>
+
             <Divider className={"my-6"} variant="middle" />
 
-            <div className={"grid grid-cols-2 md:grid-cols-2 gap-4"}>
+            <div className={"grid grid-cols-1 md:grid-cols-3 gap-4"}>
                 <Card>
                     <CardHeader>
                         <CardTitle>Students by Programme</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <ResponsiveContainer width="100%" height={300}>
+                        <ResponsiveContainer width="100%" height={250}>
                             <ComposedChart
                                 data={studentCountBy.byProgramme.studentCounts}
                                 margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
@@ -326,7 +301,7 @@ export default function Page() {
                         <CardTitle>Students by Institute</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <ResponsiveContainer width="100%" height={300}>
+                        <ResponsiveContainer width="100%" height={250}>
                             <ComposedChart
                                 data={studentCountBy.byInstitute.studentCounts.sort((a, b) => a.count - b.count)}
                                 margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
@@ -412,7 +387,7 @@ export default function Page() {
                         <CardTitle>Students by Batch</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <ResponsiveContainer width="100%" height={300}>
+                        <ResponsiveContainer width="100%" height={250}>
                             <ComposedChart
                                 data={studentCountBy.byBatch.studentCounts}
                                 margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
@@ -495,27 +470,98 @@ export default function Page() {
                 </Card>
             </div>
 
-            <Divider className={"my-6"} variant="middle" />
-            <div className={"grid grid-rows-2 grid-cols-2 gap-4"}>
-                <a href="https://github.com/martian0x80" target="_blank" rel="noreferrer">
-                    <iframe
-                        width={"100%"}
-                        height={"100%"}
-                        src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=martian0x80&theme=gotham"}
-                    />
-                </a>
-                <AnimatedTooltip items={us0} />
-                <a href="https://github.com/martian0x80" target="_blank" rel="noreferrer">
-                    <iframe
-                        width={"100%"}
-                        height={"100%"}
-                        src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=LakshayGMZ&theme=gotham"}
-                    />
-                </a>
-                <AnimatedTooltip items={us1} />
+            <Divider className={"my-6 py-5"} variant="middle" />
 
+            <h1 className="text-[4rem] font-extrabold text-[rgba(255,255,255,0.6)] text-center break-words py-4">
+                Contribution
+            </h1>
+            <div className={"grid grid-cols-1"}>
+                <div className="bg-black bg-opacity-50 p-6 text-white text-center text-xl font-medium rounded-xl">
+                    <p>
+                        Contribute to this project on GitHub. We are open to contributions. Star the project if you like it. :D
+                    </p>
+                </div>
+                <div className={"grid grid-rows-2 md:grid-rows-1 grid-cols-1 md:grid-cols-2 rounded-xl p-4 gap-4 place-items-center"}>
+                    <object type="image/svg+xml" data="https://gh-card.dev/repos/LakshayGMZ/ipuSenpai.svg?fullname=&link_target=_blank"></object>
+                    <object type="image/svg+xml" data="https://gh-card.dev/repos/martian0x80/IPUSenpaiBackend.svg?fullname=&link_target=_blank"></object>
+                </div>
             </div>
 
+            <div className={"grid grid-auto-rows grid-auto-cols place-items-center object-cover h-full w-full"}>
+                <a href="https://github.com/martian0x80" target="_blank" rel="noreferrer">
+                    <iframe className="w-auto h-auto rounded-xl h-full w-full"
+                        width={"100%"}
+                        height={"100%"}
+                        src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=martian0x80&theme=github_dark"}
+                    />
+                </a>
+                <a href="https://github.com/martian0x80" target="_blank" rel="noreferrer">
+                    <iframe className="w-auto h-auto rounded-xl h-full w-full"
+                        width={"100%"}
+                        height={"100%"}
+                        src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=LakshayGMZ&theme=github_dark"}
+                    />
+                </a>
+            </div>
+
+            <Divider className={"my-6 py-5"} variant="middle" />
+
+            <h1 className="text-[4rem] font-extrabold text-[rgba(255,255,255,0.6)] text-center break-words py-4">
+                Socials
+            </h1>
+            <div className={"grid grid-cols-1"}>
+                <div className="bg-black bg-opacity-50 p-6 text-white text-center text-xl font-medium rounded-xl">
+                    <p>
+                        Join our discord server to get latest updates and to discuss about the project.
+                    </p>
+                </div>
+                <div className="grid grid-rows-1 grid-cols-1 rounded-xl p-4 gap-4 place-items-center">
+                    <iframe src="https://discord.com/widget?id=1052916034702692433&theme=dark" width="350" height="500" allowtransparency="true" frameBorder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                </div>
+            </div>
+
+            <Divider className={"my-6 py-5"} variant="middle" />
+
+            <h1 className="text-[4rem] font-extrabold text-[rgba(255,255,255,0.6)] text-center break-words py-4">
+                We also Freelance!
+            </h1>
+            <div className={"grid grid-cols-1"}>
+                <div className="bg-black bg-opacity-50 p-6 text-white text-center text-xl font-medium rounded-xl">
+                    <p>
+                        We also take freelance projects. Contact us for more details.
+                    </p>
+                </div>
+                <div className="grid grid-rows-1 grid-cols-1 rounded-xl p-4 gap-4 place-items-center">
+                    <a
+                        href="mailto:ipusenpai0x80@gmail.com"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        <Button className="bg-primary text-white">
+                            <Mail className="w-6 h-6 mr-2" />
+                            Contact Us
+                        </Button>
+                    </a>
+                </div>
+            </div>
+
+            {/* Footer */}
+            <Divider className={"my-6 py-5"} variant="middle" />
+
+            <div className="bg-black bg-opacity-50 p-6 text-white text-center text-md font-sm rounded-xl">
+                <p>
+                    Made with ❤️ by <a href="https://github.com/martian0x80/">martian0x80</a> and <a href="https://github.com/lakshayGMZ/">LakshayGMZ</a>
+                </p>
+
+                <p>
+                    &copy; 2024 IPU SENPAI
+                </p>
+
+                <p>
+                    All rights reserved.
+                </p>
+                
+            </div>
 
         </div>
     );
