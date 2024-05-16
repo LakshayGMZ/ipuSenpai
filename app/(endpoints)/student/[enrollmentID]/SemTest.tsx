@@ -1,5 +1,5 @@
-import {GradeFrequency, StudentProfileData} from "@/types/types";
-import {Card} from "@/components/ui/card";
+import { GradeFrequency, StudentProfileData } from "@/types/types";
+import { Card } from "@/components/ui/card";
 import {
     Bar,
     ComposedChart,
@@ -12,7 +12,7 @@ import {
     XAxis,
     YAxis
 } from "recharts";
-import {SemResultTable} from "@/components/student/SemResultTable";
+import { SemResultTable } from "@/components/student/SemResultTable";
 
 export default function SemTest(
     {
@@ -191,56 +191,56 @@ export default function SemTest(
                     Need a frequency distribution chart for the grades
                 */}
 
-<Card className="pb-4 pt-4 gap-4">
+                <Card className="pb-4 pt-4 gap-4">
                     <ResponsiveContainer width="100%" height={350}>
-                    <RadialBarChart
-                                data={frequencygrades.sort((i, j) => i.frequency - j.frequency).reverse()}
-                                innerRadius="12%" 
-                                outerRadius="100%" 
-                                startAngle={0} 
-                                endAngle={360}
-                            >
-                                
-                                <Tooltip
-                                    content={({active, payload}) => {
-                                        if (active && payload && payload.length) {
-                                            return (
-                                                <div className="rounded-lg border bg-background p-2 shadow-sm">
-                                                    <div className="grid grid-cols-2 gap-2">
-                                                        <div className="flex flex-col">
-                                                            <span
-                                                                className="text-[0.70rem] uppercase text-muted-foreground">
-                                                                Grade
-                                                            </span>
-                                                            <span className="font-bold text-muted-foreground">
-                                                                {payload[0].payload.grade}
-                                                            </span>
-                                                        </div>
-                                                        <div className="flex flex-col">
-                                                            <span
-                                                                className="text-[0.70rem] uppercase text-muted-foreground">
-                                                                Frequency
-                                                            </span>
-                                                            <span className="font-bold text-muted-foreground">
-                                                                {payload[0].payload.frequency}
-                                                            </span>
-                                                        </div>
+                        <RadialBarChart
+                            data={frequencygrades.sort((i, j) => i.frequency - j.frequency).reverse()}
+                            innerRadius="12%"
+                            outerRadius="100%"
+                            startAngle={0}
+                            endAngle={360}
+                        >
+
+                            <Tooltip
+                                content={({ active, payload }) => {
+                                    if (active && payload && payload.length) {
+                                        return (
+                                            <div className="rounded-lg border bg-background p-2 shadow-sm">
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <div className="flex flex-col">
+                                                        <span
+                                                            className="text-[0.70rem] uppercase text-muted-foreground">
+                                                            Grade
+                                                        </span>
+                                                        <span className="font-bold text-muted-foreground">
+                                                            {payload[0].payload.grade}
+                                                        </span>
+                                                    </div>
+                                                    <div className="flex flex-col">
+                                                        <span
+                                                            className="text-[0.70rem] uppercase text-muted-foreground">
+                                                            Frequency
+                                                        </span>
+                                                        <span className="font-bold text-muted-foreground">
+                                                            {payload[0].payload.frequency}
+                                                        </span>
                                                     </div>
                                                 </div>
-                                            )
-                                        }
+                                            </div>
+                                        )
+                                    }
 
-                                        return null
-                                    }}
-                                />
-                                <RadialBar
+                                    return null
+                                }}
+                            />
+                            <RadialBar
                                 dataKey="frequency"
                                 fill="var(--primary)"
-                                
-                                >
-                                    <LabelList dataKey="grade" position="inside" fill="var(--primary-foreground)" fontWeight={600} />
-                                </RadialBar>
-                            </RadialBarChart>
+
+                            >
+                                <LabelList dataKey="grade" position="inside" fill="var(--primary-foreground)" fontWeight={600} />
+                            </RadialBar>
+                        </RadialBarChart>
                     </ResponsiveContainer>
                 </Card>
             </div>
