@@ -59,7 +59,7 @@ export default function Page() {
         <div className={"px-[15%]"}>
             <canvas
                 id="gradient-canvas"
-                className="fixed inset-0 z-[-1]"
+                className="fixed inset-0 z-[-10]"
                 data-transition-in={true}
             />
             <Image
@@ -167,11 +167,18 @@ export default function Page() {
             </div>
 
             <Divider className={"my-6"} variant="middle"/>
+            <div className={"h-[14rem]"}>
+                <iframe
+                    width={"100%"}
+                    // className={"relative"}
+                    // height={""}
+                    src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=LakshayGMZ&theme=gotham"}
+                />
 
-            <iframe
-                src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=LakshayGMZ&theme=gotham"}></iframe>
-            <iframe
-                src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=martian0x80&theme=gotham"}></iframe>
+            </div>
+            {/*<iframe*/}
+            {/*    width={"100%"}*/}
+            {/*    src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=martian0x80&theme=gotham"}></iframe>*/}
 
 
         </div>
