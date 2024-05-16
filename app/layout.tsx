@@ -36,10 +36,6 @@ const navItems = [
         name: "Search",
         link: "/search",
     },
-    {
-        name: "Statistics",
-        link: "/statistics",
-    },
 ];
 
 export default function RootLayout(

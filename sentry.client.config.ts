@@ -28,6 +28,7 @@ Sentry.init({
       blockAllMedia: true,
     }),
     Sentry.feedbackIntegration({
+      id: "sentry-feedback",
       colorScheme: "system",
       themeLight: {
         background: "var(--card)",

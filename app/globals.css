@@ -14,6 +14,10 @@
   }
 }
 
+#sentry-feedback {
+  inset: auto auto 0 0 !important;
+}
+
 @layer components {
 	#gradient-canvas {
 		width: 100%;
