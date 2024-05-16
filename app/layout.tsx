@@ -52,8 +52,8 @@ export default function RootLayout(
         <link rel="icon" href="/favicon.ico" sizes="48x48 32x32 16x16"/>
         <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
         <link rel="manifest" href="/site.webmanifest"/>
-        <meta property="og:image" content="/logo.png"/>
-        <meta property="og:title" content="IPU Senpai: The modern, open-source and better alternative to ipuranklist"/>
+        <meta property="og:image" content="https://ipusenpai.in/logo.png"/>
+        <meta property="og:title" content="IPU Senpai"/>
         <meta property="og:description"
               content="IPU Senpai is an open-source project that aims to provide a better, modern and feature-rich alternative to ipuranklist."/>
         <meta property="og:url" content="https://ipusenpai.com"/>
