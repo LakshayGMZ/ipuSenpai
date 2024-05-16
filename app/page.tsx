@@ -516,7 +516,7 @@ export default function Page() {
                     </p>
                 </div>
                 <div className="grid grid-rows-1 grid-cols-1 rounded-xl p-4 gap-4 place-items-center">
-                    <iframe src="https://discord.com/widget?id=1052916034702692433&theme=dark" width="350" height="500" allowtransparency="true" frameBorder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                    <iframe src="https://discord.com/widget?id=1052916034702692433&theme=dark" width="350" height="500" allowTransparency={true} frameBorder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
                 </div>
             </div>
 
