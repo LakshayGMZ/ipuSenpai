@@ -24,12 +24,23 @@ jobs:
           text: "Development environment setup complete"
           color: "green"
       - name: Commit changes
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          git add public/robots.txt public/sitemap.xml
-          git commit -m "Setup preview environment"
-          git push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Automated changes
+          commit_options: "--no-verify"
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+          commit_author: "Senpai Bot UwU"
+          file_pattern: "public/*"
+          status_options: '--untracked-files=no'
+      - name: "Run if changes have been detected"
+        if: steps.auto-commit-action.outputs.changes_detected == 'true'
+        run: echo "Changes!"
+
+      - name: "Run if no changes have been detected"
+        if: steps.auto-commit-action.outputs.changes_detected == 'false'
+        run: echo "No Changes!"
+
 
   setup-production:
     runs-on: ubuntu-latest
@@ -48,9 +59,19 @@ jobs:
           text: "Production environment setup complete"
           color: "green"
       - name: Commit changes
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          git add public/robots.txt public/sitemap.xml
-          git commit -m "Setup production environment"
-          git push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Automated changes
+          commit_options: "--no-verify"
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+          commit_author: "Senpai Bot UwU"
+          file_pattern: "public/*"
+          status_options: '--untracked-files=no'
+      - name: "Run if changes have been detected"
+        if: steps.auto-commit-action.outputs.changes_detected == 'true'
+        run: echo "Changes!"
+
+      - name: "Run if no changes have been detected"
+        if: steps.auto-commit-action.outputs.changes_detected == 'false'
+        run: echo "No Changes!"
