@@ -10,8 +10,6 @@ jobs:
   setup-preview:
     runs-on: ubuntu-latest
     if: ${{ inputs.environment == 'preview' }}
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Copy/Overwrite robots.txt with development robots.txt
@@ -41,8 +39,6 @@ jobs:
   setup-production:
     runs-on: ubuntu-latest
     if: ${{ inputs.environment == 'production' }}
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Copy/Overwrite robots.txt with production robots.txt
