@@ -27,12 +27,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Automated changes
-          commit_options: "--no-verify"
-          commit_user_name: "github-actions[bot]"
-          commit_user_email: "github-actions[bot]@users.noreply.github.com"
-          commit_author: "github-actions[bot] github-actions[bot]@users.noreply.github.com"
           file_pattern: "public/*"
-          status_options: '--untracked-files=no'
       - name: "Run if changes have been detected"
         if: steps.auto-commit-action.outputs.changes_detected == 'true'
         run: echo "Changes!"
@@ -62,12 +57,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Automated changes
-          commit_options: "--no-verify"
-          commit_user_name: "github-actions[bot]"
-          commit_user_email: "github-actions[bot]@users.noreply.github.com"
-          commit_author: "github-actions[bot] github-actions[bot]@users.noreply.github.com"
           file_pattern: "public/*"
-          status_options: '--untracked-files=no'
       - name: "Run if changes have been detected"
         if: steps.auto-commit-action.outputs.changes_detected == 'true'
         run: echo "Changes!"
