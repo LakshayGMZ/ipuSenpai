@@ -10,8 +10,10 @@ jobs:
   setup-preview:
     runs-on: ubuntu-latest
     if: ${{ inputs.environment == 'preview' }}
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Copy/Overwrite robots.txt with development robots.txt
         run: cp -v public/dev/robots.txt public/robots.txt
       - name: Copy/Overwrite sitemap.xml with development sitemap.xml
@@ -39,8 +41,10 @@ jobs:
   setup-production:
     runs-on: ubuntu-latest
     if: ${{ inputs.environment == 'production' }}
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Copy/Overwrite robots.txt with production robots.txt
         run: cp -v public/prod/robots.txt public/robots.txt
       - name: Copy/Overwrite sitemap.xml with production sitemap.xml
