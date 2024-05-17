@@ -30,7 +30,7 @@ jobs:
           commit_options: "--no-verify"
           commit_user_name: "github-actions[bot]"
           commit_user_email: "github-actions[bot]@users.noreply.github.com"
-          commit_author: "Senpai Bot UwU"
+          commit_author: "github-actions[bot] github-actions[bot]@users.noreply.github.com"
           file_pattern: "public/*"
           status_options: '--untracked-files=no'
       - name: "Run if changes have been detected"
@@ -65,7 +65,7 @@ jobs:
           commit_options: "--no-verify"
           commit_user_name: "github-actions[bot]"
           commit_user_email: "github-actions[bot]@users.noreply.github.com"
-          commit_author: "Senpai Bot UwU"
+          commit_author: "github-actions[bot] github-actions[bot]@users.noreply.github.com"
           file_pattern: "public/*"
           status_options: '--untracked-files=no'
       - name: "Run if changes have been detected"
