@@ -8,7 +8,7 @@ on:
       - main
 jobs:
   setup-production-environment:
-    uses: ./.github/workflows/setup-predeploy-env.yml@main
+    uses: ./.github/workflows/setup-predeploy-env.yml
     with:
       environment: production
   Deploy-Production:
