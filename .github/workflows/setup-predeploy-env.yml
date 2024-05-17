@@ -1,0 +1,56 @@
+name: Setup Pre-Deploy Environment
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+
+jobs:
+  setup-preview:
+    runs-on: ubuntu-latest
+    if: ${{ inputs.environment == 'preview' }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Copy/Overwrite robots.txt with development robots.txt
+        run: cp -v public/dev/robots.txt public/robots.txt
+      - name: Copy/Overwrite sitemap.xml with development sitemap.xml
+        run: cp -v public/dev/sitemap.xml public/sitemap.xml
+      - name: Check copy was successful
+        run: if [ -f public/robots.txt ] && [ -f public/sitemap.xml ]; then echo "Files copied successfully"; else exit 1; fi
+      - name: Complete Development Environment Setup
+        uses: mscoutermarsh/cowsays-action@master
+        with:
+          text: "Development environment setup complete"
+          color: "green"
+      - name: Commit changes
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add public/robots.txt public/sitemap.xml
+          git commit -m "Setup preview environment"
+          git push
+
+  setup-production:
+    runs-on: ubuntu-latest
+    if: ${{ inputs.environment == 'production' }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Copy/Overwrite robots.txt with production robots.txt
+        run: cp -v public/prod/robots.txt public/robots.txt
+      - name: Copy/Overwrite sitemap.xml with production sitemap.xml
+        run: cp -v public/prod/sitemap.xml public/sitemap.xml
+      - name: Check copy was successful
+        run: if [ -f public/robots.txt ] && [ -f public/sitemap.xml ]; then echo "Files copied successfully"; else exit 1; fi
+      - name: Complete Production Environment Setup
+        uses: mscoutermarsh/cowsays-action@master
+        with:
+          text: "Production environment setup complete"
+          color: "green"
+      - name: Commit changes
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add public/robots.txt public/sitemap.xml
+          git commit -m "Setup production environment"
+          git push

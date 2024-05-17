@@ -7,8 +7,13 @@ on:
     branches:
       - main
 jobs:
+  setup-production-environment:
+    uses: ./.github/workflows/setup-predeploy-env.yml@main
+    with:
+      environment: production
   Deploy-Production:
     runs-on: ubuntu-latest
+    needs: setup-production-environment
     steps:
       - uses: actions/checkout@v2
       - name: Install Vercel CLI

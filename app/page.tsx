@@ -1,21 +1,15 @@
 "use client"
-import React, { useEffect, useState } from "react";
-import { Gradient } from "whatamesh";
+import React, {useEffect, useState} from "react";
+import {Gradient} from "whatamesh";
 import Image from "next/image";
-import { Divider } from "@mui/material";
-import { customFetch } from "@/app/lib/dataFetchServer";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { AnimatePresence, motion } from "framer-motion";
-import { CountUp } from "countup.js";
-import { Mail } from "lucide-react";
-import {
-    ResponsiveContainer,
-    Tooltip,
-    Bar,
-    ComposedChart,
-    Line,
-} from "recharts";
-import { Button } from "@/components/ui/button";
+import {Divider} from "@mui/material";
+import {customFetch} from "@/app/lib/dataFetchServer";
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
+import {AnimatePresence, motion} from "framer-motion";
+import {CountUp} from "countup.js";
+import {Mail} from "lucide-react";
+import {Bar, ComposedChart, Line, ResponsiveContainer, Tooltip,} from "recharts";
+import {Button} from "@/components/ui/button";
 
 const options = {
     startVal: 0,
@@ -134,7 +128,7 @@ export default function Page() {
                 </p>
             </div>
 
-            <Divider className={"my-6"} variant="middle" />
+            <Divider className={"my-6"} variant="middle"/>
 
             <div className={"grid grid-cols-1 md:grid-cols-2"}>
                 {
@@ -175,14 +169,14 @@ export default function Page() {
                                     <motion.span
                                         className="absolute z-[-1] inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-lg"
                                         layoutId="hoverBackground"
-                                        initial={{ opacity: 0 }}
+                                        initial={{opacity: 0}}
                                         animate={{
                                             opacity: 1,
-                                            transition: { duration: 0.15 },
+                                            transition: {duration: 0.15},
                                         }}
                                         exit={{
                                             opacity: 0,
-                                            transition: { duration: 0.15, delay: 0.2 },
+                                            transition: {duration: 0.15, delay: 0.2},
                                         }}
                                     />
                                 )}
@@ -203,11 +197,12 @@ export default function Page() {
 
             <div className="text-center mt-4">
                 <p className="text-[0.75rem] text-neutral-400 dark:text-neutral-500">
-                    Note: The actual number of results is {counterStats.actualResult}. The number of results shown here is the number of result rows expanded in the database per subject.
+                    Note: The actual number of results is {counterStats.actualResult}. The number of results shown here
+                    is the number of result rows expanded in the database per subject.
                 </p>
             </div>
 
-            <Divider className={"my-6"} variant="middle" />
+            <Divider className={"my-6"} variant="middle"/>
 
             <div className={"grid grid-cols-1 md:grid-cols-3 gap-4"}>
                 <Card>
@@ -218,7 +213,7 @@ export default function Page() {
                         <ResponsiveContainer width="100%" height={250}>
                             <ComposedChart
                                 data={studentCountBy.byProgramme.studentCounts}
-                                margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
+                                margin={{top: 10, right: 10, left: 10, bottom: 20}}
                                 layout="horizontal"
                             >
                                 {/* <XAxis dataKey="subcode"
@@ -248,7 +243,7 @@ export default function Page() {
                                 padding={{ top: 20, bottom: 20 }}
                             /> */}
                                 <Tooltip
-                                    content={({ active, payload }) => {
+                                    content={({active, payload}) => {
                                         if (active && payload && payload.length) {
                                             return (
                                                 <div className="rounded-lg  bg-background p-2 shadow-sm">
@@ -288,7 +283,7 @@ export default function Page() {
                                     type="monotone"
                                     dot={true}
                                     dataKey="count"
-                                    style={{ stroke: "var(--secondary-foreground)" }}
+                                    style={{stroke: "var(--secondary-foreground)"}}
                                     strokeWidth={4}
                                 />
                             </ComposedChart>
@@ -304,7 +299,7 @@ export default function Page() {
                         <ResponsiveContainer width="100%" height={250}>
                             <ComposedChart
                                 data={studentCountBy.byInstitute.studentCounts.sort((a, b) => a.count - b.count)}
-                                margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
+                                margin={{top: 10, right: 10, left: 10, bottom: 20}}
                                 layout="horizontal"
                             >
                                 {/* <XAxis dataKey="subcode"
@@ -334,7 +329,7 @@ export default function Page() {
                                 padding={{ top: 20, bottom: 20 }}
                             /> */}
                                 <Tooltip
-                                    content={({ active, payload }) => {
+                                    content={({active, payload}) => {
                                         if (active && payload && payload.length) {
                                             return (
                                                 <div className="rounded-lg  bg-background p-2 shadow-sm">
@@ -374,7 +369,7 @@ export default function Page() {
                                     type="monotone"
                                     dot={true}
                                     dataKey="count"
-                                    style={{ stroke: "var(--secondary-foreground)" }}
+                                    style={{stroke: "var(--secondary-foreground)"}}
                                     strokeWidth={4}
                                 />
                             </ComposedChart>
@@ -390,7 +385,7 @@ export default function Page() {
                         <ResponsiveContainer width="100%" height={250}>
                             <ComposedChart
                                 data={studentCountBy.byBatch.studentCounts}
-                                margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
+                                margin={{top: 10, right: 10, left: 10, bottom: 20}}
                                 layout="horizontal"
                             >
                                 {/* <XAxis dataKey="subcode"
@@ -420,7 +415,7 @@ export default function Page() {
                                 padding={{ top: 20, bottom: 20 }}
                             /> */}
                                 <Tooltip
-                                    content={({ active, payload }) => {
+                                    content={({active, payload}) => {
                                         if (active && payload && payload.length) {
                                             return (
                                                 <div className="rounded-lg  bg-background p-2 shadow-sm">
@@ -460,7 +455,7 @@ export default function Page() {
                                     type="monotone"
                                     dot={true}
                                     dataKey="count"
-                                    style={{ stroke: "var(--secondary-foreground)" }}
+                                    style={{stroke: "var(--secondary-foreground)"}}
                                     strokeWidth={4}
                                 />
                             </ComposedChart>
@@ -470,41 +465,41 @@ export default function Page() {
                 </Card>
             </div>
 
-            <Divider className={"my-6 py-5"} variant="middle" />
+            <Divider className={"my-6 py-5"} variant="middle"/>
 
             <h1 className="text-[4rem] font-extrabold text-[rgba(255,255,255,0.6)] text-center break-words py-4">
                 Contribution
             </h1>
-            <div className={"grid grid-cols-1"}>
-                <div className="bg-black bg-opacity-50 p-6 text-white text-center text-xl font-medium rounded-xl">
-                    <p>
-                        Contribute to this project on GitHub. We are open to contributions. Star the project if you like it. :D
-                    </p>
-                </div>
-                <div className={"grid grid-rows-2 md:grid-rows-1 grid-cols-1 md:grid-cols-2 rounded-xl p-4 gap-4 place-items-center"}>
-                    <object type="image/svg+xml" data="https://gh-card.dev/repos/LakshayGMZ/ipuSenpai.svg?fullname=&link_target=_blank"></object>
-                    <object type="image/svg+xml" data="https://gh-card.dev/repos/martian0x80/IPUSenpaiBackend.svg?fullname=&link_target=_blank"></object>
-                </div>
+            <div className="bg-black bg-opacity-50 p-6 text-white text-center text-xl font-medium rounded-xl">
+                <p>
+                    Contribute to this project on GitHub. We are open to contributions. Star the project if you like
+                    it. :D
+                </p>
+            </div>
+            <div className={"grid grid-cols-1 xl:grid-cols-2 gap-4 place-items-center py-4"}>
+                <iframe
+                    width={"442"}
+                    height={"130"}
+                        src="https://gh-card.dev/repos/LakshayGMZ/ipuSenpai.svg?fullname=&link_target=_blank" />
+                <iframe
+
+                    width={"442"}
+                    height={"130"}
+                        src="https://gh-card.dev/repos/martian0x80/IPUSenpaiBackend.svg?fullname=&link_target=_blank" />
             </div>
 
-            <div className={"grid grid-auto-rows grid-auto-cols place-items-center object-cover h-full w-full"}>
-                <a href="https://github.com/martian0x80" target="_blank" rel="noreferrer">
-                    <iframe className="w-auto h-auto rounded-xl h-full w-full"
-                        width={"100%"}
-                        height={"100%"}
+            <div className={"grid grid-auto-rows grid-auto-cols aspect-[1.75] min-h-[5rem] "}>
+                <iframe className="aspect-[3.5] h-[100%] p-2"
                         src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=martian0x80&theme=github_dark"}
-                    />
-                </a>
-                <a href="https://github.com/martian0x80" target="_blank" rel="noreferrer">
-                    <iframe className="w-auto h-auto rounded-xl h-full w-full"
-                        width={"100%"}
-                        height={"100%"}
+                />
+
+                <iframe className="aspect-[3.5] h-[100%] p-2"
                         src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=LakshayGMZ&theme=github_dark"}
-                    />
-                </a>
+                />
+
             </div>
 
-            <Divider className={"my-6 py-5"} variant="middle" />
+            <Divider className={"my-6 py-5"} variant="middle"/>
 
             <h1 className="text-[4rem] font-extrabold text-[rgba(255,255,255,0.6)] text-center break-words py-4">
                 Socials
@@ -516,11 +511,13 @@ export default function Page() {
                     </p>
                 </div>
                 <div className="grid grid-rows-1 grid-cols-1 rounded-xl p-4 gap-4 place-items-center">
-                    <iframe src="https://discord.com/widget?id=1052916034702692433&theme=dark" width="350" height="500" allowTransparency={true} frameBorder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                    <iframe src="https://discord.com/widget?id=1052916034702692433&theme=dark" width="350" height="500"
+                            allowTransparency={true} frameBorder="0"
+                            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
                 </div>
             </div>
 
-            <Divider className={"my-6 py-5"} variant="middle" />
+            <Divider className={"my-6 py-5"} variant="middle"/>
 
             <h1 className="text-[4rem] font-extrabold text-[rgba(255,255,255,0.6)] text-center break-words py-4">
                 We also Freelance!
@@ -538,7 +535,7 @@ export default function Page() {
                         rel="noreferrer"
                     >
                         <Button className="bg-primary text-white">
-                            <Mail className="w-6 h-6 mr-2" />
+                            <Mail className="w-6 h-6 mr-2"/>
                             Contact Us
                         </Button>
                     </a>
@@ -546,11 +543,12 @@ export default function Page() {
             </div>
 
             {/* Footer */}
-            <Divider className={"my-6 py-5"} variant="middle" />
+            <Divider className={"my-6 py-5"} variant="middle"/>
 
             <div className="bg-black bg-opacity-50 p-6 text-white text-center text-md font-sm rounded-xl">
                 <p>
-                    Made with ❤️ by <a href="https://github.com/martian0x80/">martian0x80</a> and <a href="https://github.com/lakshayGMZ/">LakshayGMZ</a>
+                    Made with ❤️ by <a href="https://github.com/martian0x80/">martian0x80</a> and <a
+                    href="https://github.com/lakshayGMZ/">LakshayGMZ</a>
                 </p>
 
                 <p>
@@ -560,7 +558,7 @@ export default function Page() {
                 <p>
                     All rights reserved.
                 </p>
-                
+
             </div>
 
         </div>
