@@ -24,16 +24,15 @@ jobs:
           text: "Development environment setup complete"
           color: "green"
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: EndBug/add-and-commit@v9
         with:
-          commit_message: Automated changes
-          file_pattern: "public/*"
+          message: Automated changes
+          add: 'public/*'
       - name: "Run if changes have been detected"
-        if: steps.auto-commit-action.outputs.changes_detected == 'true'
-        run: echo "Changes!"
-
+        if: steps.add-and-commit.outputs.pushed == 'true'
+        run: echo "Changes pushed!"
       - name: "Run if no changes have been detected"
-        if: steps.auto-commit-action.outputs.changes_detected == 'false'
+        if: steps.add-and-commit.outputs.pushed == 'false'
         run: echo "No Changes!"
 
 
@@ -54,14 +53,13 @@ jobs:
           text: "Production environment setup complete"
           color: "green"
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: EndBug/add-and-commit@v9
         with:
-          commit_message: Automated changes
-          file_pattern: "public/*"
+          message: Automated changes
+          add: 'public/*'
       - name: "Run if changes have been detected"
-        if: steps.auto-commit-action.outputs.changes_detected == 'true'
-        run: echo "Changes!"
-
+        if: steps.add-and-commit.outputs.pushed == 'true'
+        run: echo "Changes pushed!"
       - name: "Run if no changes have been detected"
-        if: steps.auto-commit-action.outputs.changes_detected == 'false'
+        if: steps.add-and-commit.outputs.pushed == 'false'
         run: echo "No Changes!"
