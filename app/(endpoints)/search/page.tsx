@@ -107,7 +107,7 @@ export default function Page() {
 
                         >Search</Button>
                     </div>
-                    <div className={"my-4"}>Don't snoop around, we are watching you! It's a joke, don't take it seriously. Or is it?</div>
+                    <div className={"my-4"}>Don&apos;t snoop around, we are watching you! It&apos;s a joke, don&apos;t take it seriously. Or is it?</div>
                     <div className={"grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-6"}>
                         <PreBuiltSelect<SearchSelectDataFields>
                             name={"institute"}
