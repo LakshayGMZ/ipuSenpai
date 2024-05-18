@@ -22,7 +22,6 @@ export default function Ranklist(
         data: RanklistSelectDataFields,
         results: StudentResults
     }) {
-    console.log(data)
     const router = useRouter();
     const [selectedData, setSelectedData] = useState<RanklistSelectDataFields>(data);
     const loader = useLoader();

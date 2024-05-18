@@ -11,6 +11,7 @@ import {batches} from "@/app/lib/data";
 import {useLoader} from "@/app/lib/LoaderContext";
 import StudentCard from "@/components/search/StudentCard";
 import Link from "next/link";
+import Head from "next/head";
 
 export default function Page() {
     const loader = useLoader();
@@ -52,6 +53,23 @@ export default function Page() {
 
     return (
         <>
+            <Head>
+                <title>Search | IPU Senpai | {selectedData.name} | {selectedData.programme} | {selectedData.institute} | {selectedData.batch}</title>
+                <meta name="description" content="Student search. Search for students based on their name, programme, institute, batch, etc."/>
+                <link rel="icon" href="/favicon.ico" />
+                <meta name='keywords' content='ipu, search, name, ranklist, ggsipu, ipuranklist, open source, btech, bba, cse, it, gpa, sgpa, percentage, marks, results, ipu results'/>
+                <meta name='url' content='https://www.ipusenpai.in/ranklist'/>
+                <meta name='HandheldFriendly' content='True'/>
+                <meta name='og:title'>IPU Senpai Search | {selectedData.name} | {selectedData.programme} | {selectedData.institute} | {selectedData.batch}</meta>
+                <meta name='og:description' content='Student search. Search for students based on their name, programme, institute, batch, etc.'/>
+                <meta name='og:image' content='https://www.ipusenpai.in/logo.png'/>
+                <meta name='og:url' content='https://www.ipusenpai.in/search'/>
+                <meta name='og:type' content='website'/>
+                <meta name='og:site_name' content='IPU Senpai'/>
+                <meta name='og:locale' content='en_US'/>
+                <meta name='og:image:type' content='image/png'/>
+                <meta name='og:image:alt' content='IPU Senpai Logo'/>
+            </Head>
             <form className="lg:px-10 py-4" onSubmit={async (e) => {
                 e.preventDefault();
                 loader.activeLoader();
@@ -89,7 +107,7 @@ export default function Page() {
 
                         >Search</Button>
                     </div>
-                    <div className={"my-4"}>Please don&apos;t use this for stalking.</div>
+                    <div className={"my-4"}>Don&apos;t snoop around, we are watching you! It&apos;s a joke, don&apos;t take it seriously. Or is it?</div>
                     <div className={"grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-6"}>
                         <PreBuiltSelect<SearchSelectDataFields>
                             name={"institute"}
