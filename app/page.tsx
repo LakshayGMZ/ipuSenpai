@@ -113,7 +113,7 @@ export default function Page() {
             />
             <Image
                 src={"/logo.png"}
-                className={"fixed bottom-0 left-0 pb-4 scale-x-[-1]"}
+                className={"fixed bottom-0 left-0 pb-4  w-[15%]"}
                 alt={"ipu senpai logo"}
                 width={260}
                 height={600}
