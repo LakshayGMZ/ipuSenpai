@@ -39,7 +39,7 @@
 
 <div align="center">
     <a href="https://www.ipusenpai.in/">Home Page</a> |
-    <a href="">Discord</a> |
+    <a href="https://discord.com/invite/JvaAbMTExt">Discord</a> |
     <a href="mailto:ipusenpai0x80@gmail.com">Mail</a> |
     <a href="https://github.com/martian0x80/IPUSenpaiBackend/">Backend Repository</a>
 </div>
@@ -72,3 +72,12 @@ Star us, and you will receive all release notifications from GitHub without any 
 ## Contributing
 
 We welcome contributions from everyone. Follow the steps in the [CONTRIBUTING.md](CONTRIBUTING.md) file to get started.
+
+## License
+
+This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details.
+
+## Authors
+
+- **Vedant Arya** - *Core | Backend | DevOps | Designing | Frontend* - [martian0x80](https://github.com/martian0x80) (Ahem, that's me, the guy who wrote this README, definitely not biased.)
+- **Lakshay Garg** - *Frontend* - [LakshayGMZ](https://github.com/LakshayGMZ)

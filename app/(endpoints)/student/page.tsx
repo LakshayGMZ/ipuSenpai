@@ -1,7 +1,7 @@
 'use client'
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import React, {useEffect, useState} from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import React, { useEffect, useState } from 'react';
 import {
     LabelList,
     PolarAngleAxis,
@@ -14,17 +14,18 @@ import {
     ResponsiveContainer,
     Tooltip,
 } from "recharts";
-import {GradeFrequency, StudentProfileData} from "@/types/types";
+import { GradeFrequency, StudentProfileData } from "@/types/types";
 import OverallTest from "@/app/(endpoints)/student/[enrollmentID]/OverallTest";
 import SemTest from "@/app/(endpoints)/student/[enrollmentID]/SemTest";
-import {cn} from "@/lib/utils";
-import {motion} from "framer-motion";
-import {redirect, useRouter} from "next/navigation";
-import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from "@/components/ui/dialog";
-import {Label} from "@/components/ui/label";
-import {Input} from "@/components/ui/input";
-import {Button} from "@/components/ui/button";
-import {Switch} from "@/components/ui/switch";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { redirect, useRouter } from "next/navigation";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import Head from "next/head";
 
 const studentData: StudentProfileData = {
     "enrollment": "69696969696",
@@ -115,48 +116,65 @@ export default function Page() {
 
     return (
         <>
+            <Head>
+                <title>Student Profile | IPU Senpai | {value} | {studentData.name} | {studentData.programme} | {studentData.specialization} | {studentData.semesters}</title>
+                <meta name="description" content="Student Profile Dashboard. View your marks, grades, percentage, cgpa in a single beautiful dashboard." />
+                <link rel="icon" href="/favicon.ico" />
+                <meta name='keywords' content='ipu, search, name, ranklist, ggsipu, ipuranklist, open source, btech, bba, cse, it, gpa, sgpa, percentage, marks, results, ipu results' />
+                <meta name='url' content='https://www.ipusenpai.in/student' />
+                <meta name='HandheldFriendly' content='True' />
+                <meta name='og:title'>Student Profile | IPU Senpai | {studentData.enrollment} | {studentData.name} | {studentData.programme} | {studentData.specialization} | {studentData.semesters}</meta>
+                <meta name='og:description' content='Student Profile Dashboard. View your marks, grades, percentage, cgpa in a single beautiful dashboard.' />
+                <meta name='og:image' content='https://www.ipusenpai.in/logo.png' />
+                <meta name='og:url' content='https://www.ipusenpai.in/student' />
+                <meta name='og:type' content='website' />
+                <meta name='og:site_name' content='IPU Senpai' />
+                <meta name='og:locale' content='en_US' />
+                <meta name='og:image:type' content='image/png' />
+                <meta name='og:image:alt' content='IPU Senpai Logo' />
+            </Head>
             <Dialog open={open}>
-            <DialogContent className="sm:max-w-[450px]">
-                <DialogHeader>
-                    <DialogTitle>Student Profile Dashboard</DialogTitle>
-                    <DialogDescription>
-                        Enter your enrollment number here. 
-                    </DialogDescription>
-                </DialogHeader>
-                <div className="flex flex-row gap-4 items-center justify-between rounded-lg border p-4">
-                    <Label htmlFor="save" className="text-left">
-                        Save Enrollment No.
-                        <DialogDescription className="text-xs">
-                            Saves enrollment for future visits.
+                <DialogContent className="sm:max-w-[450px]">
+                    <DialogHeader>
+                        <DialogTitle>Student Profile Dashboard</DialogTitle>
+                        <DialogDescription>
+                            Enter your enrollment number here.
                         </DialogDescription>
-                    </Label>
-                    <Switch
-                        checked={saveEnroll}
-                        onCheckedChange={(checked) => setSaveEnroll(checked)}
-                        className="text-sm"
-                    />
-                </div>
-                <form className="grid grid-cols-3 items-center gap-4" onSubmit={handleSubmit}>
-                    <Label htmlFor="name" className="text-center">
-                        Enrollment&nbsp;No.
-                    </Label>
-                    <Input
-                        value={value}
-                        onChange={(e) => {
-                            if (/^\d+$/.test(e.target.value) || e.target.value === "") setValue(e.target.value);
-                        }}
-                        className="col-span-2 border-2"
-                        autoFocus={true}
-                    />
-                    <Button
-                        // onClick={handleSubmit}
-                        className={"col-span-3"}
-                        type="submit"
-                        disabled={value.length !== 11}
-                    >Save changes</Button>
-                </form>
-            </DialogContent>
-        </Dialog>
+                    </DialogHeader>
+                    <div className="flex flex-row gap-4 items-center justify-between rounded-lg border p-4">
+                        <Label htmlFor="save" className="text-left">
+                            Save Enrollment No.
+                            <DialogDescription className="text-xs">
+                                Saves enrollment for future visits.
+                            </DialogDescription>
+                        </Label>
+                        <Switch
+                            checked={saveEnroll}
+                            onCheckedChange={(checked) => setSaveEnroll(checked)}
+                            className="text-sm"
+                        />
+                    </div>
+                    <form className="grid grid-cols-3 items-center gap-4" onSubmit={handleSubmit}>
+                        <Label htmlFor="name" className="text-center">
+                            Enrollment&nbsp;No.
+                        </Label>
+                        <Input
+                            value={value}
+                            onChange={(e) => {
+                                if (/^\d+$/.test(e.target.value) || e.target.value === "") setValue(e.target.value);
+                            }}
+                            className="col-span-2 border-2"
+                            autoFocus={true}
+                        />
+                        <Button
+                            // onClick={handleSubmit}
+                            className={"col-span-3"}
+                            type="submit"
+                            disabled={value.length !== 11}
+                        >Save changes</Button>
+                    </form>
+                </DialogContent>
+            </Dialog>
             <div className={"absolute z-30 inset-0 backdrop-blur-md"}></div>
             <div className={"w-full px-3 md:px-6 flex-row gap-6"}>
                 <div
@@ -236,7 +254,7 @@ export default function Page() {
                                 >
                                     {selectedSem == "overall" && <motion.div
                                         layoutId="clickedbutton2"
-                                        transition={{type: "spring", bounce: 0.3, duration: 0.6}}
+                                        transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
                                         className={cn(
                                             "absolute inset-0 bg-primary-foreground rounded-full"
                                         )}
@@ -350,28 +368,28 @@ export default function Page() {
 
                                 >
                                     <Tooltip
-                                        content={({active, payload}) => {
+                                        content={({ active, payload }) => {
                                             if (active && payload && payload.length) {
                                                 return (
                                                     <div className="rounded-lg border bg-background p-2 shadow-sm">
                                                         <div className="grid grid-rows-2 gap-y-1 text-muted-foreground">
                                                             <div className="flex flex-col col-span-1">
-                                                            <span
-                                                                className="text-[0.70rem] uppercase ">
-                                                                Marks
-                                                            </span>
+                                                                <span
+                                                                    className="text-[0.70rem] uppercase ">
+                                                                    Marks
+                                                                </span>
                                                                 <span className="font-bold">
-                                                                {payload[0].payload.total}
-                                                            </span>
+                                                                    {payload[0].payload.total}
+                                                                </span>
                                                             </div>
                                                             <div className="flex flex-col col-span-1">
-                                                            <span
-                                                                className="text-[0.70rem] uppercase">
-                                                                Subject
-                                                            </span>
+                                                                <span
+                                                                    className="text-[0.70rem] uppercase">
+                                                                    Subject
+                                                                </span>
                                                                 <span className="font-bold">
-                                                                {payload[0].payload.subname}
-                                                            </span>
+                                                                    {payload[0].payload.subname}
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -382,11 +400,11 @@ export default function Page() {
                                     />
                                     {/* <Legend fill={`hsl(--primary)`} iconType="circle" color="text-primary"
                                 /> */}
-                                    <PolarGrid gridType="circle"/>
+                                    <PolarGrid gridType="circle" />
                                     <PolarAngleAxis dataKey="subcode" label="Subjects" fontWeight={550}
-                                                    radius={80}
+                                        radius={80}
                                     />
-                                    <PolarRadiusAxis angle={75} domain={[0, 100]}/>
+                                    <PolarRadiusAxis angle={75} domain={[0, 100]} />
 
                                     <Radar
                                         name={"Semester " + selectedSem}
@@ -405,28 +423,28 @@ export default function Page() {
                                 >
 
                                     <Tooltip
-                                        content={({active, payload}) => {
+                                        content={({ active, payload }) => {
                                             if (active && payload && payload.length) {
                                                 return (
                                                     <div className="rounded-lg border bg-background p-2 shadow-sm">
                                                         <div className="grid grid-cols-2 gap-2">
                                                             <div className="flex flex-col">
-                                                            <span
-                                                                className="text-[0.70rem] uppercase text-muted-foreground">
-                                                                Grade
-                                                            </span>
+                                                                <span
+                                                                    className="text-[0.70rem] uppercase text-muted-foreground">
+                                                                    Grade
+                                                                </span>
                                                                 <span className="font-bold text-muted-foreground">
-                                                                {payload[0].payload.grade}
-                                                            </span>
+                                                                    {payload[0].payload.grade}
+                                                                </span>
                                                             </div>
                                                             <div className="flex flex-col">
-                                                            <span
-                                                                className="text-[0.70rem] uppercase text-muted-foreground">
-                                                                Frequency
-                                                            </span>
+                                                                <span
+                                                                    className="text-[0.70rem] uppercase text-muted-foreground">
+                                                                    Frequency
+                                                                </span>
                                                                 <span className="font-bold text-muted-foreground">
-                                                                {payload[0].payload.frequency}
-                                                            </span>
+                                                                    {payload[0].payload.frequency}
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -441,15 +459,15 @@ export default function Page() {
                                         fill="var(--primary)"
                                     >
                                         <LabelList dataKey="grade" position="inside" fill="var(--primary-foreground)"
-                                                   fontWeight={600}/>
+                                            fontWeight={600} />
                                     </RadialBar>
                                 </RadialBarChart>}
                         </ResponsiveContainer>
                     </CardContent>
                 </div>
                 {studentData == undefined ? null : selectedSem === "overall" ?
-                    <OverallTest studentData={studentData}/> :
-                    <SemTest sem={selectedSem} studentData={studentData}/>}
+                    <OverallTest studentData={studentData} /> :
+                    <SemTest sem={selectedSem} studentData={studentData} />}
                 {/* <h1>Absolute Result Breakdown</h1>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
                 <div className={"h-80 bg-amber-400"}></div>
