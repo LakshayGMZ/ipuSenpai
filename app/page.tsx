@@ -483,7 +483,7 @@ export default function Page() {
                 <object type="image/svg+xml"
                         data="https://gh-card.dev/repos/martian0x80/IPUSenpaiBackend.svg?fullname=&link_target=_blank"></object>
             </div>
-
+{/* 
 
             <div className={"grid grid-auto-rows grid-auto-cols !w-full"}>
                 <a href="https://github.com/martian0x80" target="_blank" rel="noreferrer">
@@ -499,7 +499,7 @@ export default function Page() {
                     />
                 </a>
 
-            </div>
+            </div> */}
 
             <Divider className={"my-6 py-5"} variant="middle"/>
 

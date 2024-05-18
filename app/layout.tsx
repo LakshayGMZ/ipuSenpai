@@ -4,6 +4,7 @@ import "./globals.css";
 import React from "react";
 import {FloatingNav} from "@/components/ui/navbar/FloatingNavbar";
 import {SpeedInsights} from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react"
 import {cn} from "@/lib/utils";
 import axios from "axios";
 import {LoaderProvider} from "@/app/lib/LoaderContext";
@@ -83,6 +84,7 @@ export default function RootLayout(
                     </div>
 
                     <SpeedInsights/>
+                    <Analytics/>
 
                 </MUIThemeProvider>
             </ThemeProvider>
