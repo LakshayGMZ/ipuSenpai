@@ -486,13 +486,18 @@ export default function Page() {
 
 
             <div className={"grid grid-auto-rows grid-auto-cols !w-full"}>
-                <iframe className="aspect-[3.5] !w-full h-[100%] p-0 md:p-2"
-                        src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=martian0x80&theme=github_dark"}
-                />
+                <a href="https://github.com/martian0x80" target="_blank" rel="noreferrer">
 
-                <iframe className="aspect-[3.5] !w-full h-[100%] p-0 md:p-2"
-                        src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=LakshayGMZ&theme=github_dark"}
-                />
+                    <iframe className="aspect-[3.5] !w-full h-[100%] p-0 md:p-2"
+                            src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=martian0x80&theme=github_dark"}
+                    />
+                </a>
+                <a href="https://github.com/LakshayGMZ" target="_blank" rel="noreferrer">
+
+                    <iframe className="aspect-[3.5] !w-full h-[100%] p-0 md:p-2"
+                            src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=LakshayGMZ&theme=github_dark"}
+                    />
+                </a>
 
             </div>
 
