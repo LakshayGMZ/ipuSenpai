@@ -476,24 +476,21 @@ export default function Page() {
                     it. :D
                 </p>
             </div>
-            <div className={"grid grid-cols-1 xl:grid-cols-2 gap-4 place-items-center py-4"}>
-                <iframe
-                    width={"442"}
-                    height={"130"}
-                        src="https://gh-card.dev/repos/LakshayGMZ/ipuSenpai.svg?fullname=&link_target=_blank" />
-                <iframe
-
-                    width={"442"}
-                    height={"130"}
-                        src="https://gh-card.dev/repos/martian0x80/IPUSenpaiBackend.svg?fullname=&link_target=_blank" />
+            <div
+                className={"grid grid-cols-1 xl:grid-cols-2 rounded-xl p-4 gap-4 place-items-center"}>
+                <object type="image/svg+xml"
+                        data="https://gh-card.dev/repos/LakshayGMZ/ipuSenpai.svg?fullname=&link_target=_blank"></object>
+                <object type="image/svg+xml"
+                        data="https://gh-card.dev/repos/martian0x80/IPUSenpaiBackend.svg?fullname=&link_target=_blank"></object>
             </div>
 
-            <div className={"grid grid-auto-rows grid-auto-cols aspect-[1.75] min-h-[5rem] "}>
-                <iframe className="aspect-[3.5] h-[100%] p-2"
+
+            <div className={"grid grid-auto-rows grid-auto-cols !w-full"}>
+                <iframe className="aspect-[3.5] !w-full h-[100%] p-0 md:p-2"
                         src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=martian0x80&theme=github_dark"}
                 />
 
-                <iframe className="aspect-[3.5] h-[100%] p-2"
+                <iframe className="aspect-[3.5] !w-full h-[100%] p-0 md:p-2"
                         src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=LakshayGMZ&theme=github_dark"}
                 />
 
