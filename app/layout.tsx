@@ -4,12 +4,13 @@ import "./globals.css";
 import React from "react";
 import {FloatingNav} from "@/components/ui/navbar/FloatingNavbar";
 import {SpeedInsights} from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react"
 import {cn} from "@/lib/utils";
 import axios from "axios";
 import {LoaderProvider} from "@/app/lib/LoaderContext";
 import {MUIThemeProvider} from "@/app/lib/MUIThemeProvider";
 import {ThemeProvider} from "@/app/lib/ThemeProvider";
-import GoogleAnalytics from "@/components/ui/GoogleAnalytics";
+import CustomScripts from "@/components/ui/CustomScripts";
 import {MultiStepLoader} from "@/components/ui/Loader";
 
 const inter = Inter({subsets: ["latin"]});
@@ -65,9 +66,8 @@ export default function RootLayout(
         <meta name="twitter:description"
               content="IPU Senpai is an open-source project that aims to provide a better, modern and feature-rich alternative to ipuranklist."/>
         <meta name="twitter:image" content="/logo.png"/>
-        
+        <CustomScripts/>
 
-        <GoogleAnalytics/>
         <LoaderProvider>
             <ThemeProvider
                 attribute="data-theme"
@@ -84,6 +84,7 @@ export default function RootLayout(
                     </div>
 
                     <SpeedInsights/>
+                    <Analytics/>
 
                 </MUIThemeProvider>
             </ThemeProvider>

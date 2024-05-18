@@ -113,7 +113,7 @@ export default function Page() {
             />
             <Image
                 src={"/logo.png"}
-                className={"fixed bottom-0 left-0 pb-4 scale-x-[-1]"}
+                className={"fixed bottom-0 left-0 pb-4  w-[15%]"}
                 alt={"ipu senpai logo"}
                 width={260}
                 height={600}
@@ -124,7 +124,7 @@ export default function Page() {
 
             <div className="bg-black bg-opacity-50 p-6 text-white text-center text-2xl font-medium rounded-xl">
                 <p>
-                    The modern, open-source, beautiful and better ranklist and result portal for GGSIPU.
+                A modern, open-source, beautifully designed, ready-to-use alternative to ipuranklist for IPU students.
                 </p>
             </div>
 
@@ -476,28 +476,30 @@ export default function Page() {
                     it. :D
                 </p>
             </div>
-            <div className={"grid grid-cols-1 xl:grid-cols-2 gap-4 place-items-center py-4"}>
-                <iframe
-                    width={"442"}
-                    height={"130"}
-                        src="https://gh-card.dev/repos/LakshayGMZ/ipuSenpai.svg?fullname=&link_target=_blank" />
-                <iframe
-
-                    width={"442"}
-                    height={"130"}
-                        src="https://gh-card.dev/repos/martian0x80/IPUSenpaiBackend.svg?fullname=&link_target=_blank" />
+            <div
+                className={"grid grid-cols-1 xl:grid-cols-2 rounded-xl p-4 gap-4 place-items-centeraspect-[3.5]"}>
+                <object type="image/svg+xml"
+                        data="https://gh-card.dev/repos/LakshayGMZ/ipuSenpai.svg?fullname=&link_target=_blank"></object>
+                <object type="image/svg+xml"
+                        data="https://gh-card.dev/repos/martian0x80/IPUSenpaiBackend.svg?fullname=&link_target=_blank"></object>
             </div>
+{/* 
 
-            <div className={"grid grid-auto-rows grid-auto-cols aspect-[1.75] min-h-[5rem] "}>
-                <iframe className="aspect-[3.5] h-[100%] p-2"
-                        src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=martian0x80&theme=github_dark"}
-                />
+            <div className={"grid grid-auto-rows grid-auto-cols !w-full"}>
+                <a href="https://github.com/martian0x80" target="_blank" rel="noreferrer">
 
-                <iframe className="aspect-[3.5] h-[100%] p-2"
-                        src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=LakshayGMZ&theme=github_dark"}
-                />
+                    <iframe className="aspect-[3.5] !w-full h-[100%] p-0 md:p-2"
+                            src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=martian0x80&theme=github_dark"}
+                    />
+                </a>
+                <a href="https://github.com/LakshayGMZ" target="_blank" rel="noreferrer">
 
-            </div>
+                    <iframe className="aspect-[3.5] !w-full h-[100%] p-0 md:p-2"
+                            src={"https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=LakshayGMZ&theme=github_dark"}
+                    />
+                </a>
+
+            </div> */}
 
             <Divider className={"my-6 py-5"} variant="middle"/>
 
@@ -509,20 +511,40 @@ export default function Page() {
                     <p>
                         Join our discord server to get latest updates and to discuss about the project.
                     </p>
+                    <p className="py-2">
+                        OR
+                    </p>
+                    <p>
+                        Join our whatsapp group to get latest updates and to discuss about the project.
+                    </p>
+                    <div className="grid grid-rows-1 grid-cols-2 rounded-xl p-4 gap-4 place-items-center">
+                    <a aria-label="Chat on WhatsApp" href="https://chat.whatsapp.com/HC8epjRUoxXFvZySFslmGO"> <img alt="Chat on WhatsApp" src="assets/WhatsAppButtonWhiteLarge.svg" /></a> 
+                    <a
+                        href="mailto:ipusenpai0x80@gmail.com"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        <Button className="bg-primary text-white">
+                            <Mail className="w-6 h-6 mr-2"/>
+                            Contact Us
+                        </Button>
+                    </a>
+                </div>
                 </div>
                 <div className="grid grid-rows-1 grid-cols-1 rounded-xl p-4 gap-4 place-items-center">
                     <iframe src="https://discord.com/widget?id=1052916034702692433&theme=dark" width="350" height="500"
                             allowTransparency={true} frameBorder="0"
                             sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
                 </div>
+
             </div>
 
             <Divider className={"my-6 py-5"} variant="middle"/>
 
-            <h1 className="text-[4rem] font-extrabold text-[rgba(255,255,255,0.6)] text-center break-words py-4">
+            {/* <h1 className="text-[4rem] font-extrabold text-[rgba(255,255,255,0.6)] text-center break-words py-4">
                 We also Freelance!
-            </h1>
-            <div className={"grid grid-cols-1"}>
+            </h1> */}
+            {/* <div className={"grid grid-cols-1"}>
                 <div className="bg-black bg-opacity-50 p-6 text-white text-center text-xl font-medium rounded-xl">
                     <p>
                         We also take freelance projects. Contact us for more details.
@@ -540,7 +562,7 @@ export default function Page() {
                         </Button>
                     </a>
                 </div>
-            </div>
+            </div> */}
 
             {/* Footer */}
             <Divider className={"my-6 py-5"} variant="middle"/>
