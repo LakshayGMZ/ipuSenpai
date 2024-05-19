@@ -558,7 +558,7 @@ export default function Page() {
 
                 </div>
 
-                <Divider className={"my-6 py-5"} variant="middle" />
+                {/* <Divider className={"my-6 py-5"} variant="middle" /> */}
 
                 {/* <h1 className="text-[4rem] font-extrabold text-[rgba(255,255,255,0.6)] text-center break-words py-4">
                 We also Freelance!

@@ -271,17 +271,17 @@ export default function Ranklist(
                         {/* <Legend verticalAlign="top" height={5} /> */}
                         <ReferenceLine y={results.avgGpa} stroke="white" strokeDasharray="3 3" label={{
                             value: 'Average GPA: ' + results.avgGpa.toFixed(4),
-                            position: 'insideBottomRight',
+                            position: 'insideBottomLeft',
                             fill: "white",
-                            fontSize: 16
+                            fontSize: 12
                         }}
                         yAxisId="left"
                         />
                         <ReferenceLine y={results.avgPercentage} stroke="white" strokeDasharray="3 3" label={{
                             value: 'Average %: ' + results.avgPercentage.toFixed(4),
-                            position: 'insideTopRight',
+                            position: 'insideTopLeft',
                             fill: "white",
-                            fontSize: 16
+                            fontSize: 12
                         }}
                         yAxisId="right"
                         />
@@ -291,7 +291,7 @@ export default function Ranklist(
                             type="monotone"
                             yAxisId="left"
                             dataKey="gpa"
-                            strokeWidth={4}
+                            strokeWidth={3.5}
                             dot={false}
                             animationDuration={2000}
                         />
@@ -300,11 +300,12 @@ export default function Ranklist(
                             type="monotone"
                             yAxisId="right"
                             dataKey="percentage"
-                            strokeWidth={4}
+                            strokeWidth={2.5}
                             dot={false}
                             animationDuration={2000}
-                            opacity={0.75}
-                            strokeDasharray="6 5 5"
+                            opacity={0.50}
+                            stroke="var(--secondary)"
+                            // strokeDasharray="6 5 5"
                         />
                     </LineChart>
                 </ResponsiveContainer>
