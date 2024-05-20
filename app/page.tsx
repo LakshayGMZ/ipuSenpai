@@ -109,7 +109,7 @@ export default function Page() {
         <>
             <Head>
                 <title>IPU Senpai | Open Source, Modern IPU Result Portal and Dashboard</title>
-                <meta name="description" content="A modern, open-source, beautifully designed, ready-to-use alternative to ipuranklist for IPU students." />
+                <meta name="description" content="A modern, open-source, beautifully designed, ready-to-use ranklist, and dashboard application for IPU students." />
                 <link rel="icon" href="/favicon.ico" />
                 <meta name='keywords' content='ipu, search, name, ranklist, ggsipu, ipuranklist, open source, btech, bba, cse, it, gpa, sgpa, percentage, marks, results, ipu results' />
                 <meta name='url' content='https://www.ipusenpai.in/' />
@@ -143,7 +143,7 @@ export default function Page() {
 
                 <div className="bg-black bg-opacity-50 p-6 text-white text-center text-2xl font-medium rounded-xl">
                     <p>
-                        A modern, open-source, beautifully designed, ready-to-use alternative to ipuranklist for IPU students.
+                        A modern, open-source, beautifully designed, ready-to-use ranklist, and dashboard application for IPU students.
                     </p>
                 </div>
 
