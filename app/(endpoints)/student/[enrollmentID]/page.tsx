@@ -2,8 +2,8 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/compo
 import {GradeFrequency, StudentProfileData} from "@/types/types";
 import {getStudentProfileData} from "@/app/lib/dataFetchServer";
 import ResultSemTabs from "@/components/student/fragments/ResultSemTabs";
-import Head from "next/head";
 import {Metadata, ResolvingMetadata} from "next";
+import CheckError from "@/app/(endpoints)/student/[enrollmentID]/checkError";
 
 export async function generateMetadata(
     {
@@ -38,9 +38,7 @@ export default async function Page(
         params: { enrollmentID: string }
     }) {
 
-    // const loader = useLoader();
-
-    const studentData: StudentProfileData = await getStudentProfileData(params.enrollmentID)
+    const studentData = await getStudentProfileData(params.enrollmentID)
     let frequencygrades: GradeFrequency[] = []
 
     studentData?.subject.forEach((semester) => {
@@ -61,10 +59,7 @@ export default async function Page(
 
     return (
         <>
-            <Head>
-                <meta name='og:title'>Student Profile | IPU Senpai
-                    | {studentData.enrollment} | {studentData.name} | {studentData.programme} | {studentData.specialization} | {studentData.semesters}</meta>
-            </Head>
+            <CheckError data={studentData} enrollID={params.enrollmentID} />
             <div className={"w-full px-3 md:px-6 flex-row gap-6"}>
                 <div
                     className={"w-full flex flex-row justify-between text-2xl font-bold scroll-m-20 tracking-tight lg:text-5xlscroll-m-20 pb-2 first:mt-0"}>

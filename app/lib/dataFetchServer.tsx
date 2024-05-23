@@ -20,7 +20,7 @@ export async function getStudentProfileData(enrollment: string): Promise<Student
     });
 
     if (!res.ok) {
-        throw new Error('Failed to fetch data. URL: ' + res.url)
+        throw new Error('Error: ' + (await res.json())['message'])
     }
     return await res.json();
 }
@@ -37,7 +37,7 @@ export async function getResult(
     const res = await fetch(getAbsoluteUrl(url));
     console.log(res.url)
     if (!res.ok) {
-        throw new Error('Failed to fetch data. URL: ' + res.url)
+        throw new Error('Error: ' + (await res.json())['message'])
     }
 
 
@@ -48,8 +48,8 @@ export async function getResult(
 export async function getProgrammes(): Promise<RanklistQueryFields[]> {
     const res = await fetch(getAbsoluteUrl('/programmes'));
 
-    if (res.status !== 200) {
-        throw new Error('Failed to fetch data. URL: ' + res.url)
+    if (!res.ok) {
+        throw new Error('Error: ' + (await res.json())['message'])
     }
     return res.json();
 }
@@ -57,8 +57,8 @@ export async function getProgrammes(): Promise<RanklistQueryFields[]> {
 export async function getAllInstitutes(): Promise<RanklistQueryFields[]> {
     const res = await fetch('/institutes');
 
-    if (res.status !== 200) {
-        throw new Error('Failed to fetch data. URL: ' + res.url)
+    if (!res.ok) {
+        throw new Error('Error: ' + (await res.json())['message'])
     }
     return (await res.json()).map((i: RanklistQueryFields) => ({name: i.name}));
 }
@@ -67,8 +67,8 @@ export async function getAllInstitutes(): Promise<RanklistQueryFields[]> {
 export async function getInstitutes(progname: string): Promise<RanklistQueryFields[]> {
     const res = await fetch(getAbsoluteUrl('/institutes/programme=' + encodeURI(progname)));
 
-    if (res.status !== 200) {
-        throw new Error('Failed to fetch data. URL: ' + res.url)
+    if (!res.ok) {
+        throw new Error('Error: ' + (await res.json())['message'])
     }
     return res.json();
 }
@@ -78,7 +78,7 @@ export async function getSpecs(progname: string, institute: string): Promise<Ran
     const res = await fetch(getAbsoluteUrl(`/specializations/programme=${encodeURI(progname)}&institute=${encodeURI(institute)}`));
 
     if (!res.ok) {
-        throw new Error('Failed to fetch data. URL: ' + res.url)
+        throw new Error('Error: ' + (await res.json())['message'])
     }
     return res.json();
 }
@@ -88,7 +88,7 @@ export async function getShifts(institute: string): Promise<RanklistQueryFields[
     const res = await fetch(getAbsoluteUrl(`/institute/shifts/${encodeURI(institute)}`));
 
     if (!res.ok) {
-        throw new Error('Failed to fetch data. URL: ' + res.url)
+        throw new Error('Error: ' + (await res.json())['message'])
     }
     return res.json();
 }
@@ -97,7 +97,7 @@ export async function getBatches(progname: string, institute: string): Promise<R
     const res = await fetch(getAbsoluteUrl(`/batches/programme=${encodeURI(progname)}&institute=${encodeURI(institute)}`));
 
     if (!res.ok) {
-        throw new Error('Failed to fetch data. URL: ' + res.url)
+        throw new Error('Error: ' + (await res.json())['message'])
     }
     return res.json();
 }
@@ -106,7 +106,7 @@ export async function getSemesters(progname: string, institute: string, batch: s
     const res = await fetch(getAbsoluteUrl(`/semesters/programme=${encodeURI(progname)}&institute=${encodeURI(institute)}&batch=${encodeURI(batch)}`));
 
     if (!res.ok) {
-        throw new Error('Failed to fetch data. URL: ' + res.url)
+        throw new Error('Error: ' + (await res.json())['message'])
     }
     return [{name: "Overall", value: "0"}, ...(await res.json())];
 }
@@ -115,7 +115,7 @@ export async function customFetch<T>(url: string): Promise<T> {
     const res = await fetch(getAbsoluteUrl(url));
 
     if (!res.ok) {
-        throw new Error('Failed to fetch data. URL: ' + res.url)
+        throw new Error('Error: ' + (await res.json())['message'])
     }
     return res.json();
 }
