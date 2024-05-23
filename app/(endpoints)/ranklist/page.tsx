@@ -10,7 +10,7 @@ export async function generateMetadata(
     console.log(params);
     return {
         title: `Ranklist | IPU Senpai | ${params.programme} |
-                    Semester ${params.semester} | ${params.specialization} | ${params.institute}`,
+                    Semester ${params.semester} | ${params.institute}`,
         description: "Student ranklist. Ranklist of students based on their GPA, percentage, marks, credit marks, etc.",
         keywords: "ipu, ranklist, ggsipu, ipuranklist, open source, btech, bba, cse, it, gpa, sgpa, percentage, marks, results, ipu results",
 

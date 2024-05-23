@@ -1,16 +1,16 @@
 "use client"
-import React, { useEffect, useState } from "react";
-import { Gradient } from "whatamesh";
+import React, {useEffect, useState} from "react";
+import {Gradient} from "whatamesh";
 import Image from "next/image";
-import { Divider } from "@mui/material";
-import { customFetch } from "@/app/lib/dataFetchServer";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { AnimatePresence, motion } from "framer-motion";
-import { CountUp } from "countup.js";
-import { Mail } from "lucide-react";
-import { Bar, ComposedChart, Line, ResponsiveContainer, Tooltip, } from "recharts";
-import { Button } from "@/components/ui/button";
-import Head from "next/head";
+import {Divider} from "@mui/material";
+import {customFetch} from "@/app/lib/dataFetchServer";
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
+import {AnimatePresence, motion} from "framer-motion";
+import {CountUp} from "countup.js";
+import {Mail} from "lucide-react";
+import {Bar, ComposedChart, Line, ResponsiveContainer, Tooltip,} from "recharts";
+import {Button} from "@/components/ui/button";
+import {CounterType, StudentCountBy} from "@/types/types";
 
 const options = {
     startVal: 0,
@@ -18,40 +18,28 @@ const options = {
     suffix: '+',
 };
 
-interface CounterType {
-    student: number,
-    result: number,
-    programme: number,
-    institute: number,
-    actualResult: number
-}
 
+// export async function generateMetadata(
+//     {searchParams: params}: any,
+//     parent: ResolvingMetadata
+// ): Promise<Metadata> {
+//     console.log(params);
+//     return {
+//         title: `Ranklist | IPU Senpai | ${params.programme} |
+//                     Semester ${params.semester} | ${params.specialization} | ${params.institute}`,
+//         description: "Student ranklist. Ranklist of students based on their GPA, percentage, marks, credit marks, etc.",
+//         keywords: "ipu, ranklist, ggsipu, ipuranklist, open source, btech, bba, cse, it, gpa, sgpa, percentage, marks, results, ipu results",
+//
+//         openGraph: {
+//             title: `Ranklist | IPU Senpai | ${params.programme} |
+//                     Semester ${params.semester} | ${params.specialization} | ${params.institute}`,
+//             description: "Student ranklist. Ranklist of students based on their GPA, percentage, marks, credit marks, etc.",
+//             url: "https://www.ipusenpai.in/ranklist",
+//
+//         },
+//     }
+// }
 
-interface StudentCountSingle {
-    name: string,
-    count: number
-}
-
-interface StudentCountByProgramme {
-    name: string,
-    studentCounts: StudentCountSingle[]
-}
-
-interface StudentCountByInstitute {
-    name: string,
-    studentCounts: StudentCountSingle[]
-}
-
-interface StudentCountByBatch {
-    name: string,
-    studentCounts: StudentCountSingle[]
-}
-
-interface StudentCountBy {
-    byProgramme: StudentCountByProgramme,
-    byInstitute: StudentCountByInstitute,
-    byBatch: StudentCountByBatch
-}
 
 export default function Page() {
     const [counterStats, setCounterStats] = useState<CounterType>({
@@ -107,23 +95,6 @@ export default function Page() {
 
     return (
         <>
-            <Head>
-                <title>IPU Senpai | Open Source, Modern IPU Result Portal and Dashboard</title>
-                <meta name="description" content="A modern, open-source, beautifully designed, ready-to-use alternative to ipuranklist for IPU students." />
-                <link rel="icon" href="/favicon.ico" />
-                <meta name='keywords' content='ipu, search, name, ranklist, ggsipu, ipuranklist, open source, btech, bba, cse, it, gpa, sgpa, percentage, marks, results, ipu results' />
-                <meta name='url' content='https://www.ipusenpai.in/' />
-                <meta name='HandheldFriendly' content='True' />
-                <meta name='og:title'>IPU Senpai | Open Source, Modern IPU Result Portal and Dashboard</meta>
-                <meta name='og:description' content='A modern, open-source, beautifully designed, ready-to-use alternative to ipuranklist for IPU students.' />
-                <meta name='og:image' content='https://www.ipusenpai.in/logo.png' />
-                <meta name='og:url' content='https://www.ipusenpai.in/' />
-                <meta name='og:type' content='website' />
-                <meta name='og:site_name' content='IPU Senpai' />
-                <meta name='og:locale' content='en_US' />
-                <meta name='og:image:type' content='image/png' />
-                <meta name='og:image:alt' content='IPU Senpai Logo' />
-            </Head>
             <div className={"px-[15%]"}>
                 <canvas
                     id="gradient-canvas"
