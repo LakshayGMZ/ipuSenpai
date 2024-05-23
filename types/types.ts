@@ -180,3 +180,40 @@ export interface StudentProfileData {
     subject: SubjectDataWithSemester[];
     cumulativeResult: CumulativeResult[];
 }
+
+// ================
+
+export interface CounterType {
+    student: number,
+    result: number,
+    programme: number,
+    institute: number,
+    actualResult: number
+}
+
+
+interface StudentCountSingle {
+    name: string,
+    count: number
+}
+
+interface StudentCountByProgramme {
+    name: string,
+    studentCounts: StudentCountSingle[]
+}
+
+interface StudentCountByInstitute {
+    name: string,
+    studentCounts: StudentCountSingle[]
+}
+
+interface StudentCountByBatch {
+    name: string,
+    studentCounts: StudentCountSingle[]
+}
+
+export interface StudentCountBy {
+    byProgramme: StudentCountByProgramme,
+    byInstitute: StudentCountByInstitute,
+    byBatch: StudentCountByBatch
+}

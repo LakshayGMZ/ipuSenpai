@@ -1,7 +1,7 @@
 'use client'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import React, { useEffect, useState } from 'react';
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import React, {useEffect, useState} from 'react';
 import {
     LabelList,
     PolarAngleAxis,
@@ -14,17 +14,17 @@ import {
     ResponsiveContainer,
     Tooltip,
 } from "recharts";
-import { GradeFrequency, StudentProfileData } from "@/types/types";
+import {GradeFrequency, StudentProfileData} from "@/types/types";
 import OverallTest from "@/app/(endpoints)/student/[enrollmentID]/OverallTest";
 import SemTest from "@/app/(endpoints)/student/[enrollmentID]/SemTest";
-import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
-import { redirect, useRouter } from "next/navigation";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
+import {cn} from "@/lib/utils";
+import {motion} from "framer-motion";
+import {redirect, useRouter} from "next/navigation";
+import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from "@/components/ui/dialog";
+import {Label} from "@/components/ui/label";
+import {Input} from "@/components/ui/input";
+import {Button} from "@/components/ui/button";
+import {Switch} from "@/components/ui/switch";
 import Head from "next/head";
 
 const studentData: StudentProfileData = {
@@ -80,7 +80,7 @@ export default function Page() {
     const handleSubmit = (event: any) => {
         event.preventDefault();
         if (saveEnroll) localStorage.setItem("studentEnrollment", value);
-        router.push("/student/" + value);
+        router.push("/student/" + value)
     }
     const [open, setOpen] = useState(false);
     useEffect(() => {

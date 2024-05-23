@@ -1,10 +1,9 @@
-import type {Metadata} from "next";
 import {Inter} from "next/font/google";
 import "./globals.css";
 import React from "react";
 import {FloatingNav} from "@/components/ui/navbar/FloatingNavbar";
 import {SpeedInsights} from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/react"
+import {Analytics} from "@vercel/analytics/react"
 import {cn} from "@/lib/utils";
 import axios from "axios";
 import {LoaderProvider} from "@/app/lib/LoaderContext";
@@ -14,11 +13,6 @@ import CustomScripts from "@/components/ui/CustomScripts";
 import {MultiStepLoader} from "@/components/ui/Loader";
 
 const inter = Inter({subsets: ["latin"]});
-
-export const metadata: Metadata = {
-    title: "IPU Senpai",
-    description: "The modern and better IPU ranklist.",
-};
 
 const navItems = [
     {
@@ -53,12 +47,6 @@ export default function RootLayout(
         <link rel="icon" href="/favicon.ico" sizes="48x48 32x32 16x16"/>
         <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
         <link rel="manifest" href="/site.webmanifest"/>
-        <meta property="og:image" content="https://ipusenpai.in/logo.png"/>
-        <meta property="og:title" content="IPU Senpai"/>
-        <meta property="og:description"
-              content="IPU Senpai is an open-source project that aims to provide a better, modern and feature-rich alternative to ipuranklist."/>
-        <meta property="og:url" content="https://ipusenpai.com"/>
-        <meta property="og:type" content="website"/>
         <meta name="twitter:card" content="summary_large_image"/>
         <meta name="twitter:site" content="@ipusenpai"/>
         <meta name="twitter:creator" content="@ipusenpai"/>
@@ -66,6 +54,28 @@ export default function RootLayout(
         <meta name="twitter:description"
               content="IPU Senpai is an open-source project that aims to provide a better, modern and feature-rich alternative to ipuranklist."/>
         <meta name="twitter:image" content="/logo.png"/>
+
+        <meta name='og:image' content='https://www.ipusenpai.in/logo.png'/>
+        <meta name='og:type' content='website'/>
+        <meta name='og:site_name' content='IPU Senpai'/>
+        <meta name='og:locale' content='en_US'/>
+        <meta name='og:image:type' content='image/png'/>
+        <meta name='og:image:alt' content='IPU Senpai Logo'/>
+
+        <title>IPU Senpai | Open Source, Modern IPU Result Portal and Dashboard</title>
+        <meta name="description"
+              content="A modern, open-source, beautifully designed, ready-to-use alternative to ipuranklist for IPU students."/>
+        <link rel="icon" href="/favicon.ico"/>
+        <meta name='keywords'
+              content='ipu, search, name, ranklist, ggsipu, ipuranklist, open source, btech, bba, cse, it, gpa, sgpa, percentage, marks, results, ipu results'/>
+        <meta name='url' content='https://www.ipusenpai.in/'/>
+        <meta name='HandheldFriendly' content='True'/>
+        <meta name='og:title' content={"IPU Senpai | Open Source, Modern IPU Result Portal and Dashboard"}/>
+        <meta name='og:description'
+              content='A modern, open-source, beautifully designed, ready-to-use alternative to ipuranklist for IPU students.'/>
+        <meta name='og:image' content='https://www.ipusenpai.in/logo.png'/>
+        <meta name='og:url' content='https://www.ipusenpai.in/'/>
+
         <CustomScripts/>
 
         <LoaderProvider>
@@ -92,6 +102,7 @@ export default function RootLayout(
         </LoaderProvider>
         </body>
         </html>
-    );
+    )
+        ;
 }
 
