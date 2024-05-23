@@ -33,9 +33,12 @@ export const columnsOverall: ColumnDef<StudentDataJoined>[] = [
 			<div className="capitalize text-center">
 				{row.original.name}
 				{row.original.rank === 1 && (
-					<Badge className={"ml-2 rounded-2xl text-center align-middle"} variant={row.original.rank === 1 ? "default" : "secondary"}>
-						Topper👑
-					</Badge>
+					<>
+						<Badge className={"ml-2 rounded-2xl text-center align-middle"} variant={row.original.rank === 1 ? "default" : "secondary"}>
+							Topper
+						</Badge>
+						<span className="ml-2 text-center align-middle">👑</span>
+					</>
 				)}
 				{row.original.rank === 2 && <span className="ml-2 text-center align-middle">🏅</span>}
 				{row.original.rank === 3 && <span className="ml-2 text-center align-middle">🔥</span>}
@@ -129,9 +132,12 @@ export const columnsSem: ColumnDef<StudentDataJoined>[] = [
 			<div className="capitalize text-center">
 				{row.original.name}
 				{row.original.rank === 1 && (
+					<>
 					<Badge className={"ml-2 rounded-2xl text-center align-middle"} variant={row.original.rank === 1 ? "default" : "secondary"}>
-						Topper👑
+						Topper
 					</Badge>
+					<span className="ml-2 text-center align-middle">👑</span>
+				</>
 				)}
 				{row.original.rank === 2 && <span className="ml-2 text-center align-middle">🏅</span>}
 				{row.original.rank === 3 && <span className="ml-2 text-center align-middle">🔥</span>}
