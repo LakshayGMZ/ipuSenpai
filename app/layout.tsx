@@ -61,20 +61,9 @@ export default function RootLayout(
         <meta name='og:locale' content='en_US'/>
         <meta name='og:image:type' content='image/png'/>
         <meta name='og:image:alt' content='IPU Senpai Logo'/>
-
-        <title>IPU Senpai | Open Source, Modern IPU Result Portal and Dashboard</title>
-        <meta name="description"
-              content="A modern, open-source, beautifully designed, ready-to-use alternative to ipuranklist for IPU students."/>
         <link rel="icon" href="/favicon.ico"/>
-        <meta name='keywords'
-              content='ipu, search, name, ranklist, ggsipu, ipuranklist, open source, btech, bba, cse, it, gpa, sgpa, percentage, marks, results, ipu results'/>
-        <meta name='url' content='https://www.ipusenpai.in/'/>
         <meta name='HandheldFriendly' content='True'/>
-        <meta name='og:title' content={"IPU Senpai | Open Source, Modern IPU Result Portal and Dashboard"}/>
-        <meta name='og:description'
-              content='A modern, open-source, beautifully designed, ready-to-use alternative to ipuranklist for IPU students.'/>
         <meta name='og:image' content='https://www.ipusenpai.in/logo.png'/>
-        <meta name='og:url' content='https://www.ipusenpai.in/'/>
 
         <CustomScripts/>
 
