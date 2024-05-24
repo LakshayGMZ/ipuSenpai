@@ -4,7 +4,6 @@ import {useLoader} from "@/app/lib/LoaderContext";
 import {RanklistQueryFields, SearchSelectDataFields, StudentSearchCard} from "@/types/types";
 import {useEffect, useState} from "react";
 import {getAllInstitutes, getProgrammes, getSearchByStudentResult} from "@/app/lib/dataFetchServer";
-import Head from "next/head";
 import {PreBuiltSelect} from "@/components/ui/select";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";

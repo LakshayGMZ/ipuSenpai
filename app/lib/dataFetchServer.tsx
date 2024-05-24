@@ -5,7 +5,8 @@ import {
     RanklistSelectDataFields,
     SearchSelectDataFields,
     StudentProfileData,
-    StudentResults, StudentSearchCard
+    StudentResults,
+    StudentSearchCard
 } from "@/types/types";
 import axios from "axios";
 
