@@ -10,6 +10,8 @@ Sentry.init({
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 1,
 
+  profilesSampleRate: 1,
+
   // Setting this option to true will print useful information to the console while you're setting up Sentry.
   debug: false,
 
@@ -23,6 +25,7 @@ Sentry.init({
 
   // You can remove this option if you're not planning to use the Sentry Session Replay feature:
   integrations: [
+    Sentry.browserProfilingIntegration(),
     Sentry.replayIntegration({
       maskAllText: false,
       blockAllMedia: true,
@@ -49,6 +52,7 @@ Sentry.init({
         background: "var(--card)",
         foreground: "var(--secondary-foreground)",
         borderRadius: "var(--radius)",
+        backgroundHover: "var(--muted)",
         error: "var(--destructive)",
         inputOutlineFocus: "var(--primary)",
         inputBorder: "var(--primary)",
