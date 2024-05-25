@@ -25,7 +25,7 @@ Sentry.init({
 
   // You can remove this option if you're not planning to use the Sentry Session Replay feature:
   integrations: [
-    Sentry.browserProfilingIntegration(),
+    new Sentry.BrowserProfilingIntegration(),
     Sentry.replayIntegration({
       maskAllText: false,
       blockAllMedia: true,
