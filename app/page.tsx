@@ -79,13 +79,13 @@ export default async function Page() {
                         it. :D
                     </p>
                 </div>
-                <div
-                    className={"grid grid-cols-1 xl:grid-cols-2 rounded-xl p-4 gap-4 place-items-center aspect-[3.5]"}>
-                    <object type="image/svg+xml"
-                            data="https://gh-card.dev/repos/LakshayGMZ/ipuSenpai.svg?fullname=&link_target=_blank"></object>
-                    <object type="image/svg+xml"
-                            data="https://gh-card.dev/repos/martian0x80/IPUSenpaiBackend.svg?fullname=&link_target=_blank"></object>
-                </div>
+                {/*<div*/}
+                {/*    className={"grid grid-cols-1 xl:grid-cols-2 rounded-xl p-4 gap-4 place-items-center aspect-[3.5]"}>*/}
+                {/*    <object type="image/svg+xml"*/}
+                {/*            data="https://gh-card.dev/repos/LakshayGMZ/ipuSenpai.svg?fullname=&link_target=_blank"></object>*/}
+                {/*    <object type="image/svg+xml"*/}
+                {/*            data="https://gh-card.dev/repos/martian0x80/IPUSenpaiBackend.svg?fullname=&link_target=_blank"></object>*/}
+                {/*</div>*/}
 
                 <Divider className={"my-6 py-5"} variant="middle"/>
 
@@ -122,7 +122,7 @@ export default async function Page() {
                     <div className="grid grid-rows-1 grid-cols-1 rounded-xl p-4 gap-4 place-items-center">
                         <iframe src="https://discord.com/widget?id=1052916034702692433&theme=dark" width="350"
                                 height="500"
-                                allowTransparency={true} frameBorder="0"
+                                allowTransparency={true}
                                 sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
                     </div>
 
