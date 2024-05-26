@@ -1,6 +1,13 @@
 "use server"
 
-import {RanklistQueryFields, RanklistSelectDataFields, StudentProfileData, StudentResults} from "@/types/types";
+import {
+    RanklistQueryFields,
+    RanklistSelectDataFields,
+    SearchSelectDataFields,
+    StudentProfileData,
+    StudentResults,
+    StudentSearchCard
+} from "@/types/types";
 import axios from "axios";
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "http://localhost:3000";
@@ -55,7 +62,7 @@ export async function getProgrammes(): Promise<RanklistQueryFields[]> {
 }
 
 export async function getAllInstitutes(): Promise<RanklistQueryFields[]> {
-    const res = await fetch('/institutes');
+    const res = await fetch(getAbsoluteUrl('/institutes'));
 
     if (!res.ok) {
         throw new Error('Error: ' + (await res.json())['message'])
@@ -120,3 +127,17 @@ export async function customFetch<T>(url: string): Promise<T> {
     return res.json();
 }
 
+export async function getSearchByStudentResult(options: SearchSelectDataFields): Promise<StudentSearchCard[]> {
+    const url = new URL(getAbsoluteUrl("/student/search/" + options.name.toUpperCase()));
+    if (options.institute !== "All Institutes") url.searchParams.append("institute", options.institute);
+    if (options.programme !== "All Programmes") url.searchParams.append("programme", options.programme);
+    if (options.batch !== "*") url.searchParams.append("batch", options.batch);
+
+
+    const res = await fetch(url.href);
+    if (!res.ok) {
+        throw new Error('Error: ' + (await res.json())['message'])
+    }
+
+    return res.json();
+}

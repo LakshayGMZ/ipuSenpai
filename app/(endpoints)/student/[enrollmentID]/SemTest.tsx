@@ -1,5 +1,5 @@
-import { GradeFrequency, StudentProfileData } from "@/types/types";
-import { Card } from "@/components/ui/card";
+import {GradeFrequency, StudentProfileData} from "@/types/types";
+import {Card} from "@/components/ui/card";
 import {
     Bar,
     ComposedChart,
@@ -12,7 +12,7 @@ import {
     XAxis,
     YAxis
 } from "recharts";
-import { SemResultTable } from "@/components/student/SemResultTable";
+import {SemResultTable} from "@/components/student/SemResultTable";
 
 export default function SemTest(
     {

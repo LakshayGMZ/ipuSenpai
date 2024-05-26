@@ -3,19 +3,26 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import * as Sentry from "@sentry/nextjs";
+// import { nodeProfilingIntegration } from "@sentry/profiling-node";
+// import { Integration } from "@sentry/types";
 
 Sentry.init({
   dsn: "https://ae87e1d642a822f7fb8c1be6cf1bd3f2@o4507248160735232.ingest.de.sentry.io/4507248162898000",
 
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 1,
+  profilesSampleRate: 1,
 
   // Setting this option to true will print useful information to the console while you're setting up Sentry.
   debug: false,
 
-  enabled: process.env.NODE_ENV === 'production',
+  enabled: process.env.NODE_ENV === "production",
+
+  // Why the hell is this not working?
+  // integrations: [
+  //   nodeProfilingIntegration() as Integration,
+  // ],
 
   // uncomment the line below to enable Spotlight (https://spotlightjs.com)
   // spotlight: process.env.NODE_ENV === 'development',
-  
 });
