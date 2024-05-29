@@ -1,4 +1,6 @@
 import {Dispatch, SetStateAction} from "react";
+import {scalarOptions} from "yaml";
+import Str = scalarOptions.Str;
 
 export interface CustomSelectProps<T> {
     className?: string;
@@ -216,4 +218,14 @@ export interface StudentCountBy {
     byProgramme: StudentCountByProgramme,
     byInstitute: StudentCountByInstitute,
     byBatch: StudentCountByBatch
+}
+
+// SITEMAP======
+type Changefreq = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+
+export interface SiteMapIFace {
+    loc: string;
+    lastmod: Date;
+    changefreq: Changefreq;
+    priority: number;
 }
