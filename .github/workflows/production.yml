@@ -14,6 +14,8 @@ jobs:
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
   Deploy-Production:
+    env:
+      SITEMAP_DB_URI: ${{ secrets.PROD_SITEMAP_DB_URI }}
     runs-on: ubuntu-latest
     needs: setup-production-environment
     steps:
