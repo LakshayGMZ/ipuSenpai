@@ -14,6 +14,8 @@ jobs:
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
   Deploy-Preview:
+    env:
+      SITEMAP_DB_URI: ${{ secrets.DEV_SITEMAP_DB_URI }}
     runs-on: ubuntu-latest
     needs: setup-preview-environment
     steps:
