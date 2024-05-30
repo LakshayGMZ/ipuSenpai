@@ -1,6 +1,7 @@
 import {NextRequest, NextResponse} from 'next/server';
 import {neon} from "@neondatabase/serverless";
 import {getStudentProfileData} from "@/app/lib/dataFetchServer";
+import {some} from "d3-array";
 
 export const config = {
     matcher: ["/ranklist", "/student/:enrollmentID*", '/((?!api|_next/static|_next/image|assets|favicon.ico).*)']
@@ -23,5 +24,8 @@ export async function middleware(request: NextRequest) {
             return NextResponse.redirect(new URL('/', request.url))
         }
     }
-    await postData(request.url);
+    if (some(["localhost", "www.ipusenpai.in", "devel.ipusenpai.in"], i => i === request.nextUrl.hostname)) {
+        console.log("GUGUGAGA")
+        await postData(request.url);
+    }
 }
