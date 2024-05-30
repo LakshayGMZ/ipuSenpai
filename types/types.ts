@@ -1,6 +1,4 @@
 import {Dispatch, SetStateAction} from "react";
-import {scalarOptions} from "yaml";
-import Str = scalarOptions.Str;
 
 export interface CustomSelectProps<T> {
     className?: string;
