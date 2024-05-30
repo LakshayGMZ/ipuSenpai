@@ -25,10 +25,6 @@ export async function getStudentProfileData(enrollment: string): Promise<Student
             revalidate: 3600
         }
     });
-
-    if (!res.ok) {
-        throw new Error('Error: ' + (await res.json())['message'])
-    }
     return await res.json();
 }
 
@@ -135,6 +131,19 @@ export async function getSearchByStudentResult(options: SearchSelectDataFields):
 
 
     const res = await fetch(url.href);
+    if (!res.ok) {
+        throw new Error('Error: ' + (await res.json())['message'])
+    }
+
+    return res.json();
+}
+
+export async function sendUrl(url: string) {
+    const res = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({url: url})
+    });
+
     if (!res.ok) {
         throw new Error('Error: ' + (await res.json())['message'])
     }

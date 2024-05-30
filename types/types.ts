@@ -217,3 +217,13 @@ export interface StudentCountBy {
     byInstitute: StudentCountByInstitute,
     byBatch: StudentCountByBatch
 }
+
+// SITEMAP======
+type Changefreq = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+
+export interface SiteMapIFace {
+    loc: string;
+    lastmod: Date;
+    changefreq: Changefreq;
+    priority: number;
+}

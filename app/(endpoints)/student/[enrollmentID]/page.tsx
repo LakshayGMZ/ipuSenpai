@@ -15,7 +15,6 @@ export async function generateMetadata(
     },
     parent: ResolvingMetadata
 ): Promise<Metadata> {
-    console.log(params);
     const studentData: StudentProfileData = await getStudentProfileData(params.enrollmentID)
 
     return {

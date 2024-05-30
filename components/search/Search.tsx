@@ -66,8 +66,11 @@ export default function Search() {
                             minLength={5}
                             placeholder="Enter student name"
                             onChange={e =>
-                                setSelectedData(prevState =>
-                                    ({...prevState, name: e.target.value})
+                                setSelectedData(prevState => {
+                                        if (e.target.value.match(/^[A-Za-z\s]*$/))
+                                            return {...prevState, name: e.target.value};
+                                        else return prevState;
+                                    }
                                 )}
                         />
                         <Button
@@ -77,7 +80,9 @@ export default function Search() {
 
                         >Search</Button>
                     </div>
-                    <div className={"my-4"}>Don&apos;t snoop around, we are watching you! It&apos;s a joke, don&apos;t take it seriously. Or is it?</div>
+                    <div className={"my-4"}>Don&apos;t snoop around, we are watching you! It&apos;s a joke, don&apos;t
+                        take it seriously. Or is it?
+                    </div>
                     <div className={"grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-6"}>
                         <PreBuiltSelect<SearchSelectDataFields>
                             name={"institute"}
@@ -101,7 +106,7 @@ export default function Search() {
 
                 </div>
             </form>
-            <hr />
+            <hr/>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-10 mx-10 md:mx-20 ">
                 {
