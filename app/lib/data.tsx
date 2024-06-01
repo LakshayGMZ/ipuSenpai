@@ -17,7 +17,7 @@ export const columnsOverall: ColumnDef<StudentDataJoined>[] = [
 				</Button>
 			);
 		},
-		cell: ({row}) => <div className="lowercase">{row.original.enrollment}</div>,
+		cell: ({row}) => <a href={"/student/" + row.original.enrollment} className="lowercase">{row.original.enrollment}</a>,
 	},
 	{
 		accessorKey: "name",
@@ -116,7 +116,7 @@ export const columnsSem: ColumnDef<StudentDataJoined>[] = [
 				</Button>
 			);
 		},
-		cell: ({row}) => <div className="lowercase">{row.original.enrollment}</div>,
+		cell: ({row}) => <a href={"/student/" + row.original.enrollment} className="lowercase">{row.original.enrollment}</a>,
 	},
 	{
 		accessorKey: "name",

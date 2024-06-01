@@ -25,7 +25,6 @@ export async function middleware(request: NextRequest) {
         }
     }
     if (some(["localhost", "www.ipusenpai.in", "devel.ipusenpai.in"], i => i === request.nextUrl.hostname)) {
-        console.log("GUGUGAGA")
         await postData(request.url);
     }
 }
