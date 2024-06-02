@@ -43,7 +43,8 @@ export const NavbarTabs = (
             )}
         >
             {propTabs.map((tab, idx) => (
-                <Link
+                <a
+                    // prefetch
                     key={idx + 1}
                     href={tab.link}
                     onClick={() => {
@@ -71,7 +72,7 @@ export const NavbarTabs = (
                     <span className="relative block text-black dark:text-white ">
                             {tab.name}
                         </span>
-                </Link>
+                </a>
             ))}
         </div>
     );
