@@ -28,7 +28,6 @@ const CustomScripts = () => {
       <Script
         async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3768083860941636"
-        crossorigin="anonymous"
       ></Script>
     </>
   );
