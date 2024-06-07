@@ -30,6 +30,9 @@ Sentry.init({
       maskAllText: false,
       blockAllMedia: true,
     }),
+    Sentry.browserTracingIntegration({
+      enableInp: true,
+    }),
     Sentry.feedbackIntegration({
       id: "sentry-feedback",
       colorScheme: "dark",
@@ -68,7 +71,8 @@ Sentry.init({
       buttonLabel: "Send Feedback",
       submitButtonLabel: "Send",
       emailPlaceholder: "youcanbeanythingyouwant@69.com",
-      messagePlaceholder: "Any nice words or feedback? Any bad words or feedback? We're all ears! 🐘\nNo seriously, bugs?",
+      messagePlaceholder:
+        "Any nice words or feedback? Any bad words or feedback? We're all ears! 🐘\nNo seriously, bugs?",
       isNameRequired: true,
       isEmailRequired: false,
       showBranding: false,
