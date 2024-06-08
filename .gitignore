@@ -6,3 +6,5 @@ node_modules
 # Sentry Config File
 .sentryclirc
 .vercel
+.wrangler
+.dev.vars
