@@ -7,12 +7,6 @@ on:
     branches-ignore:
       - main
 jobs:
-  setup-preview-environment:
-    uses: ./.github/workflows/setup-predeploy-env.yml
-    with:
-      environment: preview
-    secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
   Deploy-Preview:
     env:
       SITEMAP_DB_URI: ${{ secrets.DEV_SITEMAP_DB_URI }}
