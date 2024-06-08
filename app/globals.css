@@ -1,62 +1,84 @@
 @import "../components/themes/themes.css";
-
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  * {
-    @apply border-border ;
-    scrollbar-color: var(--primary) var(--secondary);
-  }
-  body {
-    @apply bg-background text-foreground m-0 p-0 min-h-screen;
-  }
+    * {
+        @apply border-border;
+        scrollbar-color: var(--primary) var(--secondary);
+    }
+
+    body {
+        @apply bg-background text-foreground m-0 p-0 min-h-screen;
+    }
 }
 
 #sentry-feedback {
-  inset: auto auto 0 0 !important;
+    inset: auto auto 0 0 !important;
 }
 
 @layer components {
-	#gradient-canvas {
-		width: 100%;
-		height: 100%;
-		--gradient-color-1: #000000;
-		--gradient-color-2: #ee9939e3;
-		--gradient-color-3: #61045f;
-		--gradient-color-4: #0b1159;
-	}
+    #gradient-canvas {
+        width: 100%;
+        height: 100%;
+        --gradient-color-1: #000000;
+        --gradient-color-2: #ee9939e3;
+        --gradient-color-3: #61045f;
+        --gradient-color-4: #0b1159;
+    }
 }
 
 .recharts-layer.recharts-line > path {
-  stroke: var(--primary);
+    stroke: var(--primary);
 }
 
 .recharts-layer .recharts-dot {
-  /*fill: var(--primary);*/
-  stroke: var(--primary);
-  opacity: 0.75;
+    /*fill: var(--primary);*/
+    stroke: var(--primary);
+    opacity: 0.75;
 }
 
 .recharts-layer.recharts-radar {
-  fill: var(--primary);
-  opacity: 0.75;
+    fill: var(--primary);
+    opacity: 0.75;
 }
 
 .recharts-layer.recharts-active-dot {
-  fill: var(--primary);
-  opacity: 0.1;
+    fill: var(--primary);
+    opacity: 0.1;
 }
 
 .navbarScrollHider {
-  scrollbar-width: none;
+    scrollbar-width: none;
 }
 
 .navbarScrollHider::-webkit-scrollbar {
-  width: 0;
+    width: 0;
 }
 
 tr:hover {
-  background: color-mix(in hsl, var(--muted) 50%, transparent);
+    background: color-mix(in hsl, var(--muted) 50%, transparent);
+}
+
+#notFound {
+    font-family: "VT323", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#notFound {
+    text-align: center;
+    align-content: center;
+    background-color: black;
+    .title {
+        background: #ccc;
+        color: var(--primary);
+        padding: 2px 6px;
+    }
+    p {
+        text-align: left;
+        color: var(--primary);
+    }
 }
