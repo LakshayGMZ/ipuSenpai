@@ -7,12 +7,6 @@ on:
     branches:
       - main
 jobs:
-  setup-production-environment:
-    uses: ./.github/workflows/setup-predeploy-env.yml
-    with:
-      environment: production
-    secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
   Deploy-Production:
     env:
       SITEMAP_DB_URI: ${{ secrets.PROD_SITEMAP_DB_URI }}
