@@ -2,19 +2,6 @@ import {withSentryConfig} from '@sentry/nextjs';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    async headers() {
-        return [
-          {
-            source: '/:path*',
-            headers: [
-              {
-                key: 'Document-Policy',
-                value: 'js-profiling',
-              },
-            ],
-          },
-        ];
-    }
 };
 
 export default withSentryConfig(nextConfig, {
