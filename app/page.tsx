@@ -8,6 +8,7 @@ import BGGradient from "@/components/index/BGGradient";
 import Counter from "@/components/index/Counter";
 import HomePageGraphs from "@/components/index/Graphs";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 export const runtime = "edge";
 
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const counterStats = await customFetch<CounterType>("/count");
+  // const counterStats = await customFetch<CounterType>("/count");
   const studentCountBy = await customFetch<StudentCountBy>("/count/by");
 
   return (
@@ -54,17 +55,7 @@ export default async function Page() {
 
         <Divider className={"my-6"} variant="middle" />
 
-        <div className={"grid grid-cols-1 md:grid-cols-2"}>
-          <Counter counterStats={counterStats} />
-        </div>
-
-        <div className="text-center mt-4">
-          <p className="text-[0.75rem] text-neutral-400 dark:text-neutral-500">
-            Note: The actual number of results is {counterStats.actualResult}.
-            The number of results shown here is the number of result rows
-            expanded in the database per subject.
-          </p>
-        </div>
+        <Counter />
 
         <Divider className={"my-6"} variant="middle" />
 
