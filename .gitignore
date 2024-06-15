@@ -1,4 +1,5 @@
 .idea
+.zed
 node_modules
 .next
 .env.local
