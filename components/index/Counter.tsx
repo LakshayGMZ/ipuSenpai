@@ -13,13 +13,7 @@ const options = {
   suffix: "+",
 };
 
-export default function Counter(
-  {
-    // counterStats
-  }: {
-    // counterStats: CounterType
-  },
-) {
+export default function Counter() {
   const [counterStats, setCounterStats] = useState<CounterType>({
     student: 0,
     programme: 0,
