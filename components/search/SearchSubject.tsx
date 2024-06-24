@@ -27,11 +27,11 @@ export default function SearchSubject() {
         type="text"
         required
         minLength={5}
-        placeholder="Search by subject name or subject code"
+        placeholder="Search by subject name or subject code or paper id"
         onChange={(e) => setSearchName(e.target.value)}
       />
       <hr className="my-6" />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:mx-20 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:mx-20 ">
         {searchData.map((data: SubjectSearchData, idx) => (
           <SubjectCard key={idx + 1} data={data} />
         ))}
