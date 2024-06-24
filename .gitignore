@@ -1,10 +1,13 @@
 .idea
+.zed
 node_modules
 .next
 .env.local
 
 # Sentry Config File
 .sentryclirc
+
 .vercel
 .wrangler
 .dev.vars
+.env

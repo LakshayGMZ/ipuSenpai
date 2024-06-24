@@ -7,7 +7,6 @@ export async function generateMetadata(
   { searchParams: params }: any,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  console.log(params);
   return {
     title: "Search | IPU Senpai",
     description:
