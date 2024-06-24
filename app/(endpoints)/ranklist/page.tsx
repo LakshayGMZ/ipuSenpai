@@ -3,13 +3,15 @@ import { RanklistSelectDataFields, StudentResults } from "@/types/types";
 import { getResult } from "@/app/lib/dataFetchServer";
 import { Metadata, ResolvingMetadata } from "next";
 
-function removePageQueryParam(params) {
+function removePageQueryParam(params: RanklistSelectDataFields) {
   let u = new URL("https://www.ipusenpai.in/ranklist");
-  Object.keys(params).forEach((key) => {
-    if (params[key] !== null && key !== "page") {
-      u.searchParams.append(key, params[key]);
+  const { page, pageSize, ...rest } = params;
+  let key: keyof typeof rest;
+  for (key in rest) {
+    if (key.toString() !== "pageSize" && key.toString() !== "page") {
+      u.searchParams.append(key, rest[key]);
     }
-  });
+  }
   return u.toString();
 }
 
