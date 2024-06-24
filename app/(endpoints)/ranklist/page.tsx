@@ -3,27 +3,39 @@ import { RanklistSelectDataFields, StudentResults } from "@/types/types";
 import { getResult } from "@/app/lib/dataFetchServer";
 import { Metadata, ResolvingMetadata } from "next";
 
+function removePageQueryParam(params: RanklistSelectDataFields) {
+  let u = new URL("https://www.ipusenpai.in/ranklist");
+  const { page, pageSize, ...rest } = params;
+  let key: keyof typeof rest;
+  for (key in rest) {
+    if (key.toString() !== "pageSize" && key.toString() !== "page") {
+      u.searchParams.append(key, rest[key]);
+    }
+  }
+  return u.toString();
+}
+
 export const runtime = "edge";
 
 export async function generateMetadata(
   { searchParams: params }: any,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  console.log(params);
   return {
-    title: `Ranklist | IPU Senpai | ${params.programme} |
-                    Semester ${params.semester} | ${params.institute}`,
+    title: `Ranklist | IPU Senpai | ${params.programme !== undefined ? params.programme + " | " : ""}${params.semester !== undefined ? "Semester " + params.semester + " | " : ""}${params.institute || ""}`,
     description:
       "Student ranklist. Ranklist of students based on their GPA, percentage, marks, credit marks, etc.",
     keywords:
       "ipu, ranklist, ggsipu, ipuranklist, open source, btech, bba, cse, it, gpa, sgpa, percentage, marks, results, ipu results",
 
     openGraph: {
-      title: `Ranklist | IPU Senpai | ${params.programme} |
-                    Semester ${params.semester} | ${params.specialization} | ${params.institute}`,
+      title: `Ranklist | IPU Senpai | ${params.programme !== undefined ? params.programme + " | " : ""}${params.semester !== undefined ? "Semester " + params.semester + " | " : ""}${params.institute || ""}`,
       description:
         "Student ranklist. Ranklist of students based on their GPA, percentage, marks, credit marks, etc.",
       url: "https://www.ipusenpai.in/ranklist",
+    },
+    alternates: {
+      canonical: removePageQueryParam(params),
     },
   };
 }
