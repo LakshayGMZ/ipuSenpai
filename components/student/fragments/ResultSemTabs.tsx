@@ -212,7 +212,7 @@ export default function ResultSemTabs(
                                             <CardTitle>Credit Marks</CardTitle>
                                         </CardHeader>
                                         <CardContent className="font-semibold p-5">
-                                            {semData.creditmarks} / {semData.creditmarks}
+                                            {semData.creditmarks} / {semData.totalcreditmarks}
                                             <CardDescription>
                                                 Total Credit Marks Obtained
                                             </CardDescription>
