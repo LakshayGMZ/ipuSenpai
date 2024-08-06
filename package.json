@@ -14,6 +14,7 @@
     "string-width": "4.1.0"
   },
   "dependencies": {
+    "@cloudflare/workers-shared": "^0.1.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.15.12",
@@ -70,6 +71,7 @@
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
     "typescript": "^5",
-    "vercel": "^34.2.3"
+    "vercel": "^34.2.3",
+    "wrangler": "^3.69.0"
   }
 }
