@@ -15,14 +15,14 @@ export const runtime = "edge";
 export const metadata: Metadata = {
   title: "IPU Senpai | Open Source, Modern IPU Result Portal and Dashboard",
   description:
-    "A modern, open-source, beautifully designed, ready-to-use alternative to ipuranklist for IPU students.",
+    "A modern, open-source, beautifully designed, ready-to-use ranklist and result dashboard for IPU students.",
   keywords:
     "ipu, search, name, ranklist, ggsipu, ipuranklist, open source, btech, bba, cse, it, gpa, sgpa, percentage, marks, results, ipu results",
 
   openGraph: {
     title: "IPU Senpai | Open Source, Modern IPU Result Portal and Dashboard",
     description:
-      "A modern, open-source, beautifully designed, ready-to-use alternative to ipuranklist for IPU students.",
+      "A modern, open-source, beautifully designed, ready-to-use ranklist and result dashboard for IPU students.",
     url: "https://www.ipusenpai.in/",
   },
 };
