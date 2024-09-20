@@ -16,6 +16,6 @@ export async function GET(request: Request) {
     { length: Math.ceil(pages/25000) },
     (_, i) => `/${i}/sitemap.xml`
   );
-
+  // This should work
   return getServerSideSitemapIndex(resultArray);
 }
