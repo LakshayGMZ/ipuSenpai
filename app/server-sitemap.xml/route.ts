@@ -1,4 +1,4 @@
-import { getServerSideSitemap, ISitemapField } from "next-sitemap";
+import { getServerSideSitemap, getServerSideSitemapIndex, ISitemapField } from "next-sitemap";
 import { neon } from "@neondatabase/serverless";
 
 async function getData() {
@@ -12,14 +12,10 @@ async function getData() {
 
 export async function GET(request: Request) {
   const pages = (await getData())[0].reltuples;
-  const resultArray: ISitemapField[] = Array.from(
+  const resultArray = Array.from(
     { length: Math.ceil(pages/25000) },
-    (_, i) => ({
-      loc: `/${i}/sitemap.xml`,
-      changefreq: "daily",
-      priority: 0.7,
-    }),
+    (_, i) => `/${i}/sitemap.xml`
   );
-
-  return getServerSideSitemap(resultArray);
+  // This should work
+  return getServerSideSitemapIndex(resultArray);
 }
