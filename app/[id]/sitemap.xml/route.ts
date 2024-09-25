@@ -1,6 +1,8 @@
 import { getServerSideSitemap, ISitemapField } from "next-sitemap";
 import { neon } from "@neondatabase/serverless";
 
+export const runtime = 'edge';
+
 async function getData(index: number) {
   const sql = neon(process.env.SITEMAP_DB_URI || "", {
     fetchOptions: { next: { revalidate: 1800 } },

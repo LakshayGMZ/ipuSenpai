@@ -3,6 +3,8 @@ import { neon } from "@neondatabase/serverless";
 import { NextRequest } from "next/server";
 import { hostname } from "os";
 
+export const runtime = 'edge';
+
 async function getData() {
   const sql = neon(process.env.SITEMAP_DB_URI || "", {
     fetchOptions: { next: { revalidate: 1800 } },
@@ -18,6 +20,6 @@ export async function GET(request: NextRequest) {
     { length: Math.ceil(pages/25000) },
     (_, i) => `${request.nextUrl.origin}/${i}/sitemap.xml`
   );
-  // This should work
+  // This should work, dawg what
   return getServerSideSitemapIndex(resultArray);
 }
