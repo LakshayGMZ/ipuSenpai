@@ -9,6 +9,7 @@ import Counter from "@/components/index/Counter";
 import HomePageGraphs from "@/components/index/Graphs";
 import { Metadata } from "next";
 import { Suspense } from "react";
+import AdComponent from '@/components/ads/AdsComponent';
 
 export const runtime = "edge";
 
@@ -62,6 +63,8 @@ export default async function Page() {
         <div className={"grid grid-cols-1 md:grid-cols-3 gap-4"}>
           <HomePageGraphs studentCountBy={studentCountBy} />
         </div>
+
+        <AdComponent />
 
         <Divider className={"my-6 py-5"} variant="middle" />
 
