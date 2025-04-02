@@ -1,4 +1,3 @@
-
 export const themes:
     {
         name: string;
@@ -67,5 +66,10 @@ export const themes:
         name: 'violet',
         label: 'Violet',
         activeColor: {light: '262.1 83.3% 57.8%', dark: '263.4 70% 50.4%'}
+    },
+    {
+        name: 'pastel',
+        label: 'Pastel',
+        activeColor: {light: '354 67% 53%', dark: '354 67% 53%'}
     }
 ]

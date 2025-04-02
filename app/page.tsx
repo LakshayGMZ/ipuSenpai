@@ -48,8 +48,7 @@ export default async function Page() {
 
         <div className="bg-black bg-opacity-50 p-6 text-white text-center text-2xl font-medium rounded-xl">
           <p>
-            A modern, open-source, beautifully designed, ready-to-use
-            alternative to ipuranklist for IPU students.
+          A modern, open-source, beautifully designed, ready-to-use ranklist and result dashboard for IPU students.
           </p>
         </div>
 
