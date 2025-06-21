@@ -209,6 +209,10 @@ export const batches: RanklistQueryFields[] = [
 		value: "*",
 	},
 	{
+		name: "2025-2029",
+		value: "2025",
+	},
+	{
 		name: "2024-2028",
 		value: "2024",
 	},
