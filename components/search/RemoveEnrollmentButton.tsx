@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import "../themes/removeEnrollmentButton.css"; 
+import "../themes/RemoveEnrollmentButton.css"; 
 
 interface RemoveEnrollmentButtonProps {
   onRemoveEnrollment?: () => Promise<void> | void;
