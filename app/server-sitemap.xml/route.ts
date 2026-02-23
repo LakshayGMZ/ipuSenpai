@@ -1,25 +1,29 @@
-import { getServerSideSitemap, getServerSideSitemapIndex, ISitemapField } from "next-sitemap";
+import { getServerSideSitemapIndex } from "next-sitemap";
 import { neon } from "@neondatabase/serverless";
 import { NextRequest } from "next/server";
-import { hostname } from "os";
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
 async function getData() {
-  const sql = neon(process.env.SITEMAP_DB_URI || "", {
+  if (!process.env.SITEMAP_DB_URI) {
+    return 0;
+  }
+
+  const sql = neon(process.env.SITEMAP_DB_URI, {
     fetchOptions: { next: { revalidate: 1800 } },
   });
-  return (await sql(
+
+  const result = await sql(
     "SELECT reltuples::bigint FROM pg_class WHERE relname = 'sitemap';",
-  ));
+  );
+  return Number(result[0]?.reltuples ?? 0);
 }
 
 export async function GET(request: NextRequest) {
-  const pages = (await getData())[0].reltuples;
+  const pages = await getData();
   const resultArray = Array.from(
-    { length: Math.ceil(pages/25000) },
+    { length: Math.ceil(pages / 25000) },
     (_, i) => `${request.nextUrl.origin}/${i}/sitemap.xml`
   );
-  // This should work, dawg what
   return getServerSideSitemapIndex(resultArray);
 }

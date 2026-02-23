@@ -1,38 +1,14 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import React from "react";
-import { FloatingNav } from "@/components/ui/navbar/FloatingNavbar";
 import { cn } from "@/lib/utils";
 import axios from "axios";
-import { LoaderProvider } from "@/app/lib/LoaderContext";
-import { MUIThemeProvider } from "@/app/lib/MUIThemeProvider";
-import { ThemeProvider } from "@/app/lib/ThemeProvider";
-import CustomScripts from "@/components/ui/CustomScripts";
-import { MultiStepLoader } from "@/components/ui/Loader";
+import ShutdownScreen from "@/app/ShutdownScreen";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const navItems = [
-  {
-    name: "Home",
-    link: "/",
-  },
-  {
-    name: "Ranklist",
-    link: "/ranklist",
-  },
-  {
-    name: "Student Profile",
-    link: "/student",
-  },
-  {
-    name: "Search",
-    link: "/search",
-  },
-];
-
 export default function RootLayout({
-  children,
+  children: _children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -67,24 +43,7 @@ export default function RootLayout({
         <meta name="HandheldFriendly" content="True" />
         <meta name="og:image" content="https://www.ipusenpai.in/logo.png" />
 
-        <CustomScripts />
-
-        <LoaderProvider>
-          <ThemeProvider
-            attribute="data-theme"
-            defaultTheme={"rose_dark"}
-            // enableSystem
-            disableTransitionOnChange
-          >
-            <MUIThemeProvider>
-              <FloatingNav navItems={navItems} />
-              <div className={"mt-20 overflow-x-clip"}>
-                {children}
-                <MultiStepLoader />
-              </div>
-            </MUIThemeProvider>
-          </ThemeProvider>
-        </LoaderProvider>
+        <ShutdownScreen />
       </body>
     </html>
   );
