@@ -1,4 +1,4 @@
-<!-- Author: Vedant Arya (martian0x80) -->
+<!-- Author: lakshayGMZ -->
 <!-- Last Modified: 2024-05-18 -->
 
 <div align="center">
@@ -79,5 +79,5 @@ This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) 
 
 ## Authors
 
-- **Vedant Arya** - *Core | Backend | DevOps | Designing | Frontend* - [martian0x80](https://github.com/martian0x80) (Ahem, that's me, the guy who wrote this README, definitely not biased.)
-- **Lakshay Garg** - *Frontend* - [LakshayGMZ](https://github.com/LakshayGMZ)
+- **martian0x80** - *Core | Backend | DevOps | Designing | Frontend* - [martian0x80](https://github.com/martian0x80) (Ahem, that's me, the guy who wrote this README, definitely not biased.)
+- **Lakshay Gomez** - *Frontend* - [LakshayGMZ](https://github.com/LakshayGMZ)
